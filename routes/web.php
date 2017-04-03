@@ -20,6 +20,11 @@ Route::group(['middleware' => 'TipoDoctor'], function () {
 
 });
 
+//administrador
+Route::group(['prefix' => 'administrador'], function () {
+	Route::resource('/','AdministradorController');
+});
+
 Route::post('/login', 'loginController@login');
 
 
