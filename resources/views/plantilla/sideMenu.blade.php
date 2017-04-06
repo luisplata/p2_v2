@@ -26,8 +26,16 @@
 			
 		@elseif(session("personal")->tipo == "ENFERMERA")
 		
+		
 		@elseif(session("personal")->tipo == "ADMINISTRADOR")
 			@include("Administrador.menu")
+			
+		@elseif(session("personal")->tipo == "ENFERMERA_JEFE")
+			@include("EnfermeraJefe.menu")
+			
+		@elseif(session("personal")->tipo == "ADMISIONISTA")
+			@include("Admisionista.menu")
+			
 		@else
 			@include("plantilla.menu")
 		@endif

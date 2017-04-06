@@ -4,23 +4,28 @@ namespace p2_v2\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use p2_v2\Personal;
+use p2_v2\Paciente;
+use p2_v2\Cubiculo;
 
-class AdministradorController extends Controller
+class EnfermeraJefeController extends Controller
 {
-	public function Desactivar($cedula){
-		if(Personal::Desactivar($cedula)){
+	public function AsignarCubiculo(Request $request){
+		if(Cubiculo::Asignar($request)){
 			
 		}else{
+			return "No Guardo";
 		}
-		return redirect("administrador");
+		return redirect("enfermera_jefe");
 	}
-	public function Activar($cedula){
-		if(Personal::Activar($cedula)){
+	
+	public function EliminarCubiculo($cubiculo,$paciente_cedula){
+		//eliminando cubiculo
+		if(Cubiculo::Eliminar($cubiculo,$paciente_cedula)){
 			
 		}else{
+			return "No elimino";
 		}
-		return redirect("administrador");
+		return redirect("enfermera_jefe");
 	}
     /**
      * Display a listing of the resource.
@@ -29,11 +34,12 @@ class AdministradorController extends Controller
      */
     public function index()
     {
-        //El personal que esta ingresado
+        //
 		$datos = array(
-			"personal"=>Personal::all()
+			"pacientes"=>Paciente::all(),
+			"cubiculos"=>Cubiculo::GetAll()
 		);
-		return view("Administrador.index",$datos);
+		return view("EnfermeraJefe.index",$datos);
     }
 
     /**
@@ -55,11 +61,6 @@ class AdministradorController extends Controller
     public function store(Request $request)
     {
         //
-		if(Personal::Guardar($request)){
-			return redirect("administrador");
-		}else{
-			return redirect("administrador");
-		}
     }
 
     /**

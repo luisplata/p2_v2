@@ -15,6 +15,7 @@ Route::get('/', function () {
     //Session::flush();
     return view('login');
 });
+Route::get('/logout', "loginController@LogOut");
 
 Route::group(['middleware' => 'TipoDoctor'], function () {
 
@@ -23,17 +24,25 @@ Route::group(['middleware' => 'TipoDoctor'], function () {
 //administrador
 Route::group(['prefix' => 'administrador'], function () {
 	Route::resource('/','AdministradorController');
+	Route::get("desactivar/{cedula}","AdministradorController@Desactivar");
+	Route::get("activar/{cedula}","AdministradorController@Activar");
 });
 
 Route::post('/login', 'loginController@login');
 
 
 //Rutas del admisionista
-
-Route::get("admisionista",function (){
-    return view("admisionista_inicio");
+//administrador
+Route::group(['prefix' => 'admisionista'], function () {
+	Route::resource('/','AdmisionistaController');
 });
 
 Route::post("admisionista/registrarPaciente","AdmisionistaController@GuardarPaciente");
 
 //Hasta aqui
+//Enfermera JEFE
+Route::group(['prefix' => 'enfermera_jefe'], function () {
+	Route::resource('/','EnfermeraJefeController');
+	Route::post("asignarCubiculo","EnfermeraJefeController@AsignarCubiculo");
+	Route::get("eliminarCubiculo/{cubiculo}/{paciente_cedula}","EnfermeraJefeController@EliminarCubiculo");
+});

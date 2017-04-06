@@ -11,6 +11,11 @@ class Personal extends Model
     protected $table = "personal";
     //indicando que no va a usar las marcas de tiempo
     public $timestamps = false;
+	//definiendo la clave primaria
+	protected $primaryKey = "cedula";
+	//Desactivando el autoincremental de la id
+	public $incrementing = false;
+	
 
     public static function Buscar($cedula){
         $personalBuscado = Personal::where("cedula",$cedula)->first();
@@ -30,4 +35,40 @@ class Personal extends Model
             return null;
         }
     }
+	
+	public static function Guardar($request){
+		$personal = new Personal();
+		$personal->nombre = $request->nombre;
+		$personal->cedula = $request->cedula;
+		$personal->direccion= $request->direccion;
+		$personal->telefono = $request->telefono;
+		$personal->tipo = $request->tipo;
+		$personal->sexo = $request->sexo;
+		$personal->pass = $request->cedula;
+		if($personal->save()){
+			return TRUE;
+		}else{
+			return FALSE;
+		}
+	}
+	
+	public static function Desactivar($cedula){
+		$persona = Personal::where("cedula",$cedula)->first();
+		$persona->estado = "DESACTIVADO";
+		if($persona->save()){
+			return TRUE;
+		}else{
+			return FALSE;
+		}
+	}
+	
+	public static function Activar($cedula){
+		$persona = Personal::where("cedula",$cedula)->first();
+		$persona->estado = "ACTIVADO";
+		if($persona->save()){
+			return TRUE;
+		}else{
+			return FALSE;
+		}
+	}
 }

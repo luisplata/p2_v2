@@ -3,6 +3,7 @@
 namespace p2_v2\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use p2_v2\Personal;
 
 class loginController extends Controller
@@ -77,6 +78,8 @@ class loginController extends Controller
         if($personal != null){
             if($personal->tipo == "DOCTOR"){
                 echo "eres un doctor";
+			}elseif($personal->tipo == "ENFERMERA_JEFE"){
+                return redirect("enfermera_jefe");
             }elseif($personal->tipo == "ENFERMERA"){
                 echo "eres una enfermera";
             }elseif($personal->tipo == "ADMISIONISTA"){
@@ -89,6 +92,10 @@ class loginController extends Controller
         }
     }
 
+	public function LogOut(){
+		Session::flush(); // removes all session data
+		return redirect("/");
+	}
     /**
      * Remove the specified resource from storage.
      *

@@ -6,7 +6,7 @@
  
  @section("contenido")
 	<h2>Registro de Pacientes</h2>
-	{{Form::open(array("url"=>"administrador"))}}
+	{{Form::open(array("url"=>"admisionista/registrarPaciente"))}}
 	<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
 		<input type="text" class="form-control has-feedback-left" id="inputSuccess2" name="nombre" placeholder="Nombre">
 		<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
@@ -23,16 +23,6 @@
 		<input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="direccion" name="direccion">
 		<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
 	</div>
-	<div class="col-md-6 col-sm-6 col-xs-12">
-	Tipo:
-	  <select name="tipo" class="form-control">
-		<option value="DOCTOR">Doctor</option>
-		<option value="ENFERMERA">Enfermera</option>
-		<option value="ADMISIONISTA">Admisionista</option>
-		<option value="ENFERMERA_JEFE">Enfermera Jefe</option>
-		<option value="ADMINISTRADOR">Administrador</option>
-	  </select>
-	</div>
 	<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
 		<label>Sexo:</label>
 		<p>
@@ -43,12 +33,11 @@
 	</div>
 	
 	<div class="clearfix"></div>
-	
 	<input type="submit" class="btn btn-success" value="Registrar">
 	{{Form::close()}}
 	<div class="clearfix"></div>
 	<hr/>
-	<h2 class="center">Personal Registrado</h2>
+	<h2 class="center">Pacientes Registrados</h2>
 	<table id="datatable" class="table table-striped table-bordered">
 	  <thead>
 		<tr>
@@ -57,28 +46,18 @@
 		  <th>Telefono</th>
 		  <th>Direccion</th>
 		  <th>Sexo</th>
-		  <th>Tipo</th>
-		  <th>Acción</th>
 		</tr>
 	  </thead>
 
 
 	  <tbody>
-		@foreach ($personal as $p)
+		@foreach ($pacientes as $paciente)
 			<tr>
-			  <td>{{$p->nombre}}</td>
-			  <td>{{$p->cedula}}</td>
-			  <td>{{$p->telefono}}</td>
-			  <td>{{$p->direccion}}</td>
-			  <td>{{$p->sexo}}</td>
-			  <td>{{$p->tipo}}</td>
-			  <td>
-				@if($p->estado == "ACTIVADO")
-					<a href="{{url('administrador/desactivar/'.$p->cedula)}}" class="btn btn-danger">Desactivar</a>
-				@else
-					<a href="{{url('administrador/activar/'.$p->cedula)}}" class="btn btn-success">Activar</a>
-				@endif
-			  <a href="{{url('administrador/'.$p->cedula.'/edit')}}" class="btn btn-primary">Modificar</a></td>
+			  <td>{{$paciente->nombre}}</td>
+			  <td>{{$paciente->cedula}}</td>
+			  <td>{{$paciente->telefono}}</td>
+			  <td>{{$paciente->direccion}}</td>
+			  <td>{{$paciente->sexo}}</td>
 			</tr>
 		@endforeach
 		
