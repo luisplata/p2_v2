@@ -30,6 +30,13 @@ Route::group(['prefix' => 'administrador'], function () {
 
 Route::post('/login', 'loginController@login');
 
+Route::get("/simulador",function (){
+    return view("simulador");
+});
+//URLS para los envios y recepcion de datos de signos vitales
+Route::get("/simulador/recepcion/{cubiculo}/{fecha}/{pulso}/{oxigeno}","SignosVitalesController@SignosVitales");
+Route::get("/simulador/leer/{cubiculo}","SignosVItalesController@LecturaSignosVitales");
+
 
 //Rutas del admisionista
 //administrador

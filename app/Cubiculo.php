@@ -38,4 +38,8 @@ class Cubiculo extends Model
 	public static function GetAll(){
 		return Cubiculo::join("paciente","paciente.cedula","cubiculo.paciente_cedula")->get();
 	}
+
+	public static function GetCedulaByCubiculo($cubiculo){
+	    return Cubiculo::where("numero",$cubiculo)->first()->paciente_cedula;
+    }
 }
