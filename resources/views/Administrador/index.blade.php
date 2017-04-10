@@ -5,7 +5,7 @@
  @endsection
  
  @section("contenido")
-	<h2>Registro de Pacientes</h2>
+	<h2>Registro de Personal</h2>
 	{{Form::open(array("url"=>"administrador"))}}
 	<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
 		<input type="text" class="form-control has-feedback-left" id="inputSuccess2" name="nombre" placeholder="Nombre">

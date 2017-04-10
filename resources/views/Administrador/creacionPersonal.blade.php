@@ -4,7 +4,7 @@
 @endsection
 
 @section("contenido")
-	Registro de Pacientes
+	Registro de Personal
 	{{Form::open(array("url"=>"admisionista/registrarPaciente"))}}
 	<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
 		<input type="text" class="form-control has-feedback-left" id="inputSuccess2" name="nombre" placeholder="Nombre">
