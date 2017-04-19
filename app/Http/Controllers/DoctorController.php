@@ -2,11 +2,12 @@
 
 namespace p2_v2\Http\Controllers;
 
+use p2_v2\Doctor;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
-use p2_v2\Personal;
+use p2_v2\Paciente;
+use p2_v2\HistoriaClinica;
 
-class loginController extends Controller
+class DoctorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,6 +17,11 @@ class loginController extends Controller
     public function index()
     {
         //
+		$datos = [
+		"pacientes"=>Paciente::all(),
+		"historias"=>HistoriaClinica::GetAll()
+		];
+		return view("Doctor.index",$datos);
     }
 
     /**
@@ -37,26 +43,36 @@ class loginController extends Controller
     public function store(Request $request)
     {
         //
+		if(HistoriaClinica::Guardar($request)){
+			return redirect("doctor");
+		}else{
+			return redirect("doctor?mensaje=No se guardo la historia clinica");
+		}
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \p2_v2\Doctor  $doctor
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         //
+		$datos = [
+		"historia"=>HistoriaClinica::find($id)
+		];
+		//dd(HistoriaClinica::find($id));
+		return view("HistoriaClinica.detalle",$datos);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \p2_v2\Doctor  $doctor
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Doctor $doctor)
     {
         //
     }
@@ -65,44 +81,21 @@ class loginController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \p2_v2\Doctor  $doctor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
     }
 
-    public function login(Request $request){
-        $personal = Personal::BuscarPorCedula($request->cedula);
-        if($personal != null){
-            if($personal->tipo == "DOCTOR"){
-                return redirect("doctor");
-			}elseif($personal->tipo == "ENFERMERA_JEFE"){
-                return redirect("enfermera_jefe");
-            }elseif($personal->tipo == "ENFERMERA"){
-                echo "eres una enfermera";
-            }elseif($personal->tipo == "ADMISIONISTA"){
-                return redirect("admisionista");
-            }elseif($personal->tipo == "ADMINISTRADOR"){
-                return redirect("administrador");
-            }
-        }else{
-            echo "no estas en DB";
-        }
-    }
-
-	public function LogOut(){
-		Session::flush(); // removes all session data
-		return redirect("/");
-	}
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \p2_v2\Doctor  $doctor
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Doctor $doctor)
     {
         //
     }
