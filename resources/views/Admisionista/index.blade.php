@@ -12,11 +12,11 @@
 		<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
 	</div>
 	<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-		<input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Cedula" name="cedula">
+		<input type="number" max="9999999999" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Cedula" name="cedula">
 		<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
 	</div>
 	<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-		<input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Telefono" name="telefono">
+		<input type="number" max="9999999999" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Telefono" name="telefono">
 		<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
 	</div>
 	<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">

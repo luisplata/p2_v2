@@ -10,12 +10,12 @@
 	<h2>Asignar Cubiculo</h2>
 	
 	<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-		<input type="text" class="form-control has-feedback-left" id="inputSuccess2" name="numero" placeholder="Cubiculo">
+		<input type="number" class="form-control has-feedback-left" id="inputSuccess2" name="numero" placeholder="Cubiculo">
 		<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
 	</div>
 	
 	<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-		<input type="text" class="form-control has-feedback-left" id="autocomplete-custom-append" name="paciente_cedula" placeholder="Cedula Paciente">
+		<input type="number" max="9999999999" class="form-control has-feedback-left" id="autocomplete-custom-append" name="paciente_cedula" placeholder="Cedula Paciente">
 		<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
 	</div>
 	
