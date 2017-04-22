@@ -2,11 +2,10 @@
 
 namespace p2_v2\Http\Controllers;
 
+use p2_v2\HistoriaClinica;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
-use p2_v2\Personal;
 
-class loginController extends Controller
+class HistoriaClinicaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,10 +41,10 @@ class loginController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \p2_v2\HistoriaClinica  $historiaClinica
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(HistoriaClinica $historiaClinica)
     {
         //
     }
@@ -53,10 +52,10 @@ class loginController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \p2_v2\HistoriaClinica  $historiaClinica
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(HistoriaClinica $historiaClinica)
     {
         //
     }
@@ -65,45 +64,32 @@ class loginController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \p2_v2\HistoriaClinica  $historiaClinica
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $historiaClinica_id)
     {
         //
+		if(HistoriaClinica::Actualizar($request,$historiaClinica_id)){
+			return redirect("doctor");
+		}else{
+			return redirect("doctor?mensaje=no se actualizo la hisoria clinica");
+		}
     }
 
-    public function login(Request $request){
-        $personal = Personal::BuscarPorCedula($request->cedula);
-        if($personal != null){
-            if($personal->tipo == "DOCTOR"){
-                return redirect("doctor");
-			}elseif($personal->tipo == "ENFERMERA_JEFE"){
-                return redirect("enfermera_jefe");
-            }elseif($personal->tipo == "ENFERMERA"){
-                echo "eres una enfermera";
-            }elseif($personal->tipo == "ADMISIONISTA"){
-                return redirect("admisionista");
-            }elseif($personal->tipo == "ADMINISTRADOR"){
-                return redirect("administrador");
-            }
-        }else{
-            echo "no estas en DB";
-        }
-    }
-
-	public function LogOut(){
-		Session::flush(); // removes all session data
-		return redirect("/");
-	}
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \p2_v2\HistoriaClinica  $historiaClinica
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($historiaClinica_id)
     {
         //
+		if(HistoriaClinica::Eliminar($historiaClinica_id)){
+			return redirect("doctor");
+		}else{
+			return redirect("doctor?mensaje=no se Elimino la hisoria clinica");
+		}
     }
 }

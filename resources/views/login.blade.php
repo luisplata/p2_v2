@@ -36,7 +36,7 @@
                 <input class="form-control" placeholder="Identificación" name="cedula" type="number">
               </div>
               <div>
-                <a class="btn btn-default submit" href="index.html">Ingresar</a>                
+				<button class="btn btn-default submit">Ingresar</button>
               </div>
               <div class="clearfix"></div>
               <div class="separator">

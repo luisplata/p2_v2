@@ -1,3 +1,10 @@
+## Desarrolladores
+
+Desarrolladores de este software:
+
+- **[Luis Enrique Plata Osorio](https://luisplata.github.io)**
+
+
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">

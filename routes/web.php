@@ -16,6 +16,7 @@ Route::get('/', function () {
     return view('login');
 });
 Route::get('/logout', "loginController@LogOut");
+Route::post('/login', 'loginController@login');
 
 Route::group(['middleware' => 'TipoDoctor'], function () {
 
@@ -28,7 +29,7 @@ Route::group(['prefix' => 'administrador'], function () {
 	Route::get("activar/{cedula}","AdministradorController@Activar");
 });
 
-Route::post('/login', 'loginController@login');
+
 
 Route::get("/simulador",function (){
     return view("simulador");
@@ -39,12 +40,12 @@ Route::get("/simulador/leer/{cubiculo}","SignosVItalesController@LecturaSignosVi
 
 
 //Rutas del admisionista
-//administrador
 Route::group(['prefix' => 'admisionista'], function () {
 	Route::resource('/','AdmisionistaController');
+	Route::post("registrarPaciente","AdmisionistaController@GuardarPaciente");
 });
 
-Route::post("admisionista/registrarPaciente","AdmisionistaController@GuardarPaciente");
+
 
 //Hasta aqui
 //Enfermera JEFE
@@ -53,3 +54,14 @@ Route::group(['prefix' => 'enfermera_jefe'], function () {
 	Route::post("asignarCubiculo","EnfermeraJefeController@AsignarCubiculo");
 	Route::get("eliminarCubiculo/{cubiculo}/{paciente_cedula}","EnfermeraJefeController@EliminarCubiculo");
 });
+
+Route::group(['prefix' => 'doctor'], function () {
+	Route::resource('/','DoctorController');
+	Route::get("ver/{id}","DoctorController@show");
+	Route::get("eliminar/{id}","HistoriaClinicaController@destroy");
+	Route::get("asignarTratamiento/{historia_clinica_id}","TratamientoController@AsignarTratamiento");
+	Route::post("asignarTratamiento","TratamientoController@store");
+	Route::get("quitarTratamiento/{tratamiento_id}/{historia_clinica_id}","TratamientoController@destroy");
+});
+	
+Route::resource("/historia_clinica","HistoriaClinicaController");
