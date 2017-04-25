@@ -29,7 +29,7 @@
 	  text-align: center;
 	  vertical-align: middle;
 	  border-radius: 50%;
-	  background: yellow;
+	  background: #90caf9;
 	}
 	</style>
 	<style>
@@ -63,7 +63,7 @@
 		@foreach ($cubiculos as $cubiculo)
 			<div class="col-xs-4 animated flipInY" id="cubiculo-{{$cubiculo->numero}}">
 				<div class="tile-stats">
-					<div class="{{$cubiculo->numero}}"></div>
+					<div class="h1 text-center">{{$cubiculo->numero}}</div>
 					<div class="col-xs-12">
 						<div class="col-xs-6 h2">
 							{{$cubiculo->nombre}}<br/>
@@ -75,8 +75,14 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-xs-12">
+					<div class="col-xs-12 h1">
+					<!-- Grafico -->
+					<span class="glyphicon glyphicon-heart"></span><span id="ppm-{{$cubiculo->numero}}"></span>
+					<!--
 					<div  id="svg-wrapper"></div>
+					-->
+					<!-- Grafico -->
+					<hr>
 					</div>
 					<div class="col-xs-12">
 						<div class="col-xs-6">
@@ -135,7 +141,9 @@
 				"cubiculo" : {{$cubiculo->numero}}
 		};
 		$(document).ready(function(){
-			setInterval('ajax()',100);
+			setInterval('ajax()',500);
+			
+			latidos();
 		});
 		function ajax(){
 			$.ajax({
@@ -143,28 +151,28 @@
 					url:   '{{url("simulador/leer")}}',
 					type:  'get',
 					success:  function (response) {
-							console.log(response);
+							//console.log(response);
 							response.forEach(function (value){
-								//console.log(value);
+								console.log(value);
 								$("#so-"+value.cubiculo).html(value.so+"%");
-								beat();
+								$("#ppm-"+value.cubiculo).html(value.pulso+" ppm");
 							});
 					}
 			});
 		}
 	</script>
 	<script type="text/javascript">
+	var svg = null;
+	var circle = null;
+	var circleTransition = null;
+	var latestBeat = null;
+	var insideBeat = false;
+	var data = [];
 
-		
-			var svg = null;
-			var circle = null;
-			var circleTransition = null;
-			var latestBeat = null;
-			var insideBeat = false;
-			var data = [];
-
+	function latidos(){		
+			
 			var SECONDS_SAMPLE = 5;
-			var BEAT_TIME = 1000;
+			var BEAT_TIME = 500;
 			var TICK_FREQUENCY = SECONDS_SAMPLE * 1000 / BEAT_TIME;
 			var BEAT_VALUES = [0, 0, 3, -4, 10, -7, 3, 0, 0];
 
@@ -197,13 +205,12 @@
 				});
 
 				var step = BEAT_TIME / BEAT_VALUES.length - 2;
-				console.log(step);
+				
 				for (var i = 1; i < BEAT_VALUES.length; i++) {
 					data.push({
 						date: new Date(nowTime + i * step),
 						value: BEAT_VALUES[i]
 					});
-					//console.log(new Date());
 				}
 
 				latestBeat = now;
@@ -219,6 +226,7 @@
 			}
 
 			var svgWrapper = document.getElementById("svg-wrapper");
+			console.log(svgWrapper);
 			var margin = {left: 10, top: 10, right: CIRCLE_FULL_RADIUS * 3, bottom: 10},
 					width = svgWrapper.offsetWidth - margin.left - margin.right,
 					height = svgWrapper.offsetHeight - margin.top - margin.bottom;
@@ -230,6 +238,7 @@
 					.append("g")
 						.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+			console.log(svg);
 			circle = svg
 					.append("circle")
 					.attr("fill", "#6D9521")
@@ -356,10 +365,10 @@
 			}, TICK_FREQUENCY);
 
 			setInterval(function() {
-				//beat();
+				beat();
 			}, 1000);
 			//beat();
-		
+	}		
 
 	</script>
 

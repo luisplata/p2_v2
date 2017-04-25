@@ -30,6 +30,7 @@ class Cubiculo extends Model
 		->join("paciente","paciente.cedula","cubiculo.paciente_cedula")
 		//->join("notas","paciente.cedula","notas.paciente_cedula")
 		//->join("tratamiento","paciente.cedula","tratamiento.paciente_cedula")
+		->orderBy("cubiculo.numero")
 		->get()
 		
 		//->

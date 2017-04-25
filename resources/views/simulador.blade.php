@@ -9,7 +9,7 @@ simulador
 <script>
     function contador(){
         var pulso = Math.floor(Math.random() * (100 - (-100))) + (-100);
-        var cubiculo = Math.floor(Math.random() * (1 - (1))) + (1);
+        var cubiculo = Math.floor(Math.random() * (4 - (1))) + (1);
         var oxigeno = Math.floor(Math.random() * (100 - (0))) + (0);
 
         var Arduino = new Object();
@@ -20,7 +20,7 @@ simulador
 
         //console.log(Arduino.fecha.format("yyyy-mm-dd-hh:MM:ss"));
 
-        //console.log(Arduino);
+        console.log(Arduino);
         $.ajax({
             url: "/simulador/recepcion/"+Arduino.cubiculo+"/"+Arduino.fecha.format("yyyy-mm-dd-hh:MM:ss")+"/"+Arduino.pulso+"/"+Arduino.oxigeno
         });
@@ -32,7 +32,7 @@ simulador
     }
 
     $(document).ready(function(){
-        setInterval('contador()',100);
+        setInterval('contador()',1000);
     });
 </script>
 
