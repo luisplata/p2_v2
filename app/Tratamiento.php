@@ -34,4 +34,11 @@ class Tratamiento extends Model
 		))
 		->get();
 	}
+	
+	public static function GetAll(){
+		return Tratamiento::where(array(
+		"estado"=>"VIGENTE"
+		))
+		->get();
+	}
 }

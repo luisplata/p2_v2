@@ -36,8 +36,8 @@ class SignosVitalesController extends Controller
 
     }
 
-    public function LecturaSignosVitales($cubiculo){
-        return SignosVitales::all();
+    public function LecturaSignosVitales(){
+        return SignosVitales::Lectura();
     }
 
     public function index()

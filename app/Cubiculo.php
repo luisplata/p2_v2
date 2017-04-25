@@ -14,6 +14,27 @@ class Cubiculo extends Model
 	protected $primaryKey = "numero";
 	//Desactivando el autoincremental de la id
 	public $incrementing = false;
+
+	public static function GetDataByCubiculoAndUser(){
+		return
+		Cubiculo::select(
+		"cubiculo.numero",
+		"paciente.cedula",
+		"paciente.nombre",
+		"paciente.telefono",
+		"paciente.direccion",
+		"paciente.sexo",
+		"paciente.tipo_sangre",
+		"paciente.RH"
+		)
+		->join("paciente","paciente.cedula","cubiculo.paciente_cedula")
+		//->join("notas","paciente.cedula","notas.paciente_cedula")
+		//->join("tratamiento","paciente.cedula","tratamiento.paciente_cedula")
+		->get()
+		
+		//->
+		;
+	}
 	
 	public static function Asignar($request){
 		$cubiculo = new Cubiculo();
