@@ -9,7 +9,7 @@ simulador
 <script>
     function contador(){
         var pulso = Math.floor(Math.random() * (100 - (-100))) + (-100);
-        var cubiculo = Math.floor(Math.random() * (4 - (1))) + (1);
+        var cubiculo = Math.floor(Math.random() * (7 - (1))) + (1);
         var oxigeno = Math.floor(Math.random() * (100 - (0))) + (0);
 
         var Arduino = new Object();

@@ -20,7 +20,11 @@
 	</div>
 	<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
 		<label>periocidad</label>
-		<input type="text" name="periocidad" class="form-control"  placeholder="Medicamento">
+		<div class="input-group">
+		  <div class="input-group-addon">$</div>
+		  <input type="text" name="periocidad" class="form-control"  placeholder="Medicamento">
+		  <div class="input-group-addon">.00</div>
+		</div>
 	</div>
 	<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
 		<label>Cedula de Paciente</label>

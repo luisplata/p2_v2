@@ -14,4 +14,16 @@ class Nota extends Model
 		return Nota::join("historia_clinica","historia_clinica.id","notas.historia_clinica_id")
 		->get();
 	}
+	
+	public static function Guardar($request){
+		$nota = new Nota();
+		$nota->notas = $request->nota;
+		$nota->personal_cedula = $request->personal_cedula;
+		$nota->historia_clinica_id = $request->historia_clinica_id;
+		if($nota->save()){
+			return TRUE;
+		}else{
+			return FALSE;
+		}
+	}
 }

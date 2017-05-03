@@ -76,6 +76,11 @@ class loginController extends Controller
     public function login(Request $request){
         $personal = Personal::BuscarPorCedula($request->cedula);
         if($personal != null){
+			//validamos que este activo para ingresar
+			if($personal->estado != "ACTIVADO"){
+				//NO ESTA AUTORIZADO
+				return redirect("/No estas autorizado para ingresar");
+			}
             if($personal->tipo == "DOCTOR"){
                 return redirect("doctor");
 			}elseif($personal->tipo == "ENFERMERA_JEFE"){
@@ -88,7 +93,7 @@ class loginController extends Controller
                 return redirect("administrador");
             }
         }else{
-            echo "no estas en DB";
+            return redirect("/No estas en la DB para ingresar");
         }
     }
 

@@ -1,7 +1,7 @@
 <div class="col-md-3 left_col">
   <div class="left_col scroll-view">
 	<div class="navbar nav_title" style="border: 0;">
-	  <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>UNISINÚ</span></a>
+	  <a href="#" class="site_title"><img class="img-circle imagen_top"  src="https://pbs.twimg.com/profile_images/732304571985494016/TMNTavT1_reasonably_small.jpg" /><span>UNISINÚ</span></a>
 	</div>
 
 	<div class="clearfix"></div>
@@ -9,7 +9,7 @@
 	<!-- menu profile quick info -->
 	<div class="profile clearfix">
 	  <div class="profile_pic">
-		<img src="{{asset('images/img.jpg')}}" alt="..." class="img-circle profile_img">
+		<img src="http://muellestock.com/css/muellestock/images/usuario-anonimo.png" alt="..." class="img-circle profile_img">
 	  </div>
 	  <div class="profile_info">
 		<span>Hola,</span>

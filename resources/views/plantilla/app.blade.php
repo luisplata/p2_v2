@@ -2,6 +2,12 @@
 <html lang="en">
 	@include("plantilla.header")
 	@yield('plugin-css')
+	<style>
+		.imagen_top{
+			height:40px;
+			padding-right:5px;
+		}
+	</style>
   <body class="nav-md">
     <div class="container body">
 		<div class="main_container">

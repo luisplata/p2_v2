@@ -16,7 +16,23 @@ class Personal extends Model
 	//Desactivando el autoincremental de la id
 	public $incrementing = false;
 	
-
+	
+	public static function isDoctor($cedula){
+		$personal = Personal::find($cedula);
+		if(!is_object($personal)){
+			return FALSE;
+		}
+		return $personal->tipo == "DOCTOR";
+	}
+	
+	public static function isEnfermera($cedula){
+		$personal = Personal::find($cedula);
+		if(!is_object($personal)){
+			return FALSE;
+		}
+		return  $personal->tipo == "ENFERMERA" || $personal->tipo == "ENFERMERA_JEFE";
+	}
+	
     public static function Buscar($cedula){
         $personalBuscado = Personal::where("cedula",$cedula)->first();
         if(is_object($personalBuscado)){
