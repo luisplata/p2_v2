@@ -34,6 +34,8 @@ Route::group(['prefix' => 'simulador'], function () {
 	//URLS para los envios y recepcion de datos de signos vitales
 	Route::get("/recepcion/{cubiculo}/{fecha}/{pulso}/{oxigeno}","SignosVitalesController@SignosVitales");
 	Route::get("/leer/","SignosVItalesController@LecturaSignosVitales");
+	Route::get("/medicamento/{cubiculo}","SignosVItalesController@Medicamentos");
+	Route::get("/tratamiento/{tratamiento_id}","SignosVItalesController@ActualizarTratamiento");
 });
 
 //Pagina principal

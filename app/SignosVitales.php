@@ -13,7 +13,18 @@ class SignosVitales extends Model
     public $timestamps = false;
 
 	public static function Lectura(){
-		$resultado = SignosVitales::where("visto","0")->get();
+		//hacemos un join con tratamiento para sacar las fechas del tratamiento
+		$resultado = SignosVitales::where("visto","0")
+		->select(
+		"signos.*",
+		"tratamiento.medicamento",
+		"tratamiento.dosis",
+		"tratamiento.periocidad",
+		"tratamiento.updated_at",
+		"tratamiento.id as tratamiento_id"
+		)
+		->join("tratamiento","tratamiento.paciente_cedula","signos.paciente_cedula")
+		->get();
 		//cambiamos el visto por 1
 		foreach ($resultado as $result){
 			$result->visto = 1;

@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Gentellela Alela! | </title>
+    <title>Principal PN </title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -103,6 +103,7 @@
 					<div class="col-xs-12 text-center">
 						<span class="h3" id="mensaje_pulso_cubiculo-{{$cubiculo->numero}}"></span>
 						<span class="h3" id="mensaje_so_cubiculo-{{$cubiculo->numero}}"></span>
+						<span class="h3" id="mensaje_medicamento-{{$cubiculo->numero}}"></span>
 						<br/>
 					</div>
 					<div class="col-xs-12">
@@ -232,6 +233,7 @@
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
+	<script src="/js/moment/moment.min.js"></script>
 	<script src="https://d3js.org/d3.v3.min.js"></script>
 	<script>
 	//aqui estara las consultas del simulador
@@ -262,15 +264,49 @@
 			
 			latidos();
 		});
+		
+		function medicamentos(cubiculo){
+			$.ajax({
+				//data:  parametros,
+				url:   '{{url("simulador/medicamento/")}}/'+cubiculo,
+				type:  'get',
+				success:  function (response) {
+					//console.log(response);
+					response.forEach(function (value){
+						//console.log(value);
+						//validamos lo del medicamento
+						var ultimaFecha = value.updated_at;
+						var fechaDeMedicamento = moment(ultimaFecha);
+						var ahora = moment();
+						//se le suman las horas
+						fechaDeMedicamento.add(value.periocidad,"h");
+						//console.info(ultimaFecha);
+						//console.warn(fechaDeMedicamento.format("DD-MM-YYYY HH:mm:ss"));
+						//console.log(ahora.format("DD-MM-YYYY HH:mm:ss"));
+						if(fechaDeMedicamento < ahora){
+							//alert("Medicamento!");
+							console.info(value.id);
+							//Se manda las alertas y se envia un ajax para que actualize
+							$.ajax({
+							url:   '{{url("simulador/tratamiento/")}}/'+value.id
+							});
+						}
+					});
+					
+				}
+			});
+			
+		}
+		
 		function ajax(){
 			$.ajax({
-					data:  parametros,
+					//data:  parametros,
 					url:   '{{url("simulador/leer")}}',
 					type:  'get',
 					success:  function (response) {
 						//console.log(response);
 						response.forEach(function (value){
-							console.log(value);
+							//console.log(value);
 							var cubiculo = $("#cubiculo-"+value.cubiculo);
 							if(value.pulso > 100 || value.pulso < 50){
 								//console.warn("alerta de pulso");
@@ -291,6 +327,9 @@
 							}
 							$("#so-"+value.cubiculo).html(value.so+"%");
 							$("#ppm-"+value.cubiculo).html(value.pulso+" ppm");
+							//consulto los medicamentos por cubiculos
+							medicamentos(value.cubiculo);
+							
 						});
 					}
 			});
