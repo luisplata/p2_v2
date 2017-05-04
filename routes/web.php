@@ -11,10 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    //Session::flush();
-    return view('login');
-});
+
 Route::get('/logout', "loginController@LogOut");
 Route::post('/login', 'loginController@login');
 
@@ -29,17 +26,24 @@ Route::group(['prefix' => 'administrador'], function () {
 	Route::get("activar/{cedula}","AdministradorController@Activar");
 });
 
-
-
-Route::get("/simulador",function (){
-    return view("simulador");
+//Simulador
+Route::group(['prefix' => 'simulador'], function () {
+	Route::get("/",function (){
+		return view("simulador");
+	});
+	//URLS para los envios y recepcion de datos de signos vitales
+	Route::get("/recepcion/{cubiculo}/{fecha}/{pulso}/{oxigeno}","SignosVitalesController@SignosVitales");
+	Route::get("/leer/","SignosVItalesController@LecturaSignosVitales");
+	Route::get("/medicamento/{cubiculo}","SignosVItalesController@Medicamentos");
+	Route::get("/tratamiento/{tratamiento_id}","SignosVItalesController@ActualizarTratamiento");
 });
-//Pagina principal
-Route::get("/principal","VentanaPrincipalController@index");
 
-//URLS para los envios y recepcion de datos de signos vitales
-Route::get("/simulador/recepcion/{cubiculo}/{fecha}/{pulso}/{oxigeno}","SignosVitalesController@SignosVitales");
-Route::get("/simulador/leer/","SignosVItalesController@LecturaSignosVitales");
+//Pagina principal
+Route::group(['prefix' => 'principal'], function () {
+	Route::get("/","VentanaPrincipalController@index");
+	Route::post("guardarTratamiento","VentanaPrincipalController@GuardarTratemiento");
+	Route::post("guardarNotaMedica","VentanaPrincipalController@GuardarNotaMedica");
+});
 
 
 //Rutas del admisionista
@@ -68,3 +72,10 @@ Route::group(['prefix' => 'doctor'], function () {
 });
 	
 Route::resource("/historia_clinica","HistoriaClinicaController");
+
+Route::get('/{mensaje?}', function ($request = null) {
+	$datos=array(
+		"mensaje"=>$request
+	);
+    return view('login',$datos);
+});

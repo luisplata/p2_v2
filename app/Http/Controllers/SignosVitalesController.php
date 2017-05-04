@@ -5,6 +5,7 @@ namespace p2_v2\Http\Controllers;
 use Illuminate\Http\Request;
 use p2_v2\Cubiculo;
 use p2_v2\SignosVitales;
+use p2_v2\Tratamiento;
 
 class SignosVitalesController extends Controller
 {
@@ -36,6 +37,24 @@ class SignosVitalesController extends Controller
 
     }
 
+	public function Medicamentos($cubiculo){
+		//retornamos los medicamentos que estan relacionados con el cubiculo
+		
+		//Buscamos la cedula del paciente en el cubiculo
+		$cedula_paciente = Cubiculo::GetCedulaByCubiculo($cubiculo);
+		//Buscamos los tratamientos de este paciente
+		$tratamientos = Tratamiento::GetByPaciente($cedula_paciente);
+		return $tratamientos;
+	}
+	
+	public function ActualizarTratamiento($tratamiento_id){
+		//Buscamos al tratamiento y lo actualizamos para guardar que ya estuvo su aplicacion
+		$tratamiento = Tratamiento::find($tratamiento_id);
+		$tratamiento->increment("veces_administrado");
+		$tratamiento->save();
+		//dd($tratamiento);
+	}
+	
     public function LecturaSignosVitales(){
         return SignosVitales::Lectura();
     }

@@ -20,8 +20,6 @@
 
     <!-- Custom Theme Style -->
     <link href="/build/css/custom.min.css" rel="stylesheet">
-	
-	<link rel="stylesheet" type="text/css" href="/css/sweetalert.css">
   </head>
 
   <body class="login">
@@ -45,18 +43,12 @@
                 <div class="clearfix"></div>
                 <br />
                 <div>
-                  <h1><img class="img-circle imagen_top"  src="https://pbs.twimg.com/profile_images/732304571985494016/TMNTavT1_reasonably_small.jpg" /> Universidad Del Sinú</h1>
+                  <h1><i class="fa fa-paw"></i> Universidad Del Sinú</h1>
                   <p>©{{date("Y")}} All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
                 </div>
               {{ Form::close() }}
           </section>
         </div>
-		<script src="/js/sweetalert.min.js"></script>
-		<script>
-			@if($mensaje != "")
-				swal("{{$mensaje}}");
-			@endif
-		</script>
       </div>
     </div>
   </body>

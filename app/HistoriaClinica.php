@@ -11,6 +11,10 @@ class HistoriaClinica extends Model
 	//indicando que no va a usar las marcas de tiempo
     public $timestamps = false;
 	
+	public static function GetHistoriaByCedula($cedula){
+		return HistoriaClinica::where("paciente_cedula",$cedula)->first();
+	}
+	
 	public static function Guardar($request){
 		
 		$historiaClinica = new HistoriaClinica();
