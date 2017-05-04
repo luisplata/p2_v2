@@ -20,8 +20,13 @@ class VentanaPrincipalController extends Controller
 		if(!Personal::isEnfermera($request->personal_cedula)){
 			return redirect("/principal?mensaje=No eres un Enfermer@ para realizar esta accion");
 		}
-		
 		$paciente = Paciente::find(Cubiculo::GetCedulaByCubiculo($request->cubiculo));
+		//Valida que tenga historia clinica
+		if(!is_object(HistoriaClinica::GetHistoriaByCedula($paciente->cedula))){
+			return redirect("/principal?mensaje=Necesita Tener una historia clinica para poder asignar una nota medica");
+		}
+		
+		
 		$historia = HistoriaClinica::GetHistoriaByCedula($paciente->cedula);
 		$request->historia_clinica_id = $historia->id;
 		if(Nota::Guardar($request)){
