@@ -22,7 +22,7 @@
 		<label>periocidad</label>
 		<div class="input-group">
 		  <div class="input-group-addon">$</div>
-		  <input type="text" name="periocidad" class="form-control"  placeholder="Medicamento">
+		  <input type="number" name="periocidad" class="form-control"  placeholder="Medicamento">
 		  <div class="input-group-addon">.00</div>
 		</div>
 	</div>
