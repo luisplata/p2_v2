@@ -1,9 +1,6 @@
  @extends("plantilla.app")
- 
  @section("plugin-css")
- 
  @endsection
- 
  @section("contenido")
 	
 	{{Form::open(array("url"=>"doctor"))}}
