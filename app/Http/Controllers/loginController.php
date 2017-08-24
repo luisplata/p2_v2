@@ -6,15 +6,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use p2_v2\Personal;
 
-class loginController extends Controller
-{
+class loginController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         //
     }
 
@@ -23,8 +22,7 @@ class loginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
@@ -34,8 +32,7 @@ class loginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //
     }
 
@@ -45,8 +42,7 @@ class loginController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         //
     }
 
@@ -56,8 +52,7 @@ class loginController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         //
     }
 
@@ -68,47 +63,51 @@ class loginController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         //
     }
 
-    public function login(Request $request){
+    public function login(Request $request) {
         $personal = Personal::BuscarPorCedula($request->cedula);
-        if($personal != null){
-			//validamos que este activo para ingresar
-			if($personal->estado != "ACTIVADO"){
-				//NO ESTA AUTORIZADO
-				return redirect("/No estas autorizado para ingresar");
-			}
-            if($personal->tipo == "DOCTOR"){
+        if ($personal != null) {
+            //validamos la contraseña que envia
+            if($request->pass != $personal->pass){
+                return redirect("/Contraseña invaida");
+            }
+            //validamos que este activo para ingresar
+            if ($personal->estado != "ACTIVADO") {
+                //NO ESTA AUTORIZADO
+                return redirect("/No estas autorizado para ingresar");
+            }
+            if ($personal->tipo == "DOCTOR") {
                 return redirect("doctor");
-			}elseif($personal->tipo == "ENFERMERA_JEFE"){
+            } elseif ($personal->tipo == "ENFERMERA_JEFE") {
                 return redirect("enfermera_jefe");
-            }elseif($personal->tipo == "ENFERMERA"){
+            } elseif ($personal->tipo == "ENFERMERA") {
                 echo "eres una enfermera";
-            }elseif($personal->tipo == "ADMISIONISTA"){
+            } elseif ($personal->tipo == "ADMISIONISTA") {
                 return redirect("admisionista");
-            }elseif($personal->tipo == "ADMINISTRADOR"){
+            } elseif ($personal->tipo == "ADMINISTRADOR") {
                 return redirect("administrador");
             }
-        }else{
+        } else {
             return redirect("/No estas en la DB para ingresar");
         }
     }
 
-	public function LogOut(){
-		Session::flush(); // removes all session data
-		return redirect("/");
-	}
+    public function LogOut() {
+        Session::flush(); // removes all session data
+        return redirect("/");
+    }
+
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         //
     }
+
 }
