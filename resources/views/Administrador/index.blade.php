@@ -24,7 +24,7 @@
     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-    <input type="password" class="form-control has-feedback-left" id="inputSuccess2" placeholder="password" name="pass">
+    <input type="password" maxlenth="10" class="form-control has-feedback-left" id="inputSuccess2" placeholder="password" name="pass">
     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="clearfix"></div>
