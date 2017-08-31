@@ -32,8 +32,18 @@
     <!-- Bootstrap -->
 	<script src="{{asset('vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
     <!-- Custom Theme Scripts -->
-	<script src="{{asset('build/js/custom.min.js')}}"></script>
-
+	
+        <script src="{{asset('/js/sweetalert.min.js')}}"></script>
+        <script>
+            var url_string = window.location;
+            var url = new URL(url_string);
+            var mensaje = url.searchParams.get("mensaje");
+            var tipo = url.searchParams.get("tipo");
+            var titulo = url.searchParams.get("titulo");
+            if (mensaje != null) {
+                swal(titulo == null ? "" : titulo, mensaje, tipo==null?"info":tipo);
+            }
+        </script>
 	@yield('plugin-js')
   </body>
 </html>

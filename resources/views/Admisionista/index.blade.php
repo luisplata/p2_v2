@@ -5,7 +5,7 @@
 @endsection
 
 @section("contenido")
-<h2>Registro de Pacientes</h2>
+<h2>Registro de Pacientes *</h2>
 {{Form::open(array("url"=>"admisionista/registrarPaciente"))}}
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <input type="text" class="form-control has-feedback-left" id="inputSuccess2" name="nombre" placeholder="Nombre" required />
@@ -24,6 +24,19 @@
     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+    <label>Grupo y RH *</label>
+    <select class="form-control required" required="required" name="tipo_sangre">
+        <option value="O -">O -</option>
+        <option value="O +">O +</option>
+        <option value="B -">B -</option>
+        <option value="B +">B +</option>
+        <option value="A -">A -</option>
+        <option value="A +">A +</option>
+        <option value="AB -">AB -</option>
+        <option value="AB +">AB +</option>
+    </select>
+</div>
+<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <label>Sexo:</label>
     <p>
         M:
@@ -32,6 +45,7 @@
     </p>
 </div>
 <div class="clearfix"></div>
+
 <h2>Antecedentes</h2>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <select name="tipo" class="form-control has-feedback-left">

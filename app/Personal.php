@@ -52,6 +52,13 @@ class Personal extends Model {
     }
 
     public static function Guardar($request) {
+        //Validamos si la persona que estan guardando no exista
+        //si existe no debe dejarlo registrar
+        $persona = Personal::find($request->cedula);
+        if(is_object($persona)){
+            return FALSE;
+        }
+        //Si no esta registrado lo agregamos
         $personal = new Personal();
         $personal->nombre = $request->nombre;
         $personal->cedula = $request->cedula;
@@ -62,8 +69,6 @@ class Personal extends Model {
         $personal->pass = $request->pass;
         if ($personal->save()) {
             return TRUE;
-        } else {
-            return FALSE;
         }
     }
 

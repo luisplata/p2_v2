@@ -6,29 +6,28 @@ use Illuminate\Http\Request;
 use p2_v2\Admisionista;
 use p2_v2\Paciente;
 
-class AdmisionistaController extends Controller
-{
+class AdmisionistaController extends Controller {
+
     //
-    public function GuardarPaciente(Request $request){
-        
-        if(Admisionista::GuardarPaciente($request)){
+    public function GuardarPaciente(Request $request) {
 
-        }else{
-
+        if (Admisionista::GuardarPaciente($request)) {
+            return redirect("/admisionista?mensaje=Se guardo el pacente&tipo=success");
+        } else {
+            return redirect("/admisionista?mensaje=No se guardo el paciente porque ya existe&tipo=warning");
         }
-        return redirect("/admisionista");
     }
-	    /**
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-		$datos = array(
-		"pacientes"=>Paciente::all()
-		);
-		return view("Admisionista.index",$datos);
+    public function index() {
+        $datos = array(
+            "pacientes" => Paciente::all()
+        );
+        return view("Admisionista.index", $datos);
     }
 
     /**
@@ -36,8 +35,7 @@ class AdmisionistaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
@@ -47,14 +45,13 @@ class AdmisionistaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //
-		if(Personal::Guardar($request)){
-			return redirect("administrador");
-		}else{
-			return redirect("administrador");
-		}
+        if (Personal::Guardar($request)) {
+            return redirect("administrador");
+        } else {
+            return redirect("administrador");
+        }
     }
 
     /**
@@ -63,8 +60,7 @@ class AdmisionistaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         //
     }
 
@@ -74,8 +70,7 @@ class AdmisionistaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         //
     }
 
@@ -86,8 +81,7 @@ class AdmisionistaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         //
     }
 
@@ -97,8 +91,8 @@ class AdmisionistaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         //
     }
+
 }

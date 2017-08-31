@@ -1,7 +1,7 @@
 <div class="col-md-3 left_col">
   <div class="left_col scroll-view">
 	<div class="navbar nav_title" style="border: 0;">
-	  <a href="#" class="site_title"><img class="img-circle imagen_top"  src="https://pbs.twimg.com/profile_images/732304571985494016/TMNTavT1_reasonably_small.jpg" /><span>UNISINÚ</span></a>
+	  <a  class="site_title"><img class="img-circle imagen_top"  src="https://pbs.twimg.com/profile_images/732304571985494016/TMNTavT1_reasonably_small.jpg" /><span>UNISINÚ</span></a>
 	</div>
 
 	<div class="clearfix"></div>
