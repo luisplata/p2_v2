@@ -8,19 +8,19 @@
 <h2>Registro de Pacientes</h2>
 {{Form::open(array("url"=>"admisionista/registrarPaciente"))}}
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-    <input type="text" class="form-control has-feedback-left" id="inputSuccess2" name="nombre" placeholder="Nombre" required/>
+    <input type="text" class="form-control has-feedback-left" id="inputSuccess2" name="nombre" placeholder="Nombre" required />
     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-    <input type="number" max="9999999999" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Cedula" name="cedula">
+    <input type="number" max="9999999999" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Cedula" name="cedula" required />
     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-    <input type="number" max="9999999999" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Telefono" name="telefono">
+    <input type="number" max="9999999999" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Telefono" name="telefono" required />
     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-    <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="direccion" name="direccion">
+    <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="direccion" name="direccion" required />
     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
