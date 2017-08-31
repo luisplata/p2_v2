@@ -13,15 +13,15 @@
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <input type="number" max="9999999999" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Cedula" name="cedula" required />
-    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+    <span class="fa fa-id-card-o form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <input type="number" max="9999999999" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Telefono" name="telefono" required />
-    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+    <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="direccion" name="direccion" required />
-    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+    <span class="fa fa-address-card form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <label>Sexo:</label>
@@ -65,15 +65,15 @@
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Cedula Acompañante" name="acompaniante_cedula">
-    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+    <span class="fa fa-id-card-o form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Dirección Acompañante" name="acompaniante_direccion">
-    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+    <span class="fa fa-id-card-o form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Teléfono Acompañante" name="acompaniante_telefono">
-    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+    <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <label>Sexo:</label>

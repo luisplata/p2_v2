@@ -8,24 +8,24 @@
 <h2>Registro de Personal</h2>
 {{Form::open(array("url"=>"administrador"))}}
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-    <input type="text" class="form-control has-feedback-left" id="inputSuccess2" name="nombre" placeholder="Nombre">
+    <input type="text" class="form-control has-feedback-left" id="inputSuccess2" name="nombre" placeholder="Nombre" required />
     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-    <input type="number" max="9999999999" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Cedula" name="cedula">
-    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+    <input type="number" max="9999999999" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Cedula" name="cedula" required />
+    <span class="fa fa-id-card-o form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-    <input type="number" max="9999999999"  class="form-control has-feedback-left" id="inputSuccess2" placeholder="Telefono" name="telefono">
-    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+    <input type="number" max="9999999999"  class="form-control has-feedback-left" id="inputSuccess2" placeholder="Telefono" name="telefono" required />
+    <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-    <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="direccion" name="direccion">
-    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+    <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="direccion" name="direccion" required />
+    <span class="fa fa-address-card form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-    <input type="password" maxlenth="10" class="form-control has-feedback-left" id="inputSuccess2" placeholder="password" name="pass">
-    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+    <input type="password" maxlenth="10" class="form-control has-feedback-left" id="inputSuccess2" placeholder="password" name="pass" required />
+    <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="clearfix"></div>
 <div class="col-md-6 col-sm-6 col-xs-12">
