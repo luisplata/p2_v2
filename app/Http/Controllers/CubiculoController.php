@@ -3,20 +3,8 @@
 namespace p2_v2\Http\Controllers;
 
 use Illuminate\Http\Request;
-use p2_v2\Admisionista;
-use p2_v2\Paciente;
 
-class AdmisionistaController extends Controller {
-
-    //
-    public function GuardarPaciente(Request $request) {
-
-        if (Admisionista::GuardarPaciente($request)) {
-            return redirect("/admisionista?mensaje=Se guardo el pacente&tipo=success");
-        } else {
-            return redirect("/admisionista?mensaje=No se guardo el paciente porque ya existe&tipo=warning");
-        }
-    }
+class CubiculoController extends Controller {
 
     /**
      * Display a listing of the resource.
@@ -24,10 +12,11 @@ class AdmisionistaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $datos = array(
-            "pacientes" => Paciente::all()
-        );
-        return view("Admisionista.index", $datos);
+        //Listado de cubixculos
+        //busqueda de los cubiculos
+        $cubiculos = \p2_v2\Cubiculo::all();
+        $datos = array("cubiculos" => $cubiculos);
+        return view("cubiculo.index", $datos);
     }
 
     /**
@@ -46,11 +35,18 @@ class AdmisionistaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        //
-        if (Personal::Guardar($request)) {
-            return redirect("administrador");
-        } else {
-            return redirect("administrador");
+        //crear el cibiculo
+        try {
+
+            $cubiculo = new \p2_v2\Cubiculo();
+            $cubiculo->numero = $request->numero;
+            if ($cubiculo->save()) {
+                return redirect("administrador/cubiculos?mensaje=Se guardo el cubiculo correctamente&tipo=success");
+            } else {
+                return redirect("administrador/cubiculos?mensaje=no se guardo el cubiculo, puede que ya exista&tipo=error");
+            }
+        } catch (\Exception $ex) {
+            return redirect("administrador/cubiculos?mensaje=no se guardo el cubiculo, puede que ya exista&tipo=error");
         }
     }
 
@@ -92,7 +88,14 @@ class AdmisionistaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy($id) {
-        //
+        //Eliminamos el cubiculo
+        try{
+            \p2_v2\Cubiculo::destroy($id);
+            return redirect("administrador/cubiculos?mensaje=Se elimino correctamente el cubiculo&tipo=success");
+        } catch (\Exception $ex) {
+return redirect("administrador/cubiculos?mensaje=No se elimino, puede que haya un paciente en el&tipo=error");
+        }
+        
     }
 
 }

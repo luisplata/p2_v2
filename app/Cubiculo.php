@@ -27,9 +27,14 @@ class Cubiculo extends Model {
     }
 
     public static function Asignar($request) {
-        $cubiculo = new Cubiculo();
-        $cubiculo->numero = $request->numero;
-        $cubiculo->paciente_cedula = $request->paciente_cedula;
+        $cubiculo = new AsignacionPaciente();
+        $cubiculo->cubiculo_numero = $request->numero;
+        $cubiculo->paciente_id = Paciente::getIdByCedula($request->paciente_cedula)->id;
+        //Validamos que el paciente no tenga un cubiculo asignado
+        $asignado = AsignacionPaciente::where("paciente_id", Paciente::getIdByCedula($request->paciente_cedula)->id)->first();
+        if (is_object($asignado)) {
+            return FALSE;
+        }
         if ($cubiculo->save()) {
             return TRUE;
         } else {
@@ -38,16 +43,13 @@ class Cubiculo extends Model {
     }
 
     public static function ELiminar($numero, $paciente_cedula) {
-
-        if (Cubiculo::destroy($numero)) {
+        $asignacion_cubiculo = AsignacionPaciente::where("cubiculo_numero", $numero)->where("paciente_id", Paciente::getIdByCedula($paciente_cedula)->id)->first();
+        //dd($asignacion_cubiculo);
+        if ($asignacion_cubiculo->delete()) {
             return TRUE;
         } else {
             return FALSE;
         }
-    }
-
-    public static function GetAll() {
-        return Cubiculo::join("paciente", "paciente.cedula", "cubiculo.paciente_cedula")->get();
     }
 
     public static function GetCedulaByCubiculo($cubiculo) {

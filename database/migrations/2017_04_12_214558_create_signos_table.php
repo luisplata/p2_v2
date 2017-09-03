@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateTratamientoTable extends Migration {
+class CreateSignosTable extends Migration {
 
     /**
      * Run the migrations.
@@ -11,13 +11,15 @@ class CreateTratamientoTable extends Migration {
      * @return void
      */
     public function up() {
-        Schema::create('tratamiento', function(Blueprint $table) {
+        Schema::create('signos', function(Blueprint $table) {
             $table->integer('id', true);
-            $table->string('medicamento', 45);
-            $table->string('dosis', 45);
-            $table->string('periocidad', 45);
+            $table->float('pulso', 10, 0);
+            $table->float('so', 10, 0);
+            $table->dateTime('fecha_signo');
             $table->integer('paciente_id', 11)->unsigned();
-            $table->enum('estado', array('VIGENTE', 'PRESCRITO'))->nullable();
+            $table->integer('cubiculo')->nullable();
+            $table->boolean('lectura')->nullable();
+
             $table->foreign('paciente_id')->references('id')->on('paciente')->onDelete('cascade');
         });
     }
@@ -28,7 +30,7 @@ class CreateTratamientoTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::drop('tratamiento');
+        Schema::drop('signos');
     }
 
 }

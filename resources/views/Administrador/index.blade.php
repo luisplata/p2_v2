@@ -79,11 +79,13 @@
             <td>{{$p->tipo}}</td>
             <td>
                 @if($p->estado == "ACTIVADO")
-                <a href="{{url('administrador/desactivar/'.$p->cedula)}}" class="btn btn-danger">Desactivar</a>
+                <a href="{{url('administrador/desactivar/'.$p->cedula)}}" class="btn btn-warning">Desactivar</a>
                 @else
                 <a href="{{url('administrador/activar/'.$p->cedula)}}" class="btn btn-success">Activar</a>
                 @endif
-                <a href="{{url('administrador/'.$p->cedula.'/edit')}}" class="btn btn-primary">Modificar</a></td>
+                <a href="{{url('administrador/'.$p->cedula.'/edit')}}" class="btn btn-primary">Modificar</a>
+                <a href="{{url('administrador/eliminar/'.$p->cedula)}}" class="btn btn-danger">Eliminar</a>
+            </td>
         </tr>
         @endforeach
 
