@@ -21,12 +21,14 @@ Route::group(['middleware' => 'TipoDoctor'], function () {
 
 //administrador
 Route::group(['prefix' => 'administrador'], function () {
+        Route::get("cubiculos/{numero}","CubiculoController@destroy");
 	Route::resource('/','AdministradorController');
 	Route::get("desactivar/{cedula}","AdministradorController@Desactivar");
 	Route::get("activar/{cedula}","AdministradorController@Activar");
         Route::get("/{id}/edit","AdministradorController@edit");
         Route::put("/{id}/","AdministradorController@update");
         Route::get("/eliminar/{id}","AdministradorController@destroy");
+        Route::resource("cubiculos","CubiculoController");
 });
 
 //Simulador

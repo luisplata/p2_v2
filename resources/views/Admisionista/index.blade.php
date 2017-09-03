@@ -1,7 +1,7 @@
 @extends("plantilla.app")
 
 @section("plugin-css")
-
+<link href="http://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
 @endsection
 
 @section("contenido")
@@ -133,5 +133,10 @@
 @endsection
 
 @section("plugin-js")
-
+<script type="text/javascript" src="http://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script>
+$(document).ready(function () {
+    $('table').DataTable();
+});
+</script>
 @endsection

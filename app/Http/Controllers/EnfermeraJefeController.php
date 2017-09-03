@@ -3,43 +3,54 @@
 namespace p2_v2\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use p2_v2\Paciente;
 use p2_v2\Cubiculo;
 
-class EnfermeraJefeController extends Controller
-{
-	public function AsignarCubiculo(Request $request){
-		if(Cubiculo::Asignar($request)){
-			
-		}else{
-			return "No Guardo";
-		}
-		return redirect("enfermera_jefe");
-	}
-	
-	public function EliminarCubiculo($cubiculo,$paciente_cedula){
-		//eliminando cubiculo
-		if(Cubiculo::Eliminar($cubiculo,$paciente_cedula)){
-			
-		}else{
-			return "No elimino";
-		}
-		return redirect("enfermera_jefe");
-	}
+class EnfermeraJefeController extends Controller {
+
+    public function AsignarCubiculo(Request $request) {
+        try {
+            if (Cubiculo::Asignar($request)) {
+                
+            } else {
+                throw new \Exception("No asigno");
+            }
+            return redirect("enfermera_jefe?mensaje=Se asigno el cubiculo con exito&tipo=success");
+        } catch (\Exception $ex) {
+            return redirect("enfermera_jefe?mensaje=No se asigno, el cubiculo al paciente, puede que ya este asignado&tipo=error");
+        }
+    }
+
+    public function EliminarCubiculo($cubiculo, $paciente_cedula) {
+        //eliminando cubiculo
+        try {
+
+            if (Cubiculo::Eliminar($cubiculo, $paciente_cedula)) {
+                echo "elimino";
+            } else {
+                return "No elimino";
+            }
+            return redirect("enfermera_jefe");
+        } catch (\Exception $ex) {
+            dd($ex);
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         //
-		$datos = array(
-			"pacientes"=>Paciente::all(),
-			"cubiculos"=>Cubiculo::GetAll()
-		);
-		return view("EnfermeraJefe.index",$datos);
+        $datos = array(
+            "pacientes" => Paciente::all(),
+            "cubiculos" => \p2_v2\AsignacionPaciente::join("paciente", "paciente.id", "asignacion_cubiculos.paciente_id")
+                    ->select("paciente.nombre as paciente_nombre", "cubiculo_numero", "paciente.cedula as paciente_cedula")
+                    ->get(),
+            "listaCubiculos" => Cubiculo::all()
+        );
+        return view("EnfermeraJefe.index", $datos);
     }
 
     /**
@@ -47,8 +58,7 @@ class EnfermeraJefeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
@@ -58,8 +68,7 @@ class EnfermeraJefeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //
     }
 
@@ -69,8 +78,7 @@ class EnfermeraJefeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         //
     }
 
@@ -80,8 +88,7 @@ class EnfermeraJefeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         //
     }
 
@@ -92,8 +99,7 @@ class EnfermeraJefeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         //
     }
 
@@ -103,8 +109,8 @@ class EnfermeraJefeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         //
     }
+
 }
