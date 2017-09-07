@@ -41,8 +41,9 @@
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <label>Sexo:</label>
     <p>
-        M:
-        <input type="radio" class="flat" name="sexo" id="genderM" value="H" checked="" required /> F:
+        Hombre:
+        <input type="radio" class="flat" name="sexo" id="genderM" value="H" checked="" required /> 
+        Mujer:
         <input type="radio" class="flat" name="sexo" id="genderF" value="M" />
     </p>
 </div>
@@ -75,7 +76,7 @@
             <td>{{$p->cedula}}</td>
             <td>{{$p->telefono}}</td>
             <td>{{$p->direccion}}</td>
-            <td>{{$p->sexo}}</td>
+            <td>{{$p->sexo == 'H'? 'Hombre':'Mujer'}}</td>
             <td>{{$p->tipo}}</td>
             <td>
                 @if($p->estado == "ACTIVADO")

@@ -39,8 +39,9 @@
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <label>Sexo:</label>
     <p>
-        M:
-        <input type="radio" class="flat" name="sexo" id="genderM" value="H" checked="" required /> F:
+        Hombre:
+        <input type="radio" class="flat" name="sexo" id="genderM" value="H" checked="" required /> 
+        Mujer:
         <input type="radio" class="flat" name="sexo" id="genderF" value="M" />
     </p>
 </div>
@@ -92,8 +93,9 @@
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <label>Sexo:</label>
     <p>
-        M:
-        <input type="radio" class="flat" name="acompaniante_sexo" id="genderM" value="H" checked="" required /> F:
+        Hombre:
+        <input type="radio" class="flat" name="acompaniante_sexo" id="genderM" value="H" checked="" required /> 
+        Mujer:
         <input type="radio" class="flat" name="acompaniante_sexo" id="genderF" value="M" />
     </p>
 </div>
@@ -124,7 +126,7 @@
             <td>{{$paciente->cedula}}</td>
             <td>{{$paciente->telefono}}</td>
             <td>{{$paciente->direccion}}</td>
-            <td>{{$paciente->sexo}}</td>
+            <td>{{$paciente->sexo =='H'?'Hombre':'Mujer'}}</td>
         </tr>
         @endforeach
 

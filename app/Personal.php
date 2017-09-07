@@ -66,7 +66,7 @@ class Personal extends Model {
         $personal->telefono = $request->telefono;
         $personal->tipo = $request->tipo;
         $personal->sexo = $request->sexo;
-        $personal->pass = $request->pass;
+        $personal->pass = sha1($request->pass);
         if ($personal->save()) {
             return TRUE;
         }

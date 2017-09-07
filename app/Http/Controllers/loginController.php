@@ -71,7 +71,7 @@ class loginController extends Controller {
         $personal = Personal::BuscarPorCedula($request->cedula);
         if ($personal != null) {
             //validamos la contraseña que envia
-            if($request->pass != $personal->pass){
+            if(sha1($request->pass) != $personal->pass){
                 return redirect("/Usuario o contraseña invalidos");
             }
             //validamos que este activo para ingresar
