@@ -33,6 +33,9 @@
                 <div class="animate form login_form">
                     <section class="login_content">
                         {{ Form::open(array('url' => 'login')) }}
+						<div>
+                                <h1><img class="img-circle imagen_top"  src="https://www.asepeyo.es/wp-content/uploads/cropped-ico-asepeyo-32x32.png" /> </h1>
+                        </div>
                         <h1>Ingreso de Personal</h1>
                         <div>
                             <input class="form-control" placeholder="Identificación" name="cedula" type="number">

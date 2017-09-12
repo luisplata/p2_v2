@@ -1,7 +1,5 @@
 @extends("plantilla.app")
-
 @section("plugin-css")
-
 @endsection
 
 @section("contenido")
@@ -10,7 +8,7 @@
 
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <input type="number" class="form-control has-feedback-left" id="inputSuccess2" name="numero" placeholder="Cubiculo">
-    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-hdd form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="clearfix"></div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">

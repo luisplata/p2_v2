@@ -8,20 +8,20 @@
 <h2>Registro de Personal</h2>
 {{Form::open(['url' => ['administrador', $cedula], 'method' => 'put'])}}
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-    <input value="{{$nombre}}" type="text" class="form-control has-feedback-left" id="inputSuccess2" name="nombre" placeholder="Nombre">
+    <input value="{{$nombre}}" type="text" class="form-control has-feedback-left" id="inputSuccess2" name="nombre" placeholder="Nombre" required>
     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-    <input readonly="" value="{{$cedula}}" type="number" max="9999999999" class="form-control has-feedback-left" id="inputSuccess2">
-    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+    <input readonly="" value="{{$cedula}}" type="number" max="9999999999" class="form-control has-feedback-left" id="inputSuccess2" required>
+    <span class="glyphicon glyphicon-credit-card form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-    <input value="{{$telefono}}" type="number" max="9999999999"  class="form-control has-feedback-left" id="inputSuccess2" placeholder="Telefono" name="telefono">
-    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+    <input value="{{$telefono}}" type="number" max="9999999999"  class="form-control has-feedback-left" id="inputSuccess2" placeholder="Telefono" name="telefono" required>
+    <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-    <input value="{{$direccion}}" type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="direccion" name="direccion">
-    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+    <input value="{{$direccion}}" type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="direccion" name="direccion" required>
+    <span class="glyphicon glyphicon-map-marker form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="clearfix"></div>
 <div class="col-md-6 col-sm-6 col-xs-12">

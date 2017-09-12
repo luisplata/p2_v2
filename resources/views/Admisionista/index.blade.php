@@ -13,7 +13,7 @@
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <input type="number" max="9999999999" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Cedula" name="cedula" required />
-    <span class="fa fa-id-card-o form-control-feedback left" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-credit-card form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <input type="number" max="9999999999" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Telefono" name="telefono" required />
@@ -21,7 +21,7 @@
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="direccion" name="direccion" required />
-    <span class="fa fa-address-card form-control-feedback left" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-map-marker form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <label>Grupo y RH *</label>
@@ -54,23 +54,23 @@
         <option value="QUIRURGICO">Quirurgico</option>
         <option value="NO_QUIRURGICOS">No Quirurgico</option>
     </select>
-    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+    <span class="form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Nombre Procedimiento" name="nombre_proce">
-    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-copy form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Alergias" name="alergias">
-    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-copy form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Antecedentes familiares" name="ant_familiares">
-    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-copy form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Antecedentes personales" name="ant_personales">
-    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-copy form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="clearfix"></div>
 <h2>Acompañante</h2>
@@ -80,11 +80,11 @@
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Cedula Acompañante" name="acompaniante_cedula">
-    <span class="fa fa-id-card-o form-control-feedback left" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-credit-card form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Dirección Acompañante" name="acompaniante_direccion">
-    <span class="fa fa-id-card-o form-control-feedback left" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-map-marker form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Teléfono Acompañante" name="acompaniante_telefono">
