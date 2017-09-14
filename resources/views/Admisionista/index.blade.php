@@ -12,7 +12,7 @@
     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-    <input type="number" max="9999999999" class="form-control has-feedback-left" id="paciente_cedula" placeholder="Cedula" name="cedula" required />
+    <input type="number" max="999999999999" class="form-control has-feedback-left" id="paciente_cedula" placeholder="Cedula" name="cedula" required />
     <span class="glyphicon glyphicon-credit-card form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
