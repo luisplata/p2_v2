@@ -25,7 +25,7 @@
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <input type="number" min="1" max="200" class="form-control has-feedback-left" id="paciente_edad" placeholder="edad" name="edad" required />
-    <span class="glyphicon glyphicon-map-marker form-control-feedback left" aria-hidden="true"></span>
+    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="clearfix"></div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
@@ -152,7 +152,7 @@
         var cedula = generarDocumentoRadom();
         var telefono = "00";
         var direccion = "NN";
-        var edad = "1";
+        var edad = "0";
         $("#paciente_nombre").val(nombre);
         $("#paciente_cedula").val(cedula);
         $("#paciente_telefono").val(telefono);
