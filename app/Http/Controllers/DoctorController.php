@@ -19,7 +19,7 @@ class DoctorController extends Controller
         //
 		$datos = [
 		"pacientes"=>Paciente::all(),
-		"historias"=>HistoriaClinica::GetAll()
+		"historias"=>HistoriaClinica::all()
 		];
 		return view("Doctor.index",$datos);
     }
