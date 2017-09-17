@@ -20,7 +20,7 @@
     <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-    <input value="{{$direccion}}" type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="direccion" name="direccion" required>
+    <input value="{{$direccion}}" type="text" class="form-control has-feedback-left"  id="inputSuccess2" placeholder="direccion" name="direccion" required>
     <span class="glyphicon glyphicon-map-marker form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="clearfix"></div>

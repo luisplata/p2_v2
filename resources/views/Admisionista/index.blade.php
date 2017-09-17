@@ -24,14 +24,15 @@
     <span class="glyphicon glyphicon-map-marker form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-    <input type="number" min="1" max="200" class="form-control has-feedback-left" id="paciente_edad" placeholder="edad" name="edad" required />
+    <input type="TEXT" min="1" max="200" class="form-control has-feedback-left" id="paciente_edad" placeholder="edad" name="edad" required />
     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="clearfix"></div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <label>Grupo y RH *</label>
     <select class="form-control required" required="required" name="tipo_sangre">
-        <option value="O -">O -</option>
+		<option value="">Debe Seleccionar un tipo de sangre</option>
+		<option value="O -">O -</option>
         <option value="O +">O +</option>
         <option value="B -">B -</option>
         <option value="B +">B +</option>
@@ -39,6 +40,7 @@
         <option value="A +">A +</option>
         <option value="AB -">AB -</option>
         <option value="AB +">AB +</option>
+		<option value="NR + ">NR </option>
     </select>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
@@ -152,7 +154,7 @@
         var cedula = generarDocumentoRadom();
         var telefono = "00";
         var direccion = "NN";
-        var edad = "0";
+        var edad = "NN";
         $("#paciente_nombre").val(nombre);
         $("#paciente_cedula").val(cedula);
         $("#paciente_telefono").val(telefono);
@@ -162,7 +164,7 @@
     }
     function generarDocumentoRadom() {
         //documento random con formato de [fecha][random4digitos]
-        var fecha = moment().format('DDMMYYYY');
+        var fecha = moment().format('YYYYMMDD');
         var consecutivo = Math.round(Math.random() * (9999 - 1) + 1);
         return fecha + consecutivo + "";
     }
