@@ -20,11 +20,13 @@ class Admisionista extends Model {
             $paciente->cedula = $array->cedula;
             $paciente->nombre = $array->nombre;
             $paciente->telefono = $array->telefono;
+            $paciente->edad = $array->edad;
             $paciente->direccion = $array->direccion;
             $paciente->sexo = $array->sexo;
             $divicion = explode(" ", $array->tipo_sangre);
             $paciente->tipo_sangre = $divicion[0];
             $paciente->RH = $divicion[1];
+            $paciente->fecha_creacion = date("Y/m/d H:i:s");
 
             if ($paciente->save()) {
 

@@ -55,6 +55,8 @@ Route::group(['prefix' => 'principal'], function () {
 Route::group(['prefix' => 'admisionista'], function () {
 	Route::resource('/','AdmisionistaController');
 	Route::post("registrarPaciente","AdmisionistaController@GuardarPaciente");
+        Route::get("paciente/modificar/{id}","AdmisionistaController@modificarPaciente");
+        Route::post("paciente/modificar/{id}","AdmisionistaController@editarPaciente");
 });
 
 

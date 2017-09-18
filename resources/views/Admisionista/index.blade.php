@@ -40,7 +40,7 @@
         <option value="A +">A +</option>
         <option value="AB -">AB -</option>
         <option value="AB +">AB +</option>
-		<option value="NR + ">NR </option>
+        <option value="NR +">NR </option>
     </select>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
@@ -119,9 +119,11 @@
         <tr>
             <th>Nombre</th>
             <th>Cedula</th>
+            <th>Edad</th>
             <th>Telefono</th>
             <th>Direccion</th>
             <th>Sexo</th>
+            <th>Acción</th>
         </tr>
     </thead>
 
@@ -131,9 +133,11 @@
         <tr>
             <td>{{$paciente->nombre}}</td>
             <td>{{$paciente->cedula}}</td>
+            <td>{{$paciente->edad}}</td>
             <td>{{$paciente->telefono}}</td>
             <td>{{$paciente->direccion}}</td>
             <td>{{$paciente->sexo =='H'?'Hombre':'Mujer'}}</td>
+            <td><a class="btn btn-primary" href="{{url('admisionista/paciente/modificar/'.$paciente->id)}}">Modificar</a></td>
         </tr>
         @endforeach
 
@@ -160,6 +164,7 @@
         $("#paciente_telefono").val(telefono);
         $("#paciente_direccion").val(direccion);
         $("#paciente_edad").val(edad);
+        $("select[name=tipo_sangre]").val("NR +");
 
     }
     function generarDocumentoRadom() {
