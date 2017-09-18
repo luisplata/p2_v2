@@ -67,6 +67,7 @@ Route::group(['prefix' => 'enfermera_jefe'], function () {
 	Route::resource('/','EnfermeraJefeController');
 	Route::post("asignarCubiculo","EnfermeraJefeController@AsignarCubiculo");
 	Route::get("eliminarCubiculo/{cubiculo}/{paciente_cedula}","EnfermeraJefeController@EliminarCubiculo");
+        Route::post("pasar","EnfermeraJefeController@cambiarDeCubiculo");
 });
 
 Route::group(['prefix' => 'doctor'], function () {
@@ -77,7 +78,12 @@ Route::group(['prefix' => 'doctor'], function () {
 	Route::post("asignarTratamiento","TratamientoController@store");
 	Route::get("quitarTratamiento/{tratamiento_id}/{historia_clinica_id}","TratamientoController@destroy");
 });
-	
+
+//Enfermera raza
+Route::group(['prefix' => 'enfermera'], function () {
+//Route::get("/","")
+});
+
 Route::resource("/historia_clinica","HistoriaClinicaController");
 
 Route::get('/{mensaje?}', function ($request = null) {

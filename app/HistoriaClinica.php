@@ -19,14 +19,14 @@ class HistoriaClinica extends Model
 		
 		$historiaClinica = new HistoriaClinica();
 		$historiaClinica->historia = $request->historia;
-		$historiaClinica->paciente_cedula = $request->paciente_cedula;
+		$historiaClinica->paciente_id = Paciente::getIdByCedula($request->paciente_cedula)->id;
 		
 		return $historiaClinica->save();
 		
 	}
 	
 	public static function GetAll(){
-		return HistoriaClinica::join("paciente", "paciente.cedula","historia_clinica.paciente_cedula")
+		return HistoriaClinica::join("paciente", "paciente.id","historia_clinica.paciente_id")
 		->select(
 		"historia_clinica.*",
 		"paciente.nombre as paciente_nombre",

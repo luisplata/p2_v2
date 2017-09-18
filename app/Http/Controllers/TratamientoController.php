@@ -6,35 +6,40 @@ use p2_v2\Tratamiento;
 use Illuminate\Http\Request;
 use p2_v2\HistoriaClinica;
 
-class TratamientoController extends Controller
-{
+class TratamientoController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         //
-		
     }
-	
-	public function AsignarTratamiento($historia_id){
-		$historia = HistoriaClinica::find($historia_id);
-		$datos = [
-		"historia"=>$historia,
-		"tratamientos"=>Tratamiento::GetByPaciente($historia->paciente_cedula)
-		];
-		return view("Tratamiento.agregar",$datos);
-	}
+
+    public function AsignarTratamiento($historia_id) {
+        $historia = HistoriaClinica::where("historia_clinica.id", $historia_id)
+                ->join("paciente", "paciente.id", "historia_clinica.paciente_id")
+                ->select(
+                        "historia_clinica.*", 
+                        "paciente.*", 
+                        "paciente.cedula as paciente_cedula", 
+                        "paciente.id as pacuiente_id"
+                        )
+                ->first();
+        $datos = [
+            "historia" => $historia,
+            "tratamientos" => Tratamiento::GetByPaciente($historia->paciente_id)
+        ];
+        return view("Tratamiento.agregar", $datos);
+    }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
@@ -44,14 +49,13 @@ class TratamientoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //
-		if(Tratamiento::Guardar($request)){
-			return redirect("/doctor/asignarTratamiento/".$request->historia_id);
-		}else{
-			return redirect("/doctor/asignarTratamiento/".$request->historia_id."?mensaje=No se guardo el tratamiento");
-		}
+        if (Tratamiento::Guardar($request)) {
+            return redirect("/doctor/asignarTratamiento/" . $request->historia_id);
+        } else {
+            return redirect("/doctor/asignarTratamiento/" . $request->historia_id . "?mensaje=No se guardo el tratamiento");
+        }
     }
 
     /**
@@ -60,8 +64,7 @@ class TratamientoController extends Controller
      * @param  \p2_v2\Tratamiento  $tratamiento
      * @return \Illuminate\Http\Response
      */
-    public function show(Tratamiento $tratamiento)
-    {
+    public function show(Tratamiento $tratamiento) {
         //
     }
 
@@ -71,8 +74,7 @@ class TratamientoController extends Controller
      * @param  \p2_v2\Tratamiento  $tratamiento
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tratamiento $tratamiento)
-    {
+    public function edit(Tratamiento $tratamiento) {
         //
     }
 
@@ -83,8 +85,7 @@ class TratamientoController extends Controller
      * @param  \p2_v2\Tratamiento  $tratamiento
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tratamiento $tratamiento)
-    {
+    public function update(Request $request, Tratamiento $tratamiento) {
         //
     }
 
@@ -94,13 +95,13 @@ class TratamientoController extends Controller
      * @param  \p2_v2\Tratamiento  $tratamiento
      * @return \Illuminate\Http\Response
      */
-    public function destroy($tratamiento_id,$historia_id)
-    {
+    public function destroy($tratamiento_id, $historia_id) {
         //
-		if(Tratamiento::Eliminar($tratamiento_id)){
-			return redirect("doctor/asignarTratamiento/".$historia_id);
-		}else{
-			return redirect("doctor/asignarTratamiento/".$historia_id."?mensaje=No se logro quitar el tratamiento");
-		}
+        if (Tratamiento::Eliminar($tratamiento_id)) {
+            return redirect("doctor/asignarTratamiento/" . $historia_id);
+        } else {
+            return redirect("doctor/asignarTratamiento/" . $historia_id . "?mensaje=No se logro quitar el tratamiento");
+        }
     }
+
 }

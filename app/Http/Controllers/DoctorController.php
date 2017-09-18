@@ -7,21 +7,20 @@ use Illuminate\Http\Request;
 use p2_v2\Paciente;
 use p2_v2\HistoriaClinica;
 
-class DoctorController extends Controller
-{
+class DoctorController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         //
-		$datos = [
-		"pacientes"=>Paciente::all(),
-		"historias"=>HistoriaClinica::all()
-		];
-		return view("Doctor.index",$datos);
+        $datos = [
+            "pacientes" => Paciente::all(),
+            "historias" => HistoriaClinica::GetAll()
+        ];
+        return view("Doctor.index", $datos);
     }
 
     /**
@@ -29,8 +28,7 @@ class DoctorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
@@ -40,14 +38,13 @@ class DoctorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //
-		if(HistoriaClinica::Guardar($request)){
-			return redirect("doctor");
-		}else{
-			return redirect("doctor?mensaje=No se guardo la historia clinica");
-		}
+        if (HistoriaClinica::Guardar($request)) {
+            return redirect("doctor");
+        } else {
+            return redirect("doctor?mensaje=No se guardo la historia clinica");
+        }
     }
 
     /**
@@ -56,14 +53,13 @@ class DoctorController extends Controller
      * @param  \p2_v2\Doctor  $doctor
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         //
-		$datos = [
-		"historia"=>HistoriaClinica::find($id)
-		];
-		//dd(HistoriaClinica::find($id));
-		return view("HistoriaClinica.detalle",$datos);
+        $datos = [
+            "historia" => HistoriaClinica::find($id)
+        ];
+        //dd(HistoriaClinica::find($id));
+        return view("HistoriaClinica.detalle", $datos);
     }
 
     /**
@@ -72,8 +68,7 @@ class DoctorController extends Controller
      * @param  \p2_v2\Doctor  $doctor
      * @return \Illuminate\Http\Response
      */
-    public function edit(Doctor $doctor)
-    {
+    public function edit(Doctor $doctor) {
         //
     }
 
@@ -84,8 +79,7 @@ class DoctorController extends Controller
      * @param  \p2_v2\Doctor  $doctor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
-    {
+    public function update(Request $request) {
         //
     }
 
@@ -95,8 +89,8 @@ class DoctorController extends Controller
      * @param  \p2_v2\Doctor  $doctor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Doctor $doctor)
-    {
+    public function destroy(Doctor $doctor) {
         //
     }
+
 }

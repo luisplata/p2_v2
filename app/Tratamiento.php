@@ -16,7 +16,7 @@ class Tratamiento extends Model
 		$tratamiento->medicamento = $request->medicamento;
 		$tratamiento->dosis = $request->dosis;
 		$tratamiento->periocidad = $request->periocidad;
-		$tratamiento->paciente_cedula = $request->paciente_cedula;
+		$tratamiento->paciente_id = $request->paciente_id;
 		//$tratamiento->estado = $request->estado;
 		return $tratamiento->save();
 	}
@@ -27,10 +27,10 @@ class Tratamiento extends Model
 		$tratamiento->estado = "PRESCRITO";
 		return $tratamiento->save();
 	}
-	public static function GetByPaciente($paciente_cedula){
+	public static function GetByPaciente($paciente_id){
 		return Tratamiento::where(array(
 		"estado"=>"VIGENTE",
-		"paciente_cedula"=>$paciente_cedula
+		"paciente_id"=>$paciente_id
 		))
 		->get();
 	}
