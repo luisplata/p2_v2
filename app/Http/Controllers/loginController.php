@@ -84,7 +84,7 @@ class loginController extends Controller {
             } elseif ($personal->tipo == "ENFERMERA_JEFE") {
                 return redirect("enfermera_jefe");
             } elseif ($personal->tipo == "ENFERMERA") {
-                echo "eres una enfermera";
+                return redirect("enfermera");
             } elseif ($personal->tipo == "ADMISIONISTA") {
                 return redirect("admisionista");
             } elseif ($personal->tipo == "ADMINISTRADOR") {
