@@ -36,6 +36,7 @@
         <tr>
             <th>Cubiculo</th>
             <th>Paciente</th>
+			<th>Identificacion</th>
             <th>Accion</th>
         </tr>
     </thead>
@@ -46,6 +47,7 @@
         <tr>
             <td>{{$c->cubiculo_numero}}</td>
             <td>{{$c->paciente_nombre}}</td>
+			<td>{{$c->paciente_cedula}}</td>
             <td>
                 <div class="col-xs-3">
                     <a href="{{url('enfermera_jefe/eliminarCubiculo/'.$c->cubiculo_numero.'/'.$c->paciente_cedula)}}" class="btn btn-warning hidden">Dar de Alta</a>    

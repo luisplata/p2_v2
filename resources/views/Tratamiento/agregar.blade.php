@@ -21,9 +21,9 @@
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <label>periocidad</label>
     <div class="input-group">
-        <div class="input-group-addon">$</div>
+        <div class="input-group-addon"></div>
         <input type="number" name="periocidad" class="form-control"  placeholder="Medicamento">
-        <div class="input-group-addon">.00</div>
+        <div class="input-group-addon">horas</div>
     </div>
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
