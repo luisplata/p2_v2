@@ -85,8 +85,7 @@ class AdmisionistaController extends Controller {
             return redirect("admisionista?mensaje=El paciente ha sido modificado&tipo=success");
         } catch (\Exception $ex) {
             DB::rollBack();
-            dd($ex);
-            return redirect("admisionista?mensaje=".$ex->getLine()."&tipo=error");
+            return redirect("admisionista?mensaje=Error al modificar paciente, puede que la cedula ya este registrada&tipo=error");
         }
     }
 
