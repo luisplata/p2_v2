@@ -15,16 +15,7 @@ class Cubiculo extends Model {
     //Desactivando el autoincremental de la id
     public $incrementing = false;
 
-    public static function GetDataByCubiculoAndUser() {
-        return Cubiculo::select(
-                                "cubiculo.numero", "paciente.cedula", "paciente.nombre", "paciente.telefono", "paciente.direccion", "paciente.sexo", "paciente.tipo_sangre", "paciente.RH"
-                        )
-                        ->join("paciente", "paciente.cedula", "cubiculo.paciente_cedula")
-                        //->join("notas","paciente.cedula","notas.paciente_cedula")
-                        //->join("tratamiento","paciente.cedula","tratamiento.paciente_cedula")
-                        ->orderBy("cubiculo.numero")
-                        ->get();
-    }
+   
 
     public static function Asignar($request) {
         
@@ -66,4 +57,8 @@ class Cubiculo extends Model {
         return Cubiculo::where("numero", $cubiculo)->first()->paciente_cedula;
     }
 
+     public function asignacionPacientes()
+    {
+        return $this->hasMany('p2_v2\AsignacionPaciente');
+    }
 }

@@ -16,6 +16,10 @@ class Personal extends Model {
     //Desactivando el autoincremental de la id
     public $incrementing = false;
 
+    public function notas() {
+        return $this->hasMany('p2_v2\Nota');
+    }
+
     public static function isDoctor($cedula) {
         $personal = Personal::find($cedula);
         if (!is_object($personal)) {
@@ -55,7 +59,7 @@ class Personal extends Model {
         //Validamos si la persona que estan guardando no exista
         //si existe no debe dejarlo registrar
         $persona = Personal::find($request->cedula);
-        if(is_object($persona)){
+        if (is_object($persona)) {
             return FALSE;
         }
         //Si no esta registrado lo agregamos

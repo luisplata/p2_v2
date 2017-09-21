@@ -28,8 +28,8 @@
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <label>Cedula de Paciente</label>
-    <input type="text" class="form-control" id="autocomplete-custom-append" value="{{$historia->paciente_cedula}}" readonly placeholder="Cedula Paciente">
-    <input type="hidden" value="{{$historia->paciente_id}}" name="paciente_id">
+    <input type="text" class="form-control" id="autocomplete-custom-append" value="{{$historia->paciente->cedula}}" readonly placeholder="Cedula Paciente">
+    <input type="hidden" value="{{$historia->paciente->id}}" name="paciente_id">
     <input type="hidden" value="{{$historia->id}}" name="historia_id">
 </div>
 
@@ -42,19 +42,21 @@
 
 <hr/>
 <label class="h2 text-uppercase">Tratamientos</label>
-@foreach ($tratamientos as $tratamiento)
+@foreach ($historia->paciente->tratamientos as $tratamiento)
 @if($tratamiento->estado == 'VIGENTE')
 <div class="alert bg-primary" role="alert">
-    @else
-    <div class="alert bg-danger" role="alert">
-        @endif
+    {{$tratamiento->medicamento}} de {{$tratamiento->dosis}} cada {{$tratamiento->periocidad}} 
+    <a href="{{url('doctor/quitarTratamiento/'.$tratamiento->id.'/'.$historia->id)}}" class="pull-right btn btn-warning">Quitar</a>
+</div>
+@else
+<div class="alert bg-danger" role="alert">
+    {{$tratamiento->medicamento}} de {{$tratamiento->dosis}} cada {{$tratamiento->periocidad}} 
+    <a href="{{url('doctor/borrarTratamiento/'.$tratamiento->id.'/'.$historia->id)}}" class="pull-right btn btn-danger">Eliminar</a>
+</div>
+@endif
+@endforeach	
+@endsection
 
-        {{$tratamiento->medicamento}} de {{$tratamiento->dosis}} cada {{$tratamiento->periocidad}} 
-        <a href="{{url('doctor/quitarTratamiento/'.$tratamiento->id.'/'.$historia->id)}}" class="pull-right btn btn-danger">Quitar</a>
-    </div>
-    @endforeach	
-    @endsection
+@section("plugin-js")
 
-    @section("plugin-js")
-
-    @endsection
+@endsection

@@ -77,6 +77,7 @@ Route::group(['prefix' => 'doctor'], function () {
     Route::get("asignarTratamiento/{historia_clinica_id}", "TratamientoController@AsignarTratamiento");
     Route::post("asignarTratamiento", "TratamientoController@store");
     Route::get("quitarTratamiento/{tratamiento_id}/{historia_clinica_id}", "TratamientoController@destroy");
+    Route::get("borrarTratamiento/{tratamiento_id}/{historia_clinica_id}", "TratamientoController@borrar");
 });
 
 //Enfermera raza

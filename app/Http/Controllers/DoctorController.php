@@ -43,7 +43,7 @@ class DoctorController extends Controller {
         if (HistoriaClinica::Guardar($request)) {
             return redirect("doctor");
         } else {
-            return redirect("doctor?mensaje=No se guardo la historia clinica");
+            return redirect("doctor?mensaje=No se guardo la historia clinica, puede que ya tenga una historia asociada, o que no exista&tipo=error");
         }
     }
 

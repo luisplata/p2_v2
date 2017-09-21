@@ -19,13 +19,6 @@ class TratamientoController extends Controller {
 
     public function AsignarTratamiento($historia_id) {
         $historia = HistoriaClinica::where("historia_clinica.id", $historia_id)
-                ->join("paciente", "paciente.id", "historia_clinica.paciente_id")
-                ->select(
-                        "historia_clinica.*", 
-                        "paciente.*", 
-                        "paciente.cedula as paciente_cedula", 
-                        "paciente.id as pacuiente_id"
-                        )
                 ->first();
         $datos = [
             "historia" => $historia,
@@ -97,7 +90,17 @@ class TratamientoController extends Controller {
      */
     public function destroy($tratamiento_id, $historia_id) {
         //
+        //dd($historia_id);
         if (Tratamiento::Eliminar($tratamiento_id)) {
+            return redirect("doctor/asignarTratamiento/" . $historia_id);
+        } else {
+            return redirect("doctor/asignarTratamiento/" . $historia_id . "?mensaje=No se logro quitar el tratamiento");
+        }
+    }
+    public function borrar($tratamiento_id, $historia_id) {
+        //
+        //dd($historia_id);
+        if (Tratamiento::borrar($tratamiento_id)) {
             return redirect("doctor/asignarTratamiento/" . $historia_id);
         } else {
             return redirect("doctor/asignarTratamiento/" . $historia_id . "?mensaje=No se logro quitar el tratamiento");
