@@ -54,7 +54,12 @@ class Cubiculo extends Model {
     }
 
     public static function GetCedulaByCubiculo($cubiculo) {
-        return Cubiculo::where("numero", $cubiculo)->first()->paciente_cedula;
+        $c = Cubiculo::where("numero", $cubiculo)->first()->paciente_id;
+        if(is_object($c)){
+            return $c;
+        }else{
+            return null;
+        }
     }
 
      public function asignacionPacientes()

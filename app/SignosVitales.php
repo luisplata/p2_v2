@@ -16,6 +16,10 @@ class SignosVitales extends Model {
         return $this->belongsTo('p2_v2\Paciente');
     }
 
+    public function cubiculo() {
+        return $this->belongsTo('p2_v2\Cubiculo',"cubiculo");
+    }
+
     public static function Lectura() {
         //hacemos un join con tratamiento para sacar las fechas del tratamiento
         $resultado = SignosVitales::where("visto", "0")

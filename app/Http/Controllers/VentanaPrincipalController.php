@@ -54,11 +54,11 @@ class VentanaPrincipalController extends Controller {
     }
 
     public function index() {
-        $ca = \p2_v2\AsignacionPaciente::all();
+        $ca = \p2_v2\AsignacionPaciente::orderBy("cubiculo_numero")->get();
         $datos = array(
             "cubiculoAsignado" => $ca
         );
-        //dd($datos);
+        //dd($ca->cubiculo);
         return view("PaginaPrincipal.principal", $datos);
         /*
           $ac = \p2_v2\AsignacionPaciente::all();

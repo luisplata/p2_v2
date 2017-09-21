@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Principal PN </title>
+        <title>Principal PLT </title>
 
         <!-- Bootstrap -->
         <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -83,22 +83,31 @@
                 $numero++;
                 @endphp
                 <div class="col-xs-4 animated flipInYs">
-                    <div class="tile-stats" id="cubiculo-{{$cubiculo->numero}}">
-                        <div class="h1 text-center">{{$cubiculo->numero}}</div>
+                    <div class="tile-stats" id="cubiculo-{{$cubiculo->cubiculo->numero}}">
+                        <div class="h1 text-center">-{{$cubiculo->cubiculo->numero}}-</div>
                         <div class="col-xs-12">
-                            <div class="col-xs-6 h2">
+                            <div class="col-xs-6 h3">
                                 {{$cubiculo->paciente->nombre}}<br/>
-                                {{$cubiculo->paciente->cedula}}
+                                {{$cubiculo->paciente->cedula}}<br/>
+                                @php
+                                $antecedente = $cubiculo->paciente->antecedentes->first();
+                                $alergia = "";
+                                if(is_object($antecedente)){
+                                $alergia = $antecedente->alergias;
+                                }
+                                @endPhp
+                                Alergias:<br/>
+                                {{$alergia}}
                             </div>
                             <div class="col-xs-6">
-                                <div class="circulo h1" id="so-{{$cubiculo->numero}}">
+                                <div class="circulo h1" id="so-{{$cubiculo->cubiculo->numero}}">
                                     89%
                                 </div>
                             </div>
                         </div>
                         <div class="col-xs-12 h1">
                             <!-- Grafico -->
-                            <span class="glyphicon glyphicon-heart"></span><span id="ppm-{{$cubiculo->numero}}"></span>
+                            <span class="glyphicon glyphicon-heart"></span><span id="ppm-{{$cubiculo->cubiculo->numero}}"></span>
                             <!--
                             <div  id="svg-wrapper"></div>
                             -->
@@ -106,9 +115,9 @@
                             <hr>
                         </div>
                         <div class="col-xs-12 text-center">
-                            <span class="h3" id="mensaje_pulso_cubiculo-{{$cubiculo->numero}}"></span>
-                            <span class="h3" id="mensaje_so_cubiculo-{{$cubiculo->numero}}"></span>
-                            <span class="h3" id="mensaje_medicamento-{{$cubiculo->numero}}"></span>
+                            <span class="h3" id="mensaje_pulso_cubiculo-{{$cubiculo->cubiculo->numero}}"></span>
+                            <span class="h3" id="mensaje_so_cubiculo-{{$cubiculo->cubiculo->numero}}"></span>
+                            <span class="h3" id="mensaje_medicamento-{{$cubiculo->cubiculo->numero}}"></span>
                             <br/>
                         </div>
                         <div class="col-xs-12">
@@ -122,16 +131,21 @@
                                     <li class="list-group-item " id="medicamento_id_{{$tratamiento->id}}">
                                         {{$tratamiento->dosis}} de {{$tratamiento->medicamento}} cada {{$tratamiento->periocidad}} horas
                                         <script>
-var fechaHoraInicial = moment("{{$tratamiento->created_at}}");
+
+var fechaHoraInicial = moment("{{$tratamiento->updated_at}}").add("{{$tratamiento->periocidad}}", "h");
 var fechaActual = moment();
-var horasFaltantes = fechaActual.diff(fechaHoraInicial, "hours");
-//Caso 1, cuando se cargue esta pagina hayan alertas que pasaron
-//verificamos solamente cuando sea en -
-console.log(fechaActual.format('YYYY-MM-DD HH:mm:ss') + " - " + fechaHoraInicial.format('YYYY-MM-DD HH:mm:ss') + " = " + horasFaltantes);
-console.log(horasFaltantes*60*60*1000);//milisegundos
-setInterval(function(){
-    
-},horasFaltantes);
+var minutosRestantes = fechaHoraInicial.diff(fechaActual, "minutes");
+//Caso 1, Caso normal
+//Se cargan los tratamientos, y se calcula el restante para la proxima alerta
+console.log(fechaHoraInicial.format('YYYY-MM-DD HH:mm:ss') + " - " + fechaActual.format('YYYY-MM-DD HH:mm:ss') + " = " + minutosRestantes);
+console.log(minutosRestantes * 60 * 1000);//milisegundos
+minutosRestantes = minutosRestantes * 60 * 1000;//milisegundos
+setInterval(function () {
+    //swal("Esta es una alarma");
+    //console.log(minutosRestantes);
+    minutosRestantes = {{$tratamiento->periocidad*60*60*1000}};
+    //console.log(minutosRestantes);
+}, minutosRestantes);
 //console.log(fechaHoraInicial.format('HH:mm:ss'));
 //console.log(fechaActual.format('HH:mm:ss'));
 //Creamos un setInterval() para ejecutar la cunfion con la periocidad
@@ -258,7 +272,6 @@ setInterval(function(){
         <!-- Custom Theme Scripts -->
         <script src="../build/js/custom.min.js"></script>
         <script src="/js/moment/moment.min.js"></script>
-        <script src="https://d3js.org/d3.v3.min.js"></script>
 
         <script>
 
@@ -359,6 +372,7 @@ setInterval(function(){
                                                             if (value.pulso < 100 && value.pulso > 50 && value.so > 95) {
                                                                 cubiculo.removeClass("alerta");
                                                             }
+                                                            //console.log(value.cubiculo + " "+value.so);
                                                             $("#so-" + value.cubiculo).html(value.so + "%");
                                                             $("#ppm-" + value.cubiculo).html(value.pulso + " ppm");
                                                             //consulto los medicamentos por cubiculos
