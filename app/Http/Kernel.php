@@ -4,8 +4,8 @@ namespace p2_v2\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
-class Kernel extends HttpKernel
-{
+class Kernel extends HttpKernel {
+
     /**
      * The application's global HTTP middleware stack.
      *
@@ -18,7 +18,6 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \p2_v2\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \p2_v2\Http\Middleware\TipoDoctor::class,
     ];
 
     /**
@@ -36,7 +35,6 @@ class Kernel extends HttpKernel
             \p2_v2\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
-
         'api' => [
             'throttle:60,1',
             'bindings',
@@ -57,5 +55,12 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \p2_v2\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        "autenticado" => \p2_v2\Http\Middleware\TipoDoctor::class,
+        "admisionista" => \p2_v2\Http\Middleware\Admisionista::class,
+        "administrador" => \p2_v2\Http\Middleware\Administrador::class,
+        "enfermera_jefe" => \p2_v2\Http\Middleware\EnfermeraJefe::class,
+        "enfermera" => \p2_v2\Http\Middleware\Enfermera::class,
+        "doctor" => \p2_v2\Http\Middleware\Doctor::class,
     ];
+
 }

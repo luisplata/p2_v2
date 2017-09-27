@@ -15,20 +15,49 @@
 Route::get('/logout', "loginController@LogOut");
 Route::post('/login', 'loginController@login');
 
-Route::group(['middleware' => 'TipoDoctor'], function () {
-    
-});
+Route::group(['middleware' => 'autenticado'], function () {
+    //Rutas del admisionista
+    Route::group(['prefix' => 'admisionista', "middleware" => "admisionista"], function () {
+        Route::resource('/', 'AdmisionistaController');
+        Route::post("registrarPaciente", "AdmisionistaController@GuardarPaciente");
+        Route::get("paciente/modificar/{id}", "AdmisionistaController@modificarPaciente");
+        Route::post("paciente/modificar/{id}", "AdmisionistaController@editarPaciente");
+    });
 
-//administrador
-Route::group(['prefix' => 'administrador'], function () {
-    Route::get("cubiculos/{numero}", "CubiculoController@destroy");
-    Route::resource('/', 'AdministradorController');
-    Route::get("desactivar/{cedula}", "AdministradorController@Desactivar");
-    Route::get("activar/{cedula}", "AdministradorController@Activar");
-    Route::get("/{id}/edit", "AdministradorController@edit");
-    Route::put("/{id}/", "AdministradorController@update");
-    Route::get("/eliminar/{id}", "AdministradorController@destroy");
-    Route::resource("cubiculos", "CubiculoController");
+    //administrador
+    Route::group(['prefix' => 'administrador', "middleware" => "administrador"], function () {
+        Route::get("cubiculos/{numero}", "CubiculoController@destroy");
+        Route::resource('/', 'AdministradorController');
+        Route::get("desactivar/{cedula}", "AdministradorController@Desactivar");
+        Route::get("activar/{cedula}", "AdministradorController@Activar");
+        Route::get("/{id}/edit", "AdministradorController@edit");
+        Route::put("/{id}/", "AdministradorController@update");
+        Route::get("/eliminar/{id}", "AdministradorController@destroy");
+        Route::resource("cubiculos", "CubiculoController");
+    });
+
+    //Enfermera JEFE
+    Route::group(['prefix' => 'enfermera_jefe', "middleware" => "enfermera_jefe"], function () {
+        Route::resource('/', 'EnfermeraJefeController');
+        Route::post("asignarCubiculo", "EnfermeraJefeController@AsignarCubiculo");
+        Route::get("eliminarCubiculo/{cubiculo}/{paciente_cedula}", "EnfermeraJefeController@EliminarCubiculo");
+        Route::post("pasar", "EnfermeraJefeController@cambiarDeCubiculo");
+    });
+
+    Route::group(['prefix' => 'doctor', "middleware" => "doctor"], function () {
+        Route::resource('/', 'DoctorController');
+        Route::get("ver/{id}", "DoctorController@show");
+        Route::get("eliminar/{id}", "HistoriaClinicaController@destroy");
+        Route::get("asignarTratamiento/{historia_clinica_id}", "TratamientoController@AsignarTratamiento");
+        Route::post("asignarTratamiento", "TratamientoController@store");
+        Route::get("quitarTratamiento/{tratamiento_id}/{historia_clinica_id}", "TratamientoController@destroy");
+        Route::get("borrarTratamiento/{tratamiento_id}/{historia_clinica_id}", "TratamientoController@borrar");
+    });
+
+    //Enfermera raza
+    Route::group(['prefix' => 'enfermera', "middleware" => "enfermera"], function () {
+        Route::get("/", "EnfermeraController@index");
+    });
 });
 
 //Simulador
@@ -51,39 +80,9 @@ Route::group(['prefix' => 'principal'], function () {
 });
 
 
-//Rutas del admisionista
-Route::group(['prefix' => 'admisionista'], function () {
-    Route::resource('/', 'AdmisionistaController');
-    Route::post("registrarPaciente", "AdmisionistaController@GuardarPaciente");
-    Route::get("paciente/modificar/{id}", "AdmisionistaController@modificarPaciente");
-    Route::post("paciente/modificar/{id}", "AdmisionistaController@editarPaciente");
-});
-
 
 
 //Hasta aqui
-//Enfermera JEFE
-Route::group(['prefix' => 'enfermera_jefe'], function () {
-    Route::resource('/', 'EnfermeraJefeController');
-    Route::post("asignarCubiculo", "EnfermeraJefeController@AsignarCubiculo");
-    Route::get("eliminarCubiculo/{cubiculo}/{paciente_cedula}", "EnfermeraJefeController@EliminarCubiculo");
-    Route::post("pasar", "EnfermeraJefeController@cambiarDeCubiculo");
-});
-
-Route::group(['prefix' => 'doctor'], function () {
-    Route::resource('/', 'DoctorController');
-    Route::get("ver/{id}", "DoctorController@show");
-    Route::get("eliminar/{id}", "HistoriaClinicaController@destroy");
-    Route::get("asignarTratamiento/{historia_clinica_id}", "TratamientoController@AsignarTratamiento");
-    Route::post("asignarTratamiento", "TratamientoController@store");
-    Route::get("quitarTratamiento/{tratamiento_id}/{historia_clinica_id}", "TratamientoController@destroy");
-    Route::get("borrarTratamiento/{tratamiento_id}/{historia_clinica_id}", "TratamientoController@borrar");
-});
-
-//Enfermera raza
-Route::group(['prefix' => 'enfermera'], function () {
-    Route::get("/", "EnfermeraController@index");
-});
 
 Route::resource("/historia_clinica", "HistoriaClinicaController");
 

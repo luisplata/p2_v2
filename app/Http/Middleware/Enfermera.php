@@ -3,10 +3,9 @@
 namespace p2_v2\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Session;
 
-class TipoDoctor {
-
+class Enfermera
+{
     /**
      * Handle an incoming request.
      *
@@ -14,12 +13,14 @@ class TipoDoctor {
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next) {
-        if (Session::has("personal")) {
+    public function handle($request, Closure $next)
+    {
+        if ($request->session()->has("personal")) {
             //solo necesita ser personal
-            return $next($request);
+            if ($request->session()->get('personal')->tipo == "ENFERMERA") {
+                return $next($request);
+            }
         }
         return redirect("/logout");
     }
-
 }
