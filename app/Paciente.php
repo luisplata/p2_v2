@@ -11,7 +11,7 @@ class Paciente extends Model {
     //indicando que no va a usar las marcas de tiempo
     public $timestamps = false;
     //Desactivando el autoincremental de la id
-    public $incrementing = false;
+    //public $incrementing = false;
 
     public static function getIdByCedula($cedula) {
         return Paciente::where("cedula", $cedula)->first();

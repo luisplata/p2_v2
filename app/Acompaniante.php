@@ -9,6 +9,7 @@ class Acompaniante extends Model {
     //
     protected $table = "acompanante";
     public $timestamps = false;
+    protected $primaryKey = "cedula";
 
     public function paciente() {
         return $this->belongsTo('p2_v2\Paciente');

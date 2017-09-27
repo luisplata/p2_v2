@@ -5,17 +5,73 @@ namespace p2_v2\Http\Controllers;
 use Illuminate\Http\Request;
 use p2_v2\Admisionista;
 use p2_v2\Paciente;
+use p2_v2\Antecedente;
+use p2_v2\Acompaniante;
 use Illuminate\Support\Facades\DB;
 
 class AdmisionistaController extends Controller {
 
     //
     public function GuardarPaciente(Request $request) {
+        DB::beginTransaction();
+        try {
+            $paciente = Paciente::find($request->cedula);
 
-        if (Admisionista::GuardarPaciente($request)) {
+            if (is_object($paciente)) {
+                return redirect("/admisionista?mensaje=No se guardo el paciente porque ya existe&tipo=warning");
+            }
+            $paciente = new Paciente();
+            $paciente->cedula = $request->cedula;
+            $paciente->nombre = $request->nombre;
+            $paciente->telefono = $request->telefono;
+            $paciente->edad = $request->edad;
+            $paciente->direccion = $request->direccion;
+            $paciente->sexo = $request->sexo;
+            $divicion = explode(" ", $request->tipo_sangre);
+            $paciente->tipo_sangre = $divicion[0];
+            $paciente->RH = $divicion[1];
+            $paciente->fecha_creacion = date("Y/m/d H:i:s");
+
+            if ($paciente->save()) {
+                //dd($paciente);
+                $antecedentes = new Antecedente();
+                $antecedentes->nombre_proce = $request->nombre_proce;
+                $antecedentes->alergias = $request->alergias;
+                $antecedentes->ant_familiares = $request->ant_familiares;
+                $antecedentes->ant_personales = $request->ant_personales;
+                $antecedentes->tipo = $request->tipo;
+                $antecedentes->paciente_id = $paciente->id;
+                //guardamos el antecedente
+                if (!is_null($request->tipo)) {
+                    $antecedentes->save();
+                }
+
+                //buscamos el acompañante y determinamos si lo hacemos uno nuevo o traemos el guardado
+                //guardamos al acompañante
+                $ac = Acompaniante::where("cedula", $request->acompaniante_cedula)->first();
+                $acompaniante = is_object($ac) ? $ac : new Acompaniante();
+                $acompaniante->cedula = $request->acompaniante_cedula;
+                $acompaniante->nombre = $request->acompaniante_nombre;
+                $acompaniante->direccion = $request->acompaniante_direccion;
+                $acompaniante->telefono = $request->acompaniante_telefono;
+                $acompaniante->sexo = $request->acompaniante_sexo;
+                $acompaniante->paciente_id = $paciente->id;
+                //guardamos a su acompañante
+                if (!is_null($request->acompaniante_cedula)) {
+                    $acompaniante->save();
+                }
+            }
+            DB::commit();
             return redirect("/admisionista?mensaje=Se guardo el pacente&tipo=success");
-        } else {
+        } catch (\Exception $ex) {
+            dd($ex);
+            DB::rollBack();
             return redirect("/admisionista?mensaje=No se guardo el paciente porque ya existe&tipo=warning");
+        }
+        if (Admisionista::GuardarPaciente($request)) {
+            
+        } else {
+            
         }
     }
 
