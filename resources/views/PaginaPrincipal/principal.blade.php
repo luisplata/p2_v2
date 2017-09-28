@@ -123,7 +123,8 @@
                         <div class="col-xs-12">
                             <div class="col-xs-6">
                                 <div class="text-center">
-                                    <a class="btn btn-default" data-toggle="modal" data-target="#AdicionDeMedicamento" data-cubiculo="{{$cubiculo->numero}}">Tratamientos</a>
+                                    <a class="btn btn-default hidden" data-toggle="modal" data-target="#AdicionDeMedicamento" data-cubiculo="{{$cubiculo->numero}}">Tratamientos</a>
+                                    <label>Tratamientos</label>
                                 </div>
                                 <ul class="list-group">
                                     @foreach ($cubiculo->paciente->tratamientos as $tratamiento)
@@ -161,7 +162,8 @@ setInterval(function () {
                             </div>
                             <div class="col-xs-6">
                                 <div class="text-center">
-                                    <a class="btn btn-default" data-toggle="modal" data-target="#AdicionDeNotaMedica" data-cubiculo="{{$cubiculo->numero}}">Notas Medicas</a>
+                                    <a class="btn btn-default hidden" data-toggle="modal" data-target="#AdicionDeNotaMedica" data-cubiculo="{{$cubiculo->numero}}">Notas Medicas</a>
+                                    <label>Notas Medicas</label>
                                 </div>
                                 <ul class="list-group">
                                     @foreach ($cubiculo->paciente->historiasClinicas as $historiasClinicas)
@@ -172,6 +174,11 @@ setInterval(function () {
                                     @endforeach
                                     @endforeach
                                 </ul>
+                            </div>
+                            <div class="clearfix"></div>
+                            <hr>
+                            <div class="col-xs-12 text-center">
+                                <a class="btn btn-default" href="{{url('')}}">Gestionar</a>
                             </div>
                         </div>
                     </div>

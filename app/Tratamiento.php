@@ -15,8 +15,8 @@ class Tratamiento extends Model {
     public static function Guardar($request) {
         $tratamiento = new Tratamiento();
         $tratamiento->medicamento = $request->medicamento;
-        $tratamiento->dosis = $request->dosis;
-        $tratamiento->periocidad = $request->periocidad;
+        $tratamiento->dosis = $request->dosis." ".$request->unidad;
+        $tratamiento->periocidad = $request->periocidad. " Horas";
         $tratamiento->paciente_id = $request->paciente_id;
         //$tratamiento->estado = $request->estado;
         return $tratamiento->save();
