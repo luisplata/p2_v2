@@ -135,18 +135,27 @@
 
 var fechaHoraInicial = moment("{{$tratamiento->updated_at}}").add("{{$tratamiento->periocidad}}", "h");
 var fechaActual = moment();
-var minutosRestantes = fechaHoraInicial.diff(fechaActual, "minutes");
-//Caso 1, Caso normal
+var minutosRestantes = fechaActual.diff(fechaHoraInicial, "minutes");
+//Caso 1, Caso normal (esta dentro de primer rango de fecha)
 //Se cargan los tratamientos, y se calcula el restante para la proxima alerta
-console.log(fechaHoraInicial.format('YYYY-MM-DD HH:mm:ss') + " - " + fechaActual.format('YYYY-MM-DD HH:mm:ss') + " = " + minutosRestantes);
-console.log(minutosRestantes * 60 * 1000);//milisegundos
+console.log(fechaActual.format('YYYY-MM-DD HH:mm:ss') + " - " + fechaHoraInicial.format('YYYY-MM-DD HH:mm:ss') + " = " + minutosRestantes);
+var periocidad = "{{$tratamiento->periocidad}}";
+periocidad = periocidad.split(" ")[0];
+periocidad *= 60;//cambiando a minutos la periocidad
+console.log(periocidad);//periocidad en min
+console.log(minutosRestantes % periocidad);//tiempo en minutos de la pricima alerta
+minutosRestantes %= periocidad;
 minutosRestantes = minutosRestantes * 60 * 1000;//milisegundos
+console.log(minutosRestantes);//milisegundos
 setInterval(function () {
-    //swal("Esta es una alarma");
-    //console.log(minutosRestantes);
-    minutosRestantes = {{$tratamiento->periocidad*60*60*1000}};
-    //console.log(minutosRestantes);
-}, minutosRestantes);
+swal("Esta es una alarma");
+        //creamos un temporalizador para marcrla como no atendida
+        setTimeout(function(){
+
+        }, timeout);
+        minutosRestantes = {{$tratamiento - > periocidad * 60 * 60 * 1000}};
+        }
+, minutosRestantes);
 //console.log(fechaHoraInicial.format('HH:mm:ss'));
 //console.log(fechaActual.format('HH:mm:ss'));
 //Creamos un setInterval() para ejecutar la cunfion con la periocidad

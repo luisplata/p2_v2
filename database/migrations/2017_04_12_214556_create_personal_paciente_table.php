@@ -13,7 +13,7 @@ class CreatePersonalPacienteTable extends Migration {
     public function up() {
         Schema::create('personal_paciente', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('personal_id')->unsigned();
+            $table->integer('personal_id',20)->unsigned();
             $table->integer('paciente_id', 11)->unsigned();
             $table->dateTime('fecha_ingreso')->nullable();
             $table->dateTime('fecha_salida')->nullable();
