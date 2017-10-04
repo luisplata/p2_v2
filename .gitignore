@@ -11,5 +11,3 @@ Homestead.yaml
 /nbproject/private/
 /nbproject
 /nbproject
-provision.sh
-Vagrantfile
