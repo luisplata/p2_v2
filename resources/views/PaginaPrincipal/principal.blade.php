@@ -141,6 +141,7 @@ var minutosRestantes = fechaActual.diff(fechaHoraInicial, "minutes");
 console.log(fechaActual.format('YYYY-MM-DD HH:mm:ss') + " - " + fechaHoraInicial.format('YYYY-MM-DD HH:mm:ss') + " = " + minutosRestantes);
 var periocidad = "{{$tratamiento->periocidad}}";
 periocidad = periocidad.split(" ")[0];
+
 periocidad *= 60;//cambiando a minutos la periocidad
 console.log(periocidad);//periocidad en min
 console.log(minutosRestantes % periocidad);//tiempo en minutos de la pricima alerta
@@ -150,10 +151,10 @@ console.log(minutosRestantes);//milisegundos
 setInterval(function () {
 swal("Esta es una alarma");
         //creamos un temporalizador para marcrla como no atendida
-        setTimeout(function(){
+        //setTimeout(function(){
 
-        }, timeout);
-        minutosRestantes = {{$tratamiento - > periocidad * 60 * 60 * 1000}};
+        //}, timeout);
+        minutosRestantes = periocidad * 60 * 1000;
         }
 , minutosRestantes);
 //console.log(fechaHoraInicial.format('HH:mm:ss'));
