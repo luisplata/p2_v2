@@ -57,6 +57,7 @@ Route::group(['middleware' => 'autenticado'], function () {
     //Enfermera raza
     Route::group(['prefix' => 'enfermera', "middleware" => "enfermera"], function () {
         Route::get("/", "EnfermeraController@index");
+        Route::post("add/nota-medica","EnfermeraController@nuevaNotaMedica");
     });
 });
 

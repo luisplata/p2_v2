@@ -17,7 +17,7 @@ class DoctorController extends Controller {
     public function index() {
         //
         $datos = [
-            "pacientes" => Paciente::all(),
+            "cubiculosAsignados" => \p2_v2\AsignacionPaciente::all(),
             "historias" => HistoriaClinica::GetAll()
         ];
         return view("Doctor.index", $datos);

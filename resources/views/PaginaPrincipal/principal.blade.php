@@ -132,15 +132,20 @@
                                     <li class="list-group-item " id="medicamento_id_{{$tratamiento->id}}">
                                         {{$tratamiento->dosis}} de {{$tratamiento->medicamento}} cada {{$tratamiento->periocidad}} horas
                                         <script>
-
-var fechaHoraInicial = moment("{{$tratamiento->updated_at}}").add("{{$tratamiento->periocidad}}", "h");
+//fecha inical del medicamento
+var fechaHoraInicial = moment("{{$tratamiento->updated_at}}");
+//mientras se soluciona el problema con la fecha en el servidor
+fechaHoraInicial.add(-5,"h");
+//periocidad del medicamento
+var periocidad = "{{$tratamiento->periocidad}}";
+periocidad = periocidad.split(" ")[0];
+//fecha hora actual
 var fechaActual = moment();
-var minutosRestantes = fechaActual.diff(fechaHoraInicial, "minutes");
+//minutos restantes
+var minutosRestantes = Math.abs(fechaActual.diff(fechaHoraInicial, "minutes"));
 //Caso 1, Caso normal (esta dentro de primer rango de fecha)
 //Se cargan los tratamientos, y se calcula el restante para la proxima alerta
 console.log(fechaActual.format('YYYY-MM-DD HH:mm:ss') + " - " + fechaHoraInicial.format('YYYY-MM-DD HH:mm:ss') + " = " + minutosRestantes);
-var periocidad = "{{$tratamiento->periocidad}}";
-periocidad = periocidad.split(" ")[0];
 
 periocidad *= 60;//cambiando a minutos la periocidad
 console.log(periocidad);//periocidad en min
@@ -149,13 +154,13 @@ minutosRestantes %= periocidad;
 minutosRestantes = minutosRestantes * 60 * 1000;//milisegundos
 console.log(minutosRestantes);//milisegundos
 setInterval(function () {
-swal("Esta es una alarma");
-        //creamos un temporalizador para marcrla como no atendida
-        //setTimeout(function(){
+    swal("Esta es una alarma");
+    //creamos un temporalizador para marcrla como no atendida
+    //setTimeout(function(){
 
-        //}, timeout);
-        minutosRestantes = periocidad * 60 * 1000;
-        }
+    //}, timeout);
+    minutosRestantes = periocidad * 60 * 1000;
+}
 , minutosRestantes);
 //console.log(fechaHoraInicial.format('HH:mm:ss'));
 //console.log(fechaActual.format('HH:mm:ss'));
@@ -188,7 +193,7 @@ swal("Esta es una alarma");
                             <div class="clearfix"></div>
                             <hr>
                             <div class="col-xs-12 text-center">
-                                <a class="btn btn-default" href="{{url('')}}">Gestionar</a>
+                                <a class="btn btn-default" target="_blank" href="{{url('')}}">Gestionar</a>
                             </div>
                         </div>
                     </div>
@@ -313,9 +318,7 @@ swal("Esta es una alarma");
                                             var parametros = {
                                                 "cubiculo": "{!!$cubiculo->numero!!}"
                                             };
-                                            $(document).ready(function () {
-                                                setInterval('ajax()', 500);
-                                            });
+
                                             Date.prototype.addHours = function (h) {
                                                 this.setTime(this.getTime() + (h * 60 * 60 * 1000));
                                                 return this;
@@ -340,8 +343,8 @@ swal("Esta es una alarma");
                                                     url: '{{url("simulador/medicamento/")}}/' + cubiculo,
                                                     type: 'get',
                                                     success: function (response) {
+                                                        console.warn(response);
                                                         response.forEach(function (value) {
-                                                            //console.log(value);
                                                             //validamos lo del medicamento
                                                             var ultimaFecha = value.updated_at;
                                                             var fechaDeMedicamento = new Date(ultimaFecha);
@@ -359,7 +362,8 @@ swal("Esta es una alarma");
                                                                 boton.removeClass("hidden");
                                                             }
                                                         });
-                                                    }
+                                                    },
+                                                    
                                                 });
                                             }
 
@@ -399,7 +403,10 @@ swal("Esta es una alarma");
                                                 });
                                             }
                                             $(document).ready(function () {
-
+                                                setInterval(function () {
+                                                    ajax();
+                                                    
+                                                }, 500);
                                             });
                                             function crearAlarma(fechaAnterior) {
                                                 swal(fechaAnterior);

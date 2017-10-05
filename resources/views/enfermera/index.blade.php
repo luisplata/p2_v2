@@ -11,6 +11,7 @@
     personal ID -> interno<br/>
     NOTA -> se llena<br/>
     <hr/>
+    {{Form::open(["url"=>"enfermera/add/nota-medica"])}}
     <div class="col-xs-6">
         <label>Nota</label>
         <textarea class="form-control" name="nota" placeholder="Ingrese la nota a la historia clinica" rows="10"></textarea>
@@ -20,7 +21,7 @@
         <select class="form-control" name="historia_id" data-placeholder="Selecciona una historia" required>
             <option></option>
             @foreach ($historias as $h)
-            <option value="{{$h->id}}">{{$h->id}} - {{$h->paciente_cedula}} - {{$h->paciente_nombre}}</option>
+            <option value="{{$h->id}}">{{$h->id}} - {{$h->paciente->cedula}} - {{$h->paciente->nombre}}</option>
             @endforeach
         </select>
     </div>
@@ -29,6 +30,7 @@
     <div class="col-xs-12">
         <button type="submit" class="btn btn-primary">Guardar</button>
     </div>
+    {{Form::close()}}
 </div>
 @endsection
 

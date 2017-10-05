@@ -48,11 +48,13 @@ class SignosVitalesController extends Controller {
 
     public function Medicamentos($cubiculo) {
         //retornamos los medicamentos que estan relacionados con el cubiculo
-        //Buscamos la cedula del paciente en el cubiculo
-        $cedula_paciente = Cubiculo::GetCedulaByCubiculo($cubiculo);
-        //Buscamos los tratamientos de este paciente
-        $tratamientos = Tratamiento::GetByPaciente($cedula_paciente);
-        return $tratamientos;
+        $cubiculo = Cubiculo::find($cubiculo);
+        $medicamentos;
+        foreach ($cubiculo->asignacionPacientes as $ac){
+            //buscamos al paciente
+            $medicamentos = $ac->paciente->tratamientos;
+        }
+        return $medicamentos;
     }
 
     public function ActualizarTratamiento($tratamiento_id) {

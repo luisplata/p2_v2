@@ -38,7 +38,7 @@ class EnfermeraController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //se crea la nota medica
     }
 
     /**
@@ -84,5 +84,24 @@ class EnfermeraController extends Controller
     public function destroy($id)
     {
         //
+    }
+    
+    public function nuevaNotaMedica(Request $request) {
+        //adicionamos la nueva nota medica
+        //dd(session());
+        try{
+            
+        $nota = new \p2_v2\Nota();
+        $nota->historia_clinica_id = $request->historia_id;
+        $nota->personal_id = session("personal")->id;
+        $nota->notas = $request->nota;
+        if($nota->save()){
+            return redirect("enfermera?mensaje=Se adiciono la nota medica con exito&tipo=success");
+        }
+        throw new \Exception("No se pudo ingresar");
+        
+        } catch (Exception $ex) {
+            return redirect("enfermera?mensaje=No se pudo ingresar la nota medica&tipo=error");
+        }
     }
 }
