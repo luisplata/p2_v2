@@ -193,7 +193,7 @@ setInterval(function () {
                             <div class="clearfix"></div>
                             <hr>
                             <div class="col-xs-12 text-center">
-                                <a class="btn btn-default" target="_blank" href="{{url('')}}">Gestionar</a>
+                                <a class="btn btn-default" href="{{url('')}}">Gestionar</a>
                             </div>
                         </div>
                     </div>

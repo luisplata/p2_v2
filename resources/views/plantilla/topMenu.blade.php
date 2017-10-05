@@ -14,9 +14,9 @@
                         <span class=" fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-                        right">
-                        <li><a href="{{url('/principal')}}" target="_blank"><i class="fa fa-sign-out pull-right"></i> Principal</a></li>
+                       <!-- <li><a href="{{url('/principal')}}" target="_blank"><i class="fa fa-sign-out pull-right"></i> Principal</a></li>-->
                         <li><a href="{{url('/simulador')}}" target="_blank"><i class="fa fa-sign-out pull-right"></i> Simulador</a></li>
-                        <li><a href="{{url('/logout')}}"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                        <li><a href="{{url('/principal')}}"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
                     </ul>
                 </li>
 
