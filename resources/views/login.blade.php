@@ -57,12 +57,6 @@
                             {{ Form::close() }}
                     </section>
                 </div>
-                <script src="/js/sweetalert.min.js"></script>
-                <script>
-                    @if ($mensaje != "")
-                            swal("{{$mensaje}}");
-                    @endif
-                </script>
             </div>
         </div>
     </body>

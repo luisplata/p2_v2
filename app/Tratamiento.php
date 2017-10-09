@@ -18,8 +18,14 @@ class Tratamiento extends Model {
         $tratamiento->dosis = $request->dosis." ".$request->unidad;
         $tratamiento->periocidad = $request->periocidad. " Horas";
         $tratamiento->paciente_id = $request->paciente_id;
-        //$tratamiento->estado = $request->estado;
-        return $tratamiento->save();
+        $tratamiento->personal_id = session("personal")->id;
+        //validamos si es un doctor
+        if(Personal::isDoctor(session("personal")->cedula)){
+            return $tratamiento->save();
+        }else{
+            return FALSE;
+        }
+
     }
 
     public static function Eliminar($id) {
