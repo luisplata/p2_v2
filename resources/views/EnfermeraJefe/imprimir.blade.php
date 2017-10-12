@@ -1,166 +1,62 @@
-@extends("plantilla.app")
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Meta, title, CSS, favicons, etc. -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-@section("plugin-css")
-<link href="http://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
-@endsection
+        <title>URGENCIAS Primer Nivel</title>
 
-@section("contenido")
-<table id="datatable" class="table table-striped table-bordered">
-    <thead>
-        <tr>
-            <td colspan="6" class="text-center">
-                Paciente {{$paciente->cedula}} - {{$paciente->nombre}}
-            </td>
-        </tr>
-        <tr>
-            <td colspan="6" class="text-center">
-                Datos completos Paciente {{$paciente->cedula}} - {{$paciente->nombre}}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Tratamientos
-            </td>
-            <td>
-                Signos Vitales
-            </td>
-            <td>
-                Historia Clinica
-            </td>
-            <td>
-                Acompañante
-            </td>
-            <td>
-                Antecedentes
-            </td>
-            <td>
-                Cubiculo
-            </td>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-                <table class="table table-striped table-bordered">
-                    @foreach($paciente->tratamientos as $tratamiento)
-                    <tr>
-                        <td>
-                            {{$tratamiento->medicamento}} de {{$tratamiento->dosis}} cada {{$tratamiento->periocidad}}
-                        </td>
-                    </tr>
-                    @endforeach
-                </table>
-            </td>
-            <td>
-                <table class="table table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <td>
-                                Fecha
-                            </td>
-                            <td>
-                                Pulso
-                            </td>
-                            <td>
-                                SO
-                            </td>
-                        </tr>
-                    </thead>
-                    @foreach($paciente->signosVitales as $signoVital)
-                    <tr>
-                        <td>
-                            {{$signoVital->fecha_signo}}
-                        </td>
-                        <td>
-                            {{$signoVital->pulso}}
-                        </td>
-                        <td>
-                            {{$signoVital->so}}
-                        </td>
-                    </tr>
-                    @endforeach
-                </table>
+        <!-- Bootstrap -->
+        <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
-            </td>
-            <td>
-                <table class="table table-striped table-bordered">
-                    @foreach($paciente->historiasClinicas as $historias)
-                    <tr>
-                        <td>
-                            {{$historias->historia}}
-                        </td>
-                    </tr>
-                    @endforeach
-                </table>
-            </td>
-            <td>
-                <table class="table table-striped table-bordered">
-                    @foreach($paciente->acompaniantes as $acompaniante)
-                    <tr>
-                        <td>
-                            {{$acompaniante}}
-                        </td>
-                    </tr>
-                    @endforeach
-                </table>
-            </td>
-            <td>
-                <table class="table table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <td>
-                                Tipo
-                            </td>
-                            <td>
-                                Nombre
-                            </td>
-                            <td>
-                                Alergia
-                            </td>
-                            <td>
-                                Antecedente Familiar
-                            </td>
-                            <td>
-                                Antecedente Personal
-                            </td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($paciente->antecedentes as $antecedente)
-                        <tr>
-                            <td>
-                                {{$antecedente}}
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </td>
-            <td>
-                <table class="table table-striped table-bordered">
-                    @foreach($paciente->asignacionPacientes as $asignacion)
-                    <tr>
-                        <td>
-                            {{$asignacion->cubiculo->numero}}
-                        </td>
-                    </tr>
-                    @endforeach
-                </table>
-            </td>
-        </tr>
-    </tbody>
-</table>
-@endsection
+    </head>
 
-@section("plugin-js")
-<script type="text/javascript" src="http://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<!-- jQuery autocomplete -->
-<script>
-$(document).ready(function () {
-    $('#datatable').DataTable({
-        buttons: ['copy', 'csv', 'print']
-    });
-});
-</script>
-<!-- /jQuery autocomplete -->
-@endsection
+    <body>
+    <center><h1>FORMATO DE HISTORIA CLINICA</h1></center>
+    <br/>
+    <dl>
+        <b>Nombre</b>: {{$paciente->nombre}}
+        <br/>
+        <b>Identificacion</b>: {{$paciente->cedula}}
+        <br/>
+        <b>Registro</b>: {{count($paciente->historiasClinicas) > 0? $paciente->historiasClinicas[0]->id:"No tiene historia clinica"}}
+    </dl>
+    <center>
+        Sexo: {{$paciente->sexo == "H"? "Masculino":"Femenino"}} | Edad: {{$paciente->edad}} | Cubiculo: {{$paciente->asignacionPacientes[0]->cubiculo->numero}} | RH: {{$paciente->tipo_sangre == "NR"?"NR":$paciente_>tipo_sangre.$paciente->RH}}
+    </center>
+
+
+    @foreach($paciente->antecedentes as $antecedente)
+    <h2>Antecedentes</h2>
+    <p>
+        {{$antecedente->tipo}}: {{$antecedente->nombre_proce}}
+    </p>
+    <h2>Alergias</h2>
+    <p>
+        {{$antecedente->alergias}}
+    </p>
+    <h2>Antecedentes Familiares</h2>
+    <p>
+        {{$antecedente->ant_familiares}}
+    </p>
+    <h2>Antecedentes Personales</h2>
+    <p>
+        {{$antecedente->ant_personales}}
+    </p>
+    @endforeach
+    <h2>Tratamientos</h2>
+    @foreach($paciente->tratamientos as $tratamiento)
+    <p>
+        Creado el: {{$tratamiento->created_at}}
+        {{$tratamiento->medicamento}} de {{$tratamiento->dosis}} cada {{$tratamiento->periocidad}}
+        <br/>
+        <b>{{$tratamiento->personal->nombre}}</b>
+    </p>
+    @endforeach
+</body>
+</html>

@@ -15,17 +15,16 @@ class Tratamiento extends Model {
     public static function Guardar($request) {
         $tratamiento = new Tratamiento();
         $tratamiento->medicamento = $request->medicamento;
-        $tratamiento->dosis = $request->dosis." ".$request->unidad;
-        $tratamiento->periocidad = $request->periocidad. " Horas";
+        $tratamiento->dosis = $request->dosis . " " . $request->unidad;
+        $tratamiento->periocidad = $request->periocidad . " Horas";
         $tratamiento->paciente_id = $request->paciente_id;
         $tratamiento->personal_id = session("personal")->id;
         //validamos si es un doctor
-        if(Personal::isDoctor(session("personal")->cedula)){
+        if (Personal::isDoctor(session("personal")->cedula)) {
             return $tratamiento->save();
-        }else{
+        } else {
             return FALSE;
         }
-
     }
 
     public static function Eliminar($id) {
@@ -34,6 +33,7 @@ class Tratamiento extends Model {
         $tratamiento->estado = "PRESCRITO";
         return $tratamiento->save();
     }
+
     public static function borrar($id) {
         //se cambia el estado del estado para 
         $tratamiento = Tratamiento::find($id);
@@ -58,6 +58,10 @@ class Tratamiento extends Model {
 
     public function paciente() {
         return $this->belongsTo('p2_v2\Paciente');
+    }
+
+    public function personal() {
+        return $this->belongsTo("p2_v2\Personal", "personal_id");
     }
 
 }

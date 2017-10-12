@@ -12,10 +12,14 @@ class Personal extends Model {
     //indicando que no va a usar las marcas de tiempo
     public $timestamps = false;
     //definiendo la clave primaria
-    protected $primaryKey = "cedula";
+    //protected $primaryKey = "cedula";//ya no necesitamos esto, ya que tiene una id
     //Desactivando el autoincremental de la id
     public $incrementing = false;
 
+    public function tratamientos() {
+        return $this->hasMany("p2_v2\Tratamiento");
+    }
+    
     public function notas() {
         return $this->hasMany('p2_v2\Nota');
     }
