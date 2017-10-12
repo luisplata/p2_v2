@@ -18,12 +18,12 @@
     </div>
     <div class="col-xs-6">
         <label> Cubiculo -Cedula - Nombre</label>>
-        <select class="form-control" name="historia_id" data-placeholder="Selecciona una historia" required>
+        <select class="form-control" name="historia_id" id="historia_id" data-placeholder="Selecciona una historia" required>
             <option></option>
             @foreach ($historias as $h)
-                 @if(count($h->paciente->asignacionPacientes) > 0)
-                    <option value="{{$h->id}}">{{$h->paciente->asignacionPacientes[0]->cubiculo->numero}} - {{$h->paciente->cedula}} - {{$h->paciente->nombre}}</option>
-                @endif
+            @if(count($h->paciente->asignacionPacientes) > 0)
+            <option value="{{$h->id}}">{{$h->paciente->asignacionPacientes[0]->cubiculo->numero}} - {{$h->paciente->cedula}} - {{$h->paciente->nombre}}</option>
+            @endif
             @endforeach
         </select>
     </div>
@@ -40,5 +40,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <script>
 $('select[name=historia_id]').select2();
+//hacemos algo cuando el cubiculo biene con algo
+var url_string = window.location;
+var url = new URL(url_string);
+var historia = url.searchParams.get("historia");
+
+if (historia != null) {
+    //seleccionamos en el selecrt el cubiculo
+    $("#historia_id option[value=" + historia + "]").attr("selected", true);
+    console.log(historia);
+    $('select[name=historia_id]').val(historia); // Select the option with a value of '1'
+    $('select[name=historia_id]').trigger('change'); // Notify any JS components that the value changed
+}
 </script>
 @endsection

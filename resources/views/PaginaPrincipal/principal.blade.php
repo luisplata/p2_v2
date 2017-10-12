@@ -218,7 +218,7 @@
                             <div class="clearfix"></div>
                             <hr>
                             <div class="col-xs-12 text-center">
-                                <a class="btn btn-default" href="{{url('')}}">Gestionar</a>
+                                <a class="btn btn-default" href="{{url('/?cubiculo='.$cubiculo->cubiculo->numero)}}">Gestionar</a>
                             </div>
                         </div>
                     </div>

@@ -24,15 +24,29 @@ class EnfermeraJefeController extends Controller {
         }
     }
 
+    public function imprimir($cubiculo, $paciente_cedula) {
+        /*
+         * Buscamos al paciente y lo mostramos para imprimir, con un botón 
+         * indicando de confirmar, para eliminar los datos
+         * 
+         */
+        $paciente = Paciente::getIdByCedula($paciente_cedula);
+        $datos = array(
+            "paciente" => $paciente
+        );
+        return view("EnfermeraJefe.imprimir", $datos);
+    }
+
     public function EliminarCubiculo($cubiculo, $paciente_cedula) {
         //Dando de alta al paciente
         /* se optienen el paciente
          * antecedente
          * acompañante
          * 
+         * Reunimos toda la información que tengamos del paciente y lo embolvemos para su deleite
+         * Solo devolvemos el paciente ya que tiene todos los datos asociados a el
          */
         try {
-
             if (Cubiculo::Eliminar($cubiculo, $paciente_cedula)) {
                 echo "elimino";
             } else {

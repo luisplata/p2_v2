@@ -17,12 +17,12 @@
 
 <div class="col-xs-6">
     <label>Cubiculo - Cedula - Nombre</label>
-    <select class="form-control" name="paciente_cedula" data-placeholder="Selecciona una historia" required>
+    <select class="form-control" name="paciente_cedula" id="paciente_cedula" data-placeholder="Selecciona una historia" required>
         <option></option>
         @foreach ($cubiculosAsignados as $ca)
-           @if(count($ca->paciente->historiasClinicas) <= 0)
-                <option value="{{$ca->paciente->cedula}}">{{$ca->paciente->asignacionPacientes[0]->cubiculo->numero}} - {{$ca->paciente->cedula}} - {{$ca->paciente->nombre}}</option>
-            @endif
+        @if(count($ca->paciente->historiasClinicas) <= 0)
+        <option value="{{$ca->paciente->cedula}}">{{$ca->paciente->asignacionPacientes[0]->cubiculo->numero}} - {{$ca->paciente->cedula}} - {{$ca->paciente->nombre}}</option>
+        @endif
         @endforeach
     </select>
 </div>
@@ -68,5 +68,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <script>
 $('select[name=historia_id]').select2();
+//hacemos algo cuando el cubiculo biene con algo
+var url_string = window.location;
+var url = new URL(url_string);
+var paciente = url.searchParams.get("paciente");
+
+if (paciente != null) {
+    //seleccionamos en el selecrt el cubiculo
+    $("#paciente_cedula option[value=" + paciente + "]").attr("selected", true);
+}
 </script>
 @endsection

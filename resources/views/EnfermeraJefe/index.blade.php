@@ -36,7 +36,7 @@
         <tr>
             <th>Cubiculo</th>
             <th>Paciente</th>
-			<th>Identificacion</th>
+            <th>Identificacion</th>
             <th>Accion</th>
         </tr>
     </thead>
@@ -47,11 +47,8 @@
         <tr>
             <td>{{$c->cubiculo_numero}}</td>
             <td>{{$c->paciente_nombre}}</td>
-			<td>{{$c->paciente_cedula}}</td>
+            <td>{{$c->paciente_cedula}}</td>
             <td>
-                <div class="col-xs-3">
-                    <a href="{{url('enfermera_jefe/eliminarCubiculo/'.$c->cubiculo_numero.'/'.$c->paciente_cedula)}}" class="btn btn-warning hidden">Dar de Alta</a>    
-                </div>
                 <div class="col-xs-6">
                     {{Form::open(["url"=>"enfermera_jefe/pasar"])}}
                     <input type="hidden" value="{{$c->cubiculo_numero}}" name="cubiculo_origen" />
@@ -66,6 +63,9 @@
                         </span>
                     </div>
                     {{Form::close()}}
+                </div>
+                <div class="col-xs-3">
+                    <a href="{{url('enfermera_jefe/imprimir/'.$c->cubiculo_numero.'/'.$c->paciente_cedula)}}" class="btn btn-warning">Dar de Alta</a>    
                 </div>
             </td>
         </tr>
@@ -86,17 +86,17 @@ var countries = {
 @foreach ($pacientes as $paciente)
         "{{$paciente->cedula}}":"{{$paciente->cedula}}",
         @endforeach
-        };
+};
 var countriesArray = $.map(countries, function(value, key) {
 return {
 value: value,
         data: key
-        };
+};
 });
 // initialize autocomplete with custom appendTo
 $('#autocomplete-custom-append').autocomplete({
 lookup: countriesArray
-        });
+});
 $('#datatable').DataTable();
 });
 </script>
