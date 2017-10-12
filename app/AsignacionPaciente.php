@@ -26,7 +26,7 @@ class AsignacionPaciente extends Model {
    
     public function cubiculo()
     {
-        return $this->belongsTo('p2_v2\Cubiculo');
+        return $this->belongsTo('p2_v2\Cubiculo',"cubiculo_numero");
     }
     
     public function paciente()

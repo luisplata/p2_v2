@@ -87,9 +87,6 @@ Route::group(['prefix' => 'principal'], function () {
 
 Route::resource("/historia_clinica", "HistoriaClinicaController");
 
-Route::get('/{mensaje?}', function ($request = null) {
-    $datos = array(
-        "mensaje" => $request
-    );
-    return view('login', $datos);
+Route::get('/', function ($request = null) {
+    return view('login');
 });

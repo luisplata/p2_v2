@@ -16,12 +16,12 @@
 </div>
 
 <div class="col-xs-6">
-    <label> cedula - nombre</label>>
+    <label>Cubiculo - Cedula - Nombre</label>
     <select class="form-control" name="paciente_cedula" data-placeholder="Selecciona una historia" required>
         <option></option>
         @foreach ($cubiculosAsignados as $ca)
            @if(count($ca->paciente->historiasClinicas) <= 0)
-                <option value="{{$ca->paciente->cedula}}">{{$ca->paciente->cedula}} - {{$ca->paciente->nombre}}</option>
+                <option value="{{$ca->paciente->cedula}}">{{$ca->paciente->asignacionPacientes[0]->cubiculo->numero}} - {{$ca->paciente->cedula}} - {{$ca->paciente->nombre}}</option>
             @endif
         @endforeach
     </select>

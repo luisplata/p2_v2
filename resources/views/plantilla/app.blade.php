@@ -58,7 +58,7 @@ $(function () {
             icon: "warning"
         }).then(() => {
             //redireccion al login
-            location.href = "{{url('/logout')}}";
+            location.href="{{url('/principal')}}";
         });
     }
     );

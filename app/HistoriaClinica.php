@@ -38,8 +38,12 @@ class HistoriaClinica extends Model {
         $historiaClinica = new HistoriaClinica();
         $historiaClinica->historia = $request->historia;
         $historiaClinica->paciente_id = Paciente::getIdByCedula($request->paciente_cedula)->id;
-
-        return $historiaClinica->save();
+        $historiaClinica->personal_id = session("personal")->id;
+        if(Personal::isDoctor(session("personal")->cedula)){
+            return $historiaClinica->save();
+        }else{
+            return FALSE;
+        }
     }
 
     public static function GetAll() {

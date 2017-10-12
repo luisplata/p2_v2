@@ -17,11 +17,13 @@
         <textarea class="form-control" name="nota" placeholder="Ingrese la nota a la historia clinica" rows="10"></textarea>
     </div>
     <div class="col-xs-6">
-        <label> historias: # - cedula - nombre</label>>
+        <label> Cubiculo -Cedula - Nombre</label>>
         <select class="form-control" name="historia_id" data-placeholder="Selecciona una historia" required>
             <option></option>
             @foreach ($historias as $h)
-            <option value="{{$h->id}}">{{$h->id}} - {{$h->paciente->cedula}} - {{$h->paciente->nombre}}</option>
+                 @if(count($h->paciente->asignacionPacientes) > 0)
+                    <option value="{{$h->id}}">{{$h->paciente->asignacionPacientes[0]->cubiculo->numero}} - {{$h->paciente->cedula}} - {{$h->paciente->nombre}}</option>
+                @endif
             @endforeach
         </select>
     </div>

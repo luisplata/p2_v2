@@ -76,8 +76,16 @@
                 $numero = 0;
                 @endphp
 
+                @if(count($cubiculoAsignado) <= 0)
+                    <script>
+                        swal("No hay datos que mostrar")
+                            .then((value) => {
+                            location.href ="{{url('/')}}";
+                        });
+                    </script>
+                @else
 
-
+                <!-- foreach cubiculo--------------------------------------------------------------------------- -->
                 @foreach ($cubiculoAsignado as $cubiculo)
                 @php
                 $numero++;
@@ -92,9 +100,11 @@
                                 @php
                                 $antecedente = $cubiculo->paciente->antecedentes->first();
                                 $alergia = "";
+                                //If del cubiculo par alos antecedentes////////////////////////////////////////////////
                                 if(is_object($antecedente)){
                                 $alergia = $antecedente->alergias;
                                 }
+                                //If del cubiculo par alos antecedentes////////////////////////////////////////////////
                                 @endPhp
                                 Alergias:<br/>
                                 {{$alergia}}
@@ -127,82 +137,96 @@
                                     <label>Tratamientos</label>
                                 </div>
                                 <ul class="list-group">
+                                    <!-- foreach de los tatamientos ----------------------------------------------- -->
                                     @foreach ($cubiculo->paciente->tratamientos as $tratamiento)
+                                    <!-- if del tratamiento ------------------------------------------------------- -->
                                     @if($tratamiento->estado == "VIGENTE")
                                     <li class="list-group-item " id="medicamento_id_{{$tratamiento->id}}">
                                         {{$tratamiento->dosis}} de {{$tratamiento->medicamento}} cada {{$tratamiento->periocidad}} horas
                                         <script>
-//fecha inical del medicamento
-var fechaHoraInicial = moment("{{$tratamiento->updated_at}}");
-//mientras se soluciona el problema con la fecha en el servidor
-fechaHoraInicial.add(-5,"h");
-//periocidad del medicamento
-var periocidad = "{{$tratamiento->periocidad}}";
-periocidad = periocidad.split(" ")[0];
-//fecha hora actual
-var fechaActual = moment();
-//minutos restantes
-var minutosRestantes = Math.abs(fechaActual.diff(fechaHoraInicial, "minutes"));
-//Caso 1, Caso normal (esta dentro de primer rango de fecha)
-//Se cargan los tratamientos, y se calcula el restante para la proxima alerta
-console.log(fechaActual.format('YYYY-MM-DD HH:mm:ss') + " - " + fechaHoraInicial.format('YYYY-MM-DD HH:mm:ss') + " = " + minutosRestantes);
+                                            //fecha inical del medicamento
+                                            var fechaHoraInicial = moment("{{$tratamiento->updated_at}}");
+                                            //mientras se soluciona el problema con la fecha en el servidor
+                                            fechaHoraInicial.add(-5,"h");
+                                            //periocidad del medicamento
+                                            var periocidad = "{{$tratamiento->periocidad}}";
+                                            periocidad = periocidad.split(" ")[0];
+                                            //fecha hora actual
+                                            var fechaActual = moment();
+                                            //minutos restantes
+                                            console.log(periocidad,"periocidad");
+                                            periocidad *= 60;//cambiando a minutos la periocidad
+                                            var minutosRestantes = Math.abs(fechaActual.diff(fechaHoraInicial, "minutes"));
+                                            minutosRestantes -= periocidad;
+                                            minutosRestantes = Math.abs(minutosRestantes);
+                                            //Caso 1, Caso normal (esta dentro de primer rango de fecha)
+                                            //Se cargan los tratamientos, y se calcula el restante para la proxima alerta
+                                            console.warn(fechaActual.format('YYYY-MM-DD HH:mm:ss') + " - " + fechaHoraInicial.format('YYYY-MM-DD HH:mm:ss') + " = " + minutosRestantes);
+                                            minutosRestantes %= periocidad;
+                                            minutosRestantes = minutosRestantes * 60 * 1000;//milisegundos
+                                            console.error(minutosRestantes);//milisegundos
+                                            setInterval(function () {
+                                                swal("Esta es una alarma del {{$cubiculo->numero}} del tratamiento {{$tratamiento->medicamento}} cada {{$tratamiento->periocidad}} horas con una docis {{$tratamiento->dosis}}");
+                                                //creamos un temporalizador para marcrla como no atendida
+                                                //setTimeout(function(){
 
-periocidad *= 60;//cambiando a minutos la periocidad
-console.log(periocidad);//periocidad en min
-console.log(minutosRestantes % periocidad);//tiempo en minutos de la pricima alerta
-minutosRestantes %= periocidad;
-minutosRestantes = minutosRestantes * 60 * 1000;//milisegundos
-console.log(minutosRestantes);//milisegundos
-setInterval(function () {
-    swal("Esta es una alarma");
-    //creamos un temporalizador para marcrla como no atendida
-    //setTimeout(function(){
-
-    //}, timeout);
-    minutosRestantes = periocidad * 60 * 1000;
-}
-, minutosRestantes);
-//console.log(fechaHoraInicial.format('HH:mm:ss'));
-//console.log(fechaActual.format('HH:mm:ss'));
-//Creamos un setInterval() para ejecutar la cunfion con la periocidad
-//del tratamiento
-//pero primero se calcula cual es la prixima alerta
+                                                //}, timeout);
+                                                minutosRestantes = periocidad * 60 * 1000;
+                                            }
+                                            , minutosRestantes);
+                                            //console.log(fechaHoraInicial.format('HH:mm:ss'));
+                                            //console.log(fechaActual.format('HH:mm:ss'));
+                                            //Creamos un setInterval() para ejecutar la cunfion con la periocidad
+                                            //del tratamiento
+                                            //pero primero se calcula cual es la prixima alerta
 
                                         </script>
                                         <span id="tratamiento_boton_{{$tratamiento->id}}"  class="hidden"><button data-tratamiento_id="{{$tratamiento->id}}" onClick="AlarmaMedicamentoContestada(this)">Administrar</button></span>
                                     </li>
-                                    @endif
+                                        @endif
+                                        <!-- if ----------------------------------------------- -->
                                     @endforeach
+                                    <!-- foreach ----------------------------------------------- -->
                                 </ul>
                             </div>
+
+
                             <div class="col-xs-6">
                                 <div class="text-center">
                                     <a class="btn btn-default hidden" data-toggle="modal" data-target="#AdicionDeNotaMedica" data-cubiculo="{{$cubiculo->numero}}">Notas Medicas</a>
                                     <label>Notas Medicas</label>
                                 </div>
                                 <ul class="list-group">
+                                    <!-- foreach ----------------------------------------------- -->
                                     @foreach ($cubiculo->paciente->historiasClinicas as $historiasClinicas)
-                                    @foreach ($historiasClinicas->notas as $nota)
-                                    <li class="list-group-item">
-                                        {{$nota->notas}}
-                                    </li>
-                                    @endforeach
+                                        <!-- foreach  ----------------------------------------------- -->
+                                        @foreach ($historiasClinicas->notas as $nota)
+                                        <li class="list-group-item">
+                                            {{$nota->notas}}
+                                        </li>
+                                        <!-- foreach  ----------------------------------------------- -->
+                                        @endforeach
+                                        <!-- foreach  ----------------------------------------------- -->
                                     @endforeach
                                 </ul>
                             </div>
                             <div class="clearfix"></div>
                             <hr>
                             <div class="col-xs-12 text-center">
-                                <a class="btn btn-default" target="_blank" href="{{url('')}}">Gestionar</a>
+                                <a class="btn btn-default" href="{{url('')}}">Gestionar</a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!--Se mira que sea el tercero de la fila para colocar un clearfix-->
+                <!-- if ----------------------------------------------- -->
                 @if(($numero % 3) == 0)
                 <div class="clearfix"></div>
+                <!-- if  ----------------------------------------------- -->
                 @endif
-                @endforeach		
+                <!-- foeeach  del cubiculo----------------------------------------------- -->
+                @endforeach
+                @endif
                 <!-- /page content -->
             </div>
         </div>
@@ -315,28 +339,25 @@ setInterval(function () {
                                                 var modal = $(this)
                                                 modal.find('.cubiculo').val(recipient)
                                             });
-                                            var parametros = {
-                                                "cubiculo": "{!!$cubiculo->numero!!}"
-                                            };
 
                                             Date.prototype.addHours = function (h) {
                                                 this.setTime(this.getTime() + (h * 60 * 60 * 1000));
                                                 return this;
                                             }
 
-                                            function AlarmaMedicamentoContestada(boton) {
-                                                var bot = $(boton);
-                                                var id = bot.data("tratamiento_id");
-                                                $.ajax({
-                                                    url: '{{url("simulador/tratamiento/")}}/' + id,
-                                                    success: function (response) {
-                                                        var botone = $("#tratamiento_boton_" + id);
-                                                        botone.addClass("hidden");
-                                                        var medicamento = $("#medicamento_id_" + id);
-                                                        medicamento.removeClass("alerta");
-                                                    }
-                                                });
-                                            }
+//                                            function AlarmaMedicamentoContestada(boton) {
+//                                               var bot = $(boton);
+//                                                var id = bot.data("tratamiento_id");
+//                                                $.ajax({
+//                                                    url: '{{url("simulador/tratamiento/")}}/' + id,
+//                                                   success: function (response) {
+//                                                        var botone = $("#tratamiento_boton_" + id);
+//                                                        botone.addClass("hidden");
+//                                                        var medicamento = $("#medicamento_id_" + id);
+//                                                        medicamento.removeClass("alerta");
+//                                                    }
+//                                                });
+//                                            }
 
                                             function medicamentos(cubiculo) {
                                                 $.ajax({
