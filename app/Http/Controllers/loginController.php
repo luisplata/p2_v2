@@ -71,7 +71,7 @@ class loginController extends Controller {
         $personal = Personal::BuscarPorCedula($request->cedula);
         if ($personal != null) {
             //validamos la contraseña que envia
-            if(sha1($request->pass) != $personal->pass){
+            if (sha1($request->pass) != $personal->pass) {
                 return redirect("/Usuario o contraseña invalidos");
             }
             //validamos que este activo para ingresar
@@ -80,11 +80,26 @@ class loginController extends Controller {
                 return redirect("/Usuario o contraseña invalidos");
             }
             if ($personal->tipo == "DOCTOR") {
-                return redirect("doctor");
+                //verificamos que venga con un cubiculo si es asi, le madamos el dato
+                //del paciente y su cedula
+                $dato = "";
+                $cubiculo = \p2_v2\Cubiculo::find($request->cubiculo);
+                if (is_object($cubiculo)) {
+                    $dato = "?paciente=" . $cubiculo->asignacionPacientes[0]->paciente->cedula;
+                }
+                return redirect("doctor" . $dato);
             } elseif ($personal->tipo == "ENFERMERA_JEFE") {
                 return redirect("enfermera_jefe");
             } elseif ($personal->tipo == "ENFERMERA") {
-                return redirect("enfermera");
+                //verificamos que venga con un cubiculo si es asi, le madamos el dato
+                //del paciente y su cedula
+                $dato = "";
+                $cubiculo = \p2_v2\Cubiculo::find($request->cubiculo);
+                if (is_object($cubiculo) && count($cubiculo->asignacionPacientes) > 0 && count($cubiculo->asignacionPacientes[0]->paciente->historiasClinicas) > 0) {
+
+                    $dato = "?historia=" . $cubiculo->asignacionPacientes[0]->paciente->historiasClinicas[0]->id;
+                }
+                return redirect("enfermera" . $dato);
             } elseif ($personal->tipo == "ADMISIONISTA") {
                 return redirect("admisionista");
             } elseif ($personal->tipo == "ADMINISTRADOR") {

@@ -41,6 +41,7 @@ Route::group(['middleware' => 'autenticado'], function () {
         Route::resource('/', 'EnfermeraJefeController');
         Route::post("asignarCubiculo", "EnfermeraJefeController@AsignarCubiculo");
         Route::get("eliminarCubiculo/{cubiculo}/{paciente_cedula}", "EnfermeraJefeController@EliminarCubiculo");
+        Route::get("imprimir/{cubiculo}/{paciente_cedula}", "EnfermeraJefeController@imprimir");
         Route::post("pasar", "EnfermeraJefeController@cambiarDeCubiculo");
     });
 
