@@ -30,16 +30,11 @@ class EnfermeraJefeController extends Controller {
          * indicando de confirmar, para eliminar los datos
          * 
          */
-        $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML('<h1>Test</h1>');
-        return $pdf->stream();
         $paciente = Paciente::getIdByCedula($paciente_cedula);
         $data = array(
             "paciente" => $paciente
         );
         return view("EnfermeraJefe.imprimir", $data);
-        $pdf = \PDF::loadView('EnfermeraJefe.imprimir', $data);
-        return $pdf->download('invoice.pdf');
     }
 
     public function EliminarCubiculo($cubiculo, $paciente_cedula) {

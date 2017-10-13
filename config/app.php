@@ -182,7 +182,6 @@ return [
         p2_v2\Providers\EventServiceProvider::class,
         p2_v2\Providers\RouteServiceProvider::class,
         
-        Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
 
@@ -236,7 +235,6 @@ return [
         //paquetes nuevos
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
-        'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ],
 

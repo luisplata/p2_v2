@@ -61,7 +61,9 @@
     <button class="btn btn-primary hidden-print" id="imprimir">Imprimir</button>
     <script>
         document.querySelector("#imprimir").onclick = function () {
-            alert("click");
+            alert("Alerta, Al terminar el proceso de impresion se liberará el cubiculo del paciente");
+            window.print();
+            location.href = "{{url('enfermera_jefe')}}";
         };
     </script>
 </body>
