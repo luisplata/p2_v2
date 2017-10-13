@@ -3,6 +3,7 @@
 namespace p2_v2;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Cubiculo extends Model {
 
@@ -15,10 +16,8 @@ class Cubiculo extends Model {
     //Desactivando el autoincremental de la id
     public $incrementing = false;
 
-   
-
     public static function Asignar($request) {
-        
+
         $cubiculo = new AsignacionPaciente();
         $cubiculo->cubiculo_numero = $request->numero;
         $cubiculo->paciente_id = Paciente::getIdByCedula($request->paciente_cedula)->id;
@@ -31,8 +30,8 @@ class Cubiculo extends Model {
         //Esto lo vamos a hacer buscando primero en le cubiculo no haya otra persona
         //y son dos valicaciones: Que el cubiculo no tenga alguien mas
         //que el paciente no este asignado ya en un cubiculo
-        $cubiculo_ocupado = AsignacionPaciente::where("cubiculo_numero",$request->numero)->first();
-        if(!is_null($cubiculo_ocupado)){
+        $cubiculo_ocupado = AsignacionPaciente::where("cubiculo_numero", $request->numero)->first();
+        if (!is_null($cubiculo_ocupado)) {
             //sugnifica que si ya hay alguien en el cubiculo
             return FALSE;
         }
@@ -44,26 +43,66 @@ class Cubiculo extends Model {
     }
 
     public static function ELiminar($numero, $paciente_cedula) {
-        $asignacion_cubiculo = AsignacionPaciente::where("cubiculo_numero", $numero)->where("paciente_id", Paciente::getIdByCedula($paciente_cedula)->id)->first();
-        //dd($asignacion_cubiculo);
-        if ($asignacion_cubiculo->delete()) {
-            return TRUE;
-        } else {
-            return FALSE;
+        DB::beginTransaction();
+        try {
+            $asignacion_cubiculo = AsignacionPaciente::where("cubiculo_numero", $numero)->where("paciente_id", Paciente::getIdByCedula($paciente_cedula)->id)->first();
+            //dd($asignacion_cubiculo->paciente->tratamientos);
+            foreach ($asignacion_cubiculo->paciente->tratamientos as $tratamiento) {
+                $tratamiento->delete();
+            }
+            //dd($asignacion_cubiculo->paciente->tratamientos);
+
+            foreach ($asignacion_cubiculo->paciente->antecedentes as $antecedentes) {
+                $antecedentes->delete();
+            }
+            //dd($asignacion_cubiculo->paciente->antecedentes);
+
+            foreach ($asignacion_cubiculo->paciente->signosVitales as $signosVitales) {
+                $signosVitales->delete();
+            }
+            //dd($asignacion_cubiculo->paciente->signosVitales);
+
+            foreach ($asignacion_cubiculo->paciente->historiasClinicas as $historiasClinicas) {
+                //eliminamos las notas aqui
+                foreach ($historiasClinicas->notas as $nota) {
+                    $nota->delete();
+                }
+                $historiasClinicas->delete();
+            }
+            //dd($asignacion_cubiculo->paciente->historiasClinicas);
+            $asignacion_cubiculo->delete();
+            /*
+              $asignacion_cubiculo = AsignacionPaciente::where("cubiculo_numero", $numero)->where("paciente_id", Paciente::getIdByCedula($paciente_cedula)->id)->first();
+              //dd($asignacion_cubiculo);
+              if ($asignacion_cubiculo->delete()) {
+              //eliminamos tambien la historia clinica y las notas asociadas a el
+              $asignacion_cubiculo->paciente->tratamientos->delete();
+              return TRUE;
+              } else {
+              return FALSE;
+              }
+             * 
+             */
+            DB::commit();
+            return redirect("Enfermera_jefe?mensaje=Se dio de alta al paciente");
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            dd($ex);
+            return redirect("Enfermera_jefe?mensaje=No se diod e alta al paciente");
         }
     }
 
     public static function GetCedulaByCubiculo($cubiculo) {
         $c = Cubiculo::where("numero", $cubiculo)->first()->paciente_id;
-        if(is_object($c)){
+        if (is_object($c)) {
             return $c;
-        }else{
+        } else {
             return null;
         }
     }
 
-     public function asignacionPacientes()
-    {
+    public function asignacionPacientes() {
         return $this->hasMany('p2_v2\AsignacionPaciente');
     }
+
 }

@@ -63,7 +63,7 @@
         document.querySelector("#imprimir").onclick = function () {
             alert("Alerta, Al terminar el proceso de impresion se liberará el cubiculo del paciente");
             window.print();
-            location.href = "{{url('enfermera_jefe')}}";
+            location.href = "{{url('enfermera_jefe/darDeAlta/'.$paciente->asignacionPacientes[0]->cubiculo->numero.'/'.$paciente->cedula)}}";
         };
     </script>
 </body>

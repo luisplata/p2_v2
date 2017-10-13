@@ -43,6 +43,7 @@ Route::group(['middleware' => 'autenticado'], function () {
         Route::get("eliminarCubiculo/{cubiculo}/{paciente_cedula}", "EnfermeraJefeController@EliminarCubiculo");
         Route::get("imprimir/{cubiculo}/{paciente_cedula}", "EnfermeraJefeController@imprimir");
         Route::post("pasar", "EnfermeraJefeController@cambiarDeCubiculo");
+        Route::get("darDeAlta/{cubiculo}/{cedulaPaciente}","EnfermeraJefeController@EliminarCubiculo");
     });
 
     Route::group(['prefix' => 'doctor', "middleware" => "doctor"], function () {

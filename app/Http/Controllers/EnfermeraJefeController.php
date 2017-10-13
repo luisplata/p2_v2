@@ -39,10 +39,7 @@ class EnfermeraJefeController extends Controller {
 
     public function EliminarCubiculo($cubiculo, $paciente_cedula) {
         //Dando de alta al paciente
-        /* se optienen el paciente
-         * antecedente
-         * acompañante
-         * 
+        /* Se quita el paciente al asignacionPaciente
          * Reunimos toda la información que tengamos del paciente y lo embolvemos para su deleite
          * Solo devolvemos el paciente ya que tiene todos los datos asociados a el
          */
