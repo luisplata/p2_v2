@@ -157,16 +157,21 @@
                                             console.log(periocidad,"periocidad");
                                             periocidad *= 60;//cambiando a minutos la periocidad
                                             var minutosRestantes = Math.abs(fechaActual.diff(fechaHoraInicial, "minutes"));
-                                            minutosRestantes -= periocidad;
-                                            minutosRestantes = Math.abs(minutosRestantes);
+
+
                                             //Caso 1, Caso normal (esta dentro de primer rango de fecha)
                                             //Se cargan los tratamientos, y se calcula el restante para la proxima alerta
                                             console.warn(fechaActual.format('YYYY-MM-DD HH:mm:ss') + " - " + fechaHoraInicial.format('YYYY-MM-DD HH:mm:ss') + " = " + minutosRestantes);
+                                            console.error(minutosRestantes, "Antes");//milisegundos
                                             minutosRestantes %= periocidad;
+                                            minutosRestantes -= periocidad;
+                                            minutosRestantes = Math.abs(minutosRestantes);
+                                            console.error(minutosRestantes,"Despues");//milisegundos
                                             minutosRestantes = minutosRestantes * 60 * 1000;//milisegundos
-                                            console.error(minutosRestantes);//milisegundos
+
                                             setInterval(function () {
-                                                swal("Esta es una alarma del {{$cubiculo->numero}} del tratamiento {{$tratamiento->medicamento}} cada {{$tratamiento->periocidad}} horas con una docis {{$tratamiento->dosis}}");
+                                                console.error("se activo la alarma");
+                                                swal("Esta es una alarma del |{{$cubiculo->numero}}| del tratamiento {{$tratamiento->medicamento}} cada {{$tratamiento->periocidad}} horas con una docis {{$tratamiento->dosis}}");
                                                 //creamos un temporalizador para marcrla como no atendida
                                                 //setTimeout(function(){
 
