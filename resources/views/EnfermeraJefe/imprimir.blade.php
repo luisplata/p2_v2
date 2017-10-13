@@ -58,5 +58,11 @@
         <b>{{$tratamiento->personal->nombre}}</b>
     </p>
     @endforeach
+    <button class="btn btn-primary hidden-print" id="imprimir">Imprimir</button>
+    <script>
+        document.querySelector("#imprimir").onclick = function () {
+            alert("click");
+        };
+    </script>
 </body>
 </html>
