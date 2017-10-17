@@ -72,12 +72,12 @@ class loginController extends Controller {
         if ($personal != null) {
             //validamos la contraseña que envia
             if (sha1($request->pass) != $personal->pass) {
-                return redirect("/Usuario o contraseña invalidos");
+                return redirect("/?mensaje=Usuario o contraseña invalidos");
             }
             //validamos que este activo para ingresar
             if ($personal->estado != "ACTIVADO") {
                 //NO ESTA AUTORIZADO
-                return redirect("/Usuario o contraseña invalidos");
+                return redirect("/?mensaje=Usuario o contraseña invalidos");
             }
             if ($personal->tipo == "DOCTOR") {
                 //verificamos que venga con un cubiculo si es asi, le madamos el dato
@@ -106,7 +106,7 @@ class loginController extends Controller {
                 return redirect("administrador");
             }
         } else {
-            return redirect("/Usuario o contraseña invalidos");
+            return redirect("/?mensaje=Usuario o contraseña invalidos");
         }
     }
 

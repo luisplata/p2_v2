@@ -82,10 +82,10 @@ class AdministradorController extends Controller {
         //
         $personal = Personal::find($id);
         //dd($personal);
-        if(!is_object($personal)){
+        if (!is_object($personal)) {
             return redirect("administrador?mensaje=El usuario que desea modificar no existe");
         }
-        return view("Administrador.edit",$personal);
+        return view("Administrador.edit", $personal);
     }
 
     /**
@@ -98,7 +98,7 @@ class AdministradorController extends Controller {
     public function update(Request $request, $id) {
         //Actualizamos al personal que biene por parametro
         $personal = Personal::find($id);
-        if(!is_object($personal)){
+        if (!is_object($personal)) {
             return redirect("administrador?mensaje=El usuario que desea modificar no existe");
         }
         $personal->nombre = $request->nombre;
@@ -106,9 +106,14 @@ class AdministradorController extends Controller {
         $personal->tipo = $request->tipo;
         $personal->sexo = $request->sexo;
         $personal->direccion = $request->direccion;
-        if($personal->save()){
+        //solo cuando se modifica el pass se coloca algo si no no cambia
+        if ($request->pass) {
+            //lo cambiamos
+            $personal->pass = sha1($request->pass);
+        }
+        if ($personal->save()) {
             return redirect("administrador?mensaje=El usuario fue modificado&tipo=success");
-        }else{
+        } else {
             return redirect("administrador?mensaje=No fue psible modificarlo");
         }
     }
@@ -122,13 +127,12 @@ class AdministradorController extends Controller {
     public function destroy($id) {
         //eliminamos al que pase por aqui
         $personal = Personal::find($id);
-        if(!is_object($personal)){
+        if (!is_object($personal)) {
             return redirect("administrador?mensaje=El usuario que desea eliminar no existe");
         }
-        if($personal->delete()){
+        if ($personal->delete()) {
             return redirect("administrador?mensaje=El usuario ha sido eliminado con exito&tipo=success");
         }
-        
     }
 
 }

@@ -6,7 +6,7 @@
 
 @section("contenido")
 <h2>Registro de Personal</h2>
-{{Form::open(['url' => ['administrador', $cedula], 'method' => 'put'])}}
+{{Form::open(['url' => ['administrador', $id], 'method' => 'put'])}}
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <input value="{{$nombre}}" type="text" class="form-control has-feedback-left" id="inputSuccess2" name="nombre" placeholder="Nombre" required>
     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
@@ -21,6 +21,10 @@
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <input value="{{$direccion}}" type="text" class="form-control has-feedback-left"  id="inputSuccess2" placeholder="direccion" name="direccion" required>
+    <span class="glyphicon glyphicon-map-marker form-control-feedback left" aria-hidden="true"></span>
+</div>
+<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+    <input type="password" class="form-control has-feedback-left"  id="inputSuccess2" placeholder="password" name="pass" required>
     <span class="glyphicon glyphicon-map-marker form-control-feedback left" aria-hidden="true"></span>
 </div>
 <div class="clearfix"></div>
@@ -62,8 +66,8 @@
 @section("plugin-js")
 <script>
 //Vamos a seleccionar el que biene por DB
-$(document).ready(function (){
-   $("select[name=tipo] option[value={{$tipo}}]").prop('selected', true);
-});
+    $(document).ready(function () {
+        $("select[name=tipo] option[value={{$tipo}}]").prop('selected', true);
+    });
 </script>
 @endsection

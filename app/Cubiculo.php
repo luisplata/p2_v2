@@ -70,7 +70,11 @@ class Cubiculo extends Model {
                 $historiasClinicas->delete();
             }
             //dd($asignacion_cubiculo->paciente->historiasClinicas);
+            $paciente = $asignacion_cubiculo->paciente;
             $asignacion_cubiculo->delete();
+            
+            //eliminamos al paciente de la DB
+            $paciente->delete();
             /*
               $asignacion_cubiculo = AsignacionPaciente::where("cubiculo_numero", $numero)->where("paciente_id", Paciente::getIdByCedula($paciente_cedula)->id)->first();
               //dd($asignacion_cubiculo);
