@@ -73,7 +73,8 @@ Route::group(['prefix' => 'simulador'], function () {
     Route::get("/leer/", "SignosVItalesController@LecturaSignosVitales");
     Route::get("/medicamento/{cubiculo}", "SignosVItalesController@Medicamentos");
     Route::get("/tratamiento/{tratamiento_id}", "SignosVItalesController@ActualizarTratamiento");
-    Route::get("/atenderAlerta/{cubiculo}", "CubiculoController@atenderAlerta");
+    Route::post("/atenderAlerta/{cubiculo}", "CubiculoController@atenderAlerta");
+    Route::post("/atenderAlerta/enfermeraJefe/{cubiculo}", "CubiculoController@atenderAlertaEnfermeraJefe");
 });
 
 //Pagina principal

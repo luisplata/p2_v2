@@ -84,7 +84,7 @@
                 @else
                 <a href="{{url('administrador/activar/'.$p->cedula)}}" class="btn btn-success">Activar</a>
                 @endif
-                <a href="{{url('administrador/'.$p->cedula.'/edit')}}" class="btn btn-primary">Modificar</a>
+                <a href="{{url('administrador/'.$p->id.'/edit')}}" class="btn btn-primary">Modificar</a>
                 <a href="{{url('administrador/eliminar/'.$p->cedula)}}" class="btn btn-danger">Eliminar</a>
             </td>
         </tr>

@@ -30,6 +30,12 @@
         Sexo: {{$paciente->sexo == "H"? "Masculino":"Femenino"}} | Edad: {{$paciente->edad}} | Cubiculo: {{$paciente->asignacionPacientes[0]->cubiculo->numero}} | RH: {{$paciente->tipo_sangre == "NR"?"NR":$paciente->tipo_sangre.$paciente->RH}}
     </center>
 
+    @foreach($paciente->historiasClinicas as $historia)
+    <h2>Historia Clinica</h2>
+    <p>
+        {{$historia->historia}}
+    </p>
+    @endforeach
 
     @foreach($paciente->antecedentes as $antecedente)
     <h2>Antecedentes</h2>

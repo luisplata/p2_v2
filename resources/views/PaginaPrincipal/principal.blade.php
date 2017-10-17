@@ -266,6 +266,35 @@ swal("No hay datos que mostrar")
                 </div>
             </div>
         </div>
+        <!-- Modal -->
+        <div class="modal fade" id="atenderAlrtaCritica" tabindex="-1">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="alerta-critica-titulo">Alerta Medica!!!</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <p><span id="alerta-critica-contenido"></span></p>
+                            <div class="col-xs-6 form-group has-feedback">
+                                <label>Usuario</label>
+                                <input type="text" id="alerta-critica-user" class="form-control" placeholder="Usuario">
+                            </div>
+                            <div class="col-xs-6 form-group has-feedback">
+                                <label>Contrsaeña</label>
+                                <input type="password" id="alerta-critica-pass" class="form-control"  placeholder="Contraseña">
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                <input type="" id="alerta-critica-cubiculo" name="cubiculo">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btnAtender-critica" class="btn btn-primary">Atender</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- jQuery -->
         <script src="../vendors/jquery/dist/jquery.min.js"></script>
         <!-- Bootstrap -->
@@ -281,8 +310,8 @@ swal("No hay datos que mostrar")
 
         <script>
                                             var url = "{{url("")}}";
+                                            var token = "{{csrf_token()}}";
                                             $(document).ready(function () {
-
                                                 setInterval(function () {
                                                     ajax('{{url("")}}');
                                                 }, 500);

@@ -7,21 +7,68 @@ function alerta(cubiculo, alerta) {
         backdrop: 'static',
         keyboard: false
     });
+    //Comenzamos  contar para la alerta critica
+    alertaCritica(cubiculo, alerta);
+}
+function alertaCritica(cubiculo, alerta) {
+    setTimeout(function () {
+        $("#atenderAlrta").modal('hide');
+        $("#alerta-critica-titulo").text("Alerta critica! " + "Cubiculo " + cubiculo);
+        $("#alerta-critica-contenido").text(alerta);
+        $("#alerta-critica-cubiculo").val(cubiculo);
+        $("#atenderAlrtaCritica").modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+    }, 30000);
 }
 function validarUsurio(url, cubiculo, user, pass) {
     //hacemos un ajax verificar estos datos
+
     $.ajax({
         url: url + "/simulador/atenderAlerta/" + cubiculo,
         type: 'post',
-        data: {usuario: user, pass: pass},
+        data: {usuario: user, pass: pass, _token: token},
         success: function (response) {
-            if (response) {
+            if (response.respuesta == "true") {
                 //Son validos
+                swal("Correcto");
                 console.log(response);
+                $("#atenderAlrta").modal('hide');
             } else {
                 //No son validos
+                swal("Usted no es una enfermera");
                 console.log(response);
             }
+
+            //vaciamos los campos
+            var user = $("#alerta-user").val("");
+            var pass = $("#alerta-pass").val("");
+        }
+    });
+}
+function validarEnfermeraJefe(url, cubiculo, user, pass) {
+    //hacemos un ajax verificar estos datos
+
+    $.ajax({
+        url: url + "/simulador/atenderAlerta/enfermeraJefe/" + cubiculo,
+        type: 'post',
+        data: {usuario: user, pass: pass, _token: token},
+        success: function (response) {
+            if (response.respuesta == "true") {
+                //Son validos
+                swal("Correcto");
+                console.log(response);
+                $("#atenderAlrtaCritica").modal('hide');
+            } else {
+                //No son validos
+                swal("Usted no es una enfermera");
+                console.log(response);
+            }
+
+            //vaciamos los campos
+            var user = $("#alerta-user").val("");
+            var pass = $("#alerta-pass").val("");
         }
     });
 }
@@ -103,12 +150,15 @@ $("#btnAtender").on("click", function () {
     var pass = $("#alerta-pass").val();
     var cubiculo = $("#alerta-cubiculo").val();
     isEnfermera = false;
-
     //para llegar aqui tenemos que validar
-    if (validarUsurio(url, cubiculo, user, pass)) {
-        $("#atenderAlrta").modal('hide');
-    } else {
-        swal("No son!");
-    }
+    validarUsurio(url, cubiculo, user, pass);
+});
 
+$("#btnAtender-critica").on("click", function () {
+    var user = $("#alerta-critica-user").val();
+    var pass = $("#alerta-critica-pass").val();
+    var cubiculo = $("#alerta-critica-cubiculo").val();
+    isEnfermera = false;
+    //para llegar aqui tenemos que validar
+    validarEnfermeraJefe(url, cubiculo, user, pass);
 });

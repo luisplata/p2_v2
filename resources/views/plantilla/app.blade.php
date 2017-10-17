@@ -44,6 +44,9 @@ var titulo = url.searchParams.get("titulo");
 if (mensaje != null) {
     swal(titulo == null ? "" : titulo, mensaje, tipo == null ? "info" : tipo);
 }
+//Si es un admisionista o un administrador no cuenta esto
+//{{session("personal")->tipo}}
+@if (session("personal")->tipo != "ADMINISTRADOR" && session("personal")->tipo != "ADMISIONISTA")
 $(function () {
     // Set idle time
     $(document).idleTimer(60000);
@@ -63,6 +66,7 @@ $(function () {
     }
     );
 });
+@endif
         </script>
         @yield('plugin-js')
     </body>

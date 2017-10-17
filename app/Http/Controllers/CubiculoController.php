@@ -5,6 +5,46 @@ namespace p2_v2\Http\Controllers;
 use Illuminate\Http\Request;
 
 class CubiculoController extends Controller {
+    /*
+     * Atendemos la alerta
+     * Validamos que los datos que llegan son de una enfermera
+     */
+
+    public function atenderAlerta(Request $requets, $cubiculo) {
+        //return $requets;
+        //buscamos primero por su usuario y contraseña
+        $enfermera = \p2_v2\Personal::where("cedula", $requets->usuario)->where("pass", sha1($requets->pass))->first();
+        //validamos si trajo algo o no
+        if (!is_object($enfermera)) {
+            //si no es un objeto retornamos false
+            return response()->json(["respuesta" => "false"]);
+        }
+        //validamos que sea enfermera
+        if ($enfermera->tipo != "ENFERMERA") {
+            return response()->json(["respuesta" => "false"]);
+        }
+        return response()->json(["respuesta" => "true"]);
+    }
+
+    /*
+     * Atendemos la alerta critica con la enfermera critica
+     */
+
+    public function atenderAlertaEnfermeraJefe(Request $requets, $cubiculo) {
+        //return $requets;
+        //buscamos primero por su usuario y contraseña
+        $enfermera = \p2_v2\Personal::where("cedula", $requets->usuario)->where("pass", sha1($requets->pass))->first();
+        //validamos si trajo algo o no
+        if (!is_object($enfermera)) {
+            //si no es un objeto retornamos false
+            return response()->json(["respuesta" => "false"]);
+        }
+        //validamos que sea enfermera
+        if ($enfermera->tipo != "ENFERMERA_JEFE") {
+            return response()->json(["respuesta" => "false"]);
+        }
+        return response()->json(["respuesta" => "true"]);
+    }
 
     /**
      * Display a listing of the resource.
@@ -89,13 +129,12 @@ class CubiculoController extends Controller {
      */
     public function destroy($id) {
         //Eliminamos el cubiculo
-        try{
+        try {
             \p2_v2\Cubiculo::destroy($id);
             return redirect("administrador/cubiculos?mensaje=Se elimino correctamente el cubiculo&tipo=success");
         } catch (\Exception $ex) {
-return redirect("administrador/cubiculos?mensaje=No se elimino, puede que haya un paciente en el&tipo=error");
+            return redirect("administrador/cubiculos?mensaje=No se elimino, puede que haya un paciente en el&tipo=error");
         }
-        
     }
 
 }
