@@ -40,6 +40,7 @@ class DoctorController extends Controller {
      */
     public function store(Request $request) {
         //
+        
         if (HistoriaClinica::Guardar($request)) {
             return redirect("doctor");
         } else {

@@ -50,7 +50,7 @@ class SignosVitalesController extends Controller {
         //retornamos los medicamentos que estan relacionados con el cubiculo
         $cubiculo = Cubiculo::find($cubiculo);
         $medicamentos;
-        foreach ($cubiculo->asignacionPacientes as $ac){
+        foreach ($cubiculo->asignacionPacientes as $ac) {
             //buscamos al paciente
             $medicamentos = $ac->paciente->tratamientos;
         }
@@ -131,6 +131,10 @@ class SignosVitalesController extends Controller {
      */
     public function destroy($id) {
         //
+    }
+
+    public function atenderAlerta(Request $request, $cubiculo) {
+        return true;
     }
 
 }

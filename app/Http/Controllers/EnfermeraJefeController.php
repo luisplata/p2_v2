@@ -49,7 +49,7 @@ class EnfermeraJefeController extends Controller {
             } else {
                 return "No elimino";
             }
-            return redirect("enfermera_jefe");
+            return redirect("enfermera_jefe?mensaje=Se dio de alta al paciente&tipo=success");
         } catch (\Exception $ex) {
             //dd($ex);
             return redirect("enfermera_jefe?mensaje=No se elimino&tipo=error");

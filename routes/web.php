@@ -43,7 +43,7 @@ Route::group(['middleware' => 'autenticado'], function () {
         Route::get("eliminarCubiculo/{cubiculo}/{paciente_cedula}", "EnfermeraJefeController@EliminarCubiculo");
         Route::get("imprimir/{cubiculo}/{paciente_cedula}", "EnfermeraJefeController@imprimir");
         Route::post("pasar", "EnfermeraJefeController@cambiarDeCubiculo");
-        Route::get("darDeAlta/{cubiculo}/{cedulaPaciente}","EnfermeraJefeController@EliminarCubiculo");
+        Route::get("darDeAlta/{cubiculo}/{cedulaPaciente}", "EnfermeraJefeController@EliminarCubiculo");
     });
 
     Route::group(['prefix' => 'doctor', "middleware" => "doctor"], function () {
@@ -59,7 +59,7 @@ Route::group(['middleware' => 'autenticado'], function () {
     //Enfermera raza
     Route::group(['prefix' => 'enfermera', "middleware" => "enfermera"], function () {
         Route::get("/", "EnfermeraController@index");
-        Route::post("add/nota-medica","EnfermeraController@nuevaNotaMedica");
+        Route::post("add/nota-medica", "EnfermeraController@nuevaNotaMedica");
     });
 });
 
@@ -73,6 +73,7 @@ Route::group(['prefix' => 'simulador'], function () {
     Route::get("/leer/", "SignosVItalesController@LecturaSignosVitales");
     Route::get("/medicamento/{cubiculo}", "SignosVItalesController@Medicamentos");
     Route::get("/tratamiento/{tratamiento_id}", "SignosVItalesController@ActualizarTratamiento");
+    Route::get("/atenderAlerta/{cubiculo}", "CubiculoController@atenderAlerta");
 });
 
 //Pagina principal

@@ -5,15 +5,14 @@ namespace p2_v2\Http\Controllers;
 use p2_v2\HistoriaClinica;
 use Illuminate\Http\Request;
 
-class HistoriaClinicaController extends Controller
-{
+class HistoriaClinicaController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         //
     }
 
@@ -22,8 +21,7 @@ class HistoriaClinicaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
@@ -33,8 +31,7 @@ class HistoriaClinicaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //
     }
 
@@ -44,8 +41,7 @@ class HistoriaClinicaController extends Controller
      * @param  \p2_v2\HistoriaClinica  $historiaClinica
      * @return \Illuminate\Http\Response
      */
-    public function show(HistoriaClinica $historiaClinica)
-    {
+    public function show(HistoriaClinica $historiaClinica) {
         //
     }
 
@@ -55,8 +51,7 @@ class HistoriaClinicaController extends Controller
      * @param  \p2_v2\HistoriaClinica  $historiaClinica
      * @return \Illuminate\Http\Response
      */
-    public function edit(HistoriaClinica $historiaClinica)
-    {
+    public function edit(HistoriaClinica $historiaClinica) {
         //
     }
 
@@ -67,14 +62,13 @@ class HistoriaClinicaController extends Controller
      * @param  \p2_v2\HistoriaClinica  $historiaClinica
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $historiaClinica_id)
-    {
+    public function update(Request $request, $historiaClinica_id) {
         //
-		if(HistoriaClinica::Actualizar($request,$historiaClinica_id)){
-			return redirect("doctor");
-		}else{
-			return redirect("doctor?mensaje=no se actualizo la hisoria clinica");
-		}
+        if (HistoriaClinica::Actualizar($request, $historiaClinica_id)) {
+            return redirect("doctor");
+        } else {
+            return redirect("doctor?mensaje=no se actualizo la hisoria clinica");
+        }
     }
 
     /**
@@ -83,13 +77,13 @@ class HistoriaClinicaController extends Controller
      * @param  \p2_v2\HistoriaClinica  $historiaClinica
      * @return \Illuminate\Http\Response
      */
-    public function destroy($historiaClinica_id)
-    {
+    public function destroy($historiaClinica_id) {
         //
-		if(HistoriaClinica::Eliminar($historiaClinica_id)){
-			return redirect("doctor");
-		}else{
-			return redirect("doctor?mensaje=no se Elimino la hisoria clinica");
-		}
+        if (HistoriaClinica::Eliminar($historiaClinica_id)) {
+            return redirect("doctor");
+        } else {
+            return redirect("doctor?mensaje=no se Elimino la hisoria clinica");
+        }
     }
+
 }

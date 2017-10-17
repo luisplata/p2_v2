@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>URGENCIAS Primer Nivel</title>
+        <title>{{$paciente->nombre." - ".$paciente->cedula}}</title>
 
         <!-- Bootstrap -->
         <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -27,7 +27,7 @@
         <b>Registro</b>: {{count($paciente->historiasClinicas) > 0? $paciente->historiasClinicas[0]->id:"No tiene historia clinica"}}
     </dl>
     <center>
-        Sexo: {{$paciente->sexo == "H"? "Masculino":"Femenino"}} | Edad: {{$paciente->edad}} | Cubiculo: {{$paciente->asignacionPacientes[0]->cubiculo->numero}} | RH: {{$paciente->tipo_sangre == "NR"?"NR":$paciente_>tipo_sangre.$paciente->RH}}
+        Sexo: {{$paciente->sexo == "H"? "Masculino":"Femenino"}} | Edad: {{$paciente->edad}} | Cubiculo: {{$paciente->asignacionPacientes[0]->cubiculo->numero}} | RH: {{$paciente->tipo_sangre == "NR"?"NR":$paciente->tipo_sangre.$paciente->RH}}
     </center>
 
 

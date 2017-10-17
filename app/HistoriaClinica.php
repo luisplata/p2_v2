@@ -24,25 +24,31 @@ class HistoriaClinica extends Model {
     }
 
     public static function Guardar($request) {
-        //Validamos que el paciente que le vamos a colocar la historia no tenga una ya
-        $paciente = Paciente::getIdByCedula($request->paciente_cedula);
-        if(!is_object($paciente)){
-            return FALSE;
-        }
-        $historias = $paciente->historiasClinicas;
-        //dd(sizeof($historias));
-        if(sizeof($historias) > 0){
-            //significa que tuene una historia clinica lo mandamos a la mierda
-            return FALSE;
-        }
-        $historiaClinica = new HistoriaClinica();
-        $historiaClinica->historia = $request->historia;
-        $historiaClinica->paciente_id = Paciente::getIdByCedula($request->paciente_cedula)->id;
-        $historiaClinica->personal_id = session("personal")->id;
-        if(Personal::isDoctor(session("personal")->cedula)){
-            return $historiaClinica->save();
-        }else{
-            return FALSE;
+        try {
+            //Validamos que el paciente que le vamos a colocar la historia no tenga una ya
+            $paciente = Paciente::getIdByCedula($request->paciente_cedula);
+
+            if (!is_object($paciente)) {
+                return FALSE;
+            }
+            $historias = $paciente->historiasClinicas;
+            //dd(sizeof($historias));
+            if (sizeof($historias) > 0) {
+                //significa que tuene una historia clinica lo mandamos a la mierda
+                return FALSE;
+            }
+            $historiaClinica = new HistoriaClinica();
+            $historiaClinica->historia = $request->historia;
+            $historiaClinica->paciente_id = Paciente::getIdByCedula($request->paciente_cedula)->id;
+            $historiaClinica->personal_id = session("personal")->id;
+            //dd(session("personal"));
+            if (Personal::isDoctor(session("personal")->cedula)) {
+                return $historiaClinica->save();
+            } else {
+                return FALSE;
+            }
+        } catch (\Exception $ex) {
+            dd($ex);
         }
     }
 

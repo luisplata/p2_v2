@@ -25,7 +25,8 @@ class Personal extends Model {
     }
 
     public static function isDoctor($cedula) {
-        $personal = Personal::find($cedula);
+        $personal = Personal::where("cedula",$cedula)->first();
+        //dd($personal);
         if (!is_object($personal)) {
             return FALSE;
         }

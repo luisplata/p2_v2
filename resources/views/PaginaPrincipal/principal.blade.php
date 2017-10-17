@@ -77,12 +77,12 @@
                 @endphp
 
                 @if(count($cubiculoAsignado) <= 0)
-                    <script>
-                        swal("No hay datos que mostrar")
-                            .then((value) => {
-                            location.href ="{{url('/')}}";
-                        });
-                    </script>
+                <script>
+swal("No hay datos que mostrar")
+        .then((value) => {
+            location.href = "{{url('/')}}";
+        });
+                </script>
                 @else
 
                 <!-- foreach cubiculo--------------------------------------------------------------------------- -->
@@ -147,14 +147,14 @@
                                             //fecha inical del medicamento
                                             var fechaHoraInicial = moment("{{$tratamiento->updated_at}}");
                                             //mientras se soluciona el problema con la fecha en el servidor
-                                            fechaHoraInicial.add(-5,"h");
+                                            fechaHoraInicial.add(-5, "h");
                                             //periocidad del medicamento
                                             var periocidad = "{{$tratamiento->periocidad}}";
                                             periocidad = periocidad.split(" ")[0];
                                             //fecha hora actual
                                             var fechaActual = moment();
                                             //minutos restantes
-                                            console.log(periocidad,"periocidad");
+                                            console.log(periocidad, "periocidad");
                                             periocidad *= 60;//cambiando a minutos la periocidad
                                             var minutosRestantes = Math.abs(fechaActual.diff(fechaHoraInicial, "minutes"));
 
@@ -166,12 +166,13 @@
                                             minutosRestantes %= periocidad;
                                             minutosRestantes -= periocidad;
                                             minutosRestantes = Math.abs(minutosRestantes);
-                                            console.error(minutosRestantes,"Despues");//milisegundos
+                                            console.error(minutosRestantes, "Despues");//milisegundos
                                             minutosRestantes = minutosRestantes * 60 * 1000;//milisegundos
 
                                             setInterval(function () {
                                                 console.error("se activo la alarma");
-                                                swal("Esta es una alarma del |{{$cubiculo->numero}}| del tratamiento {{$tratamiento->medicamento}} cada {{$tratamiento->periocidad}} horas con una docis {{$tratamiento->dosis}}");
+                                                //swal("Esta es una alarma del |{{$cubiculo->numero}}| del tratamiento {{$tratamiento->medicamento}} cada {{$tratamiento->periocidad}} horas con una docis {{$tratamiento->dosis}}");
+                                                alerta("{{$cubiculo->numero}}", "Esta es una alarma del |{{$cubiculo->numero}}| del tratamiento {{$tratamiento->medicamento}} cada {{$tratamiento->periocidad}} horas con una docis {{$tratamiento->dosis}}");
                                                 //creamos un temporalizador para marcrla como no atendida
                                                 //setTimeout(function(){
 
@@ -188,8 +189,8 @@
                                         </script>
                                         <span id="tratamiento_boton_{{$tratamiento->id}}"  class="hidden"><button data-tratamiento_id="{{$tratamiento->id}}" onClick="AlarmaMedicamentoContestada(this)">Administrar</button></span>
                                     </li>
-                                        @endif
-                                        <!-- if ----------------------------------------------- -->
+                                    @endif
+                                    <!-- if ----------------------------------------------- -->
                                     @endforeach
                                     <!-- foreach ----------------------------------------------- -->
                                 </ul>
@@ -204,14 +205,14 @@
                                 <ul class="list-group">
                                     <!-- foreach ----------------------------------------------- -->
                                     @foreach ($cubiculo->paciente->historiasClinicas as $historiasClinicas)
-                                        <!-- foreach  ----------------------------------------------- -->
-                                        @foreach ($historiasClinicas->notas as $nota)
-                                        <li class="list-group-item">
-                                            {{$nota->notas}}
-                                        </li>
-                                        <!-- foreach  ----------------------------------------------- -->
-                                        @endforeach
-                                        <!-- foreach  ----------------------------------------------- -->
+                                    <!-- foreach  ----------------------------------------------- -->
+                                    @foreach ($historiasClinicas->notas as $nota)
+                                    <li class="list-group-item">
+                                        {{$nota->notas}}
+                                    </li>
+                                    <!-- foreach  ----------------------------------------------- -->
+                                    @endforeach
+                                    <!-- foreach  ----------------------------------------------- -->
                                     @endforeach
                                 </ul>
                             </div>
@@ -237,78 +238,32 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="AdicionDeMedicamento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="atenderAlrta" tabindex="-1">
             <div class="modal-dialog" role="document">
-                {{Form::open(array("url"=>"principal/guardarTratamiento"))}}
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                        <h4 class="modal-title" id="alerta-titulo">Alerta Medica!!!</h4>
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-xs-12 form-group has-feedback text-center">
-                                <label>Escriba su documento para validar que pueda ingresar un tratamiento</label>
-                                <input type="number" name="documento" class="form-control text-center required" required placeholder="Cedula">
-                            </div>
-                            <div class="col-xs-12 form-group has-feedback">
-                                <label>Mecicamento</label>
-                                <input type="text" name="medicamento" class="form-control" placeholder="Medicamento" required>
+                            <p><span id="alerta-contenido"></span></p>
+                            <div class="col-xs-6 form-group has-feedback">
+                                <label>Usuario</label>
+                                <input type="text" id="alerta-user" class="form-control" placeholder="Usuario">
                             </div>
                             <div class="col-xs-6 form-group has-feedback">
-                                <label>Dosis</label>
-                                <input type="text" name="dosis" class="form-control" placeholder="Dosis" required>
-                            </div>
-                            <div class="col-xs-6 form-group has-feedback">
-                                <label>Periocidad</label>
-                                <div class="input-group">
-                                    <div class="input-group-addon"></div>
-                                    <input type="number" min="1" name="periocidad" class="form-control"  placeholder="Periocidad" required>
-                                    <div class="input-group-addon">Horas</div>
-                                </div>
+                                <label>Contrsaeña</label>
+                                <input type="password" id="alerta-pass" class="form-control"  placeholder="Contraseña">
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                <input type="hidden" class="cubiculo" name="cubiculo">
+                                <input type="" id="alerta-cubiculo" name="cubiculo">
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" id="btnAtender" class="btn btn-primary">Atender</button>
                     </div>
                 </div>
-                {{Form::close()}}
-            </div>
-        </div>
-        <div class="modal fade" id="AdicionDeNotaMedica" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                {{Form::open(array("url"=>"principal/guardarNotaMedica"))}}
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-xs-12 form-group has-feedback text-center">
-                                <label>Escriba su documento para validar que pueda ingresar una nota medica</label>
-                                <input type="number" name="personal_cedula" class="form-control text-center required" required placeholder="Cedula">
-                            </div>
-                            <div class="col-xs-12 form-group has-feedback">
-                                <label>Nota</label>
-                                <textarea name="nota" rows="5" class="form-control" required></textarea>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                <input type="text" class="cubiculo" name="cubiculo">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-                {{Form::close()}}
             </div>
         </div>
         <!-- jQuery -->
@@ -325,119 +280,15 @@
         <script src="/js/moment/moment.min.js"></script>
 
         <script>
-
-                                            //aqui estara las consultas del simulador
-                                            $('#AdicionDeMedicamento').on('show.bs.modal', function (event) {
-                                                var button = $(event.relatedTarget) // Button that triggered the modal
-                                                var recipient = button.data('cubiculo') // Extract info from data-* attributes
-                                                // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-                                                // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-                                                var modal = $(this)
-                                                modal.find('.cubiculo').val(recipient)
-                                            });
-                                            //notas medicas
-                                            $('#AdicionDeNotaMedica').on('show.bs.modal', function (event) {
-                                                var button = $(event.relatedTarget) // Button that triggered the modal
-                                                var recipient = button.data('cubiculo') // Extract info from data-* attributes
-                                                // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-                                                // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-                                                var modal = $(this)
-                                                modal.find('.cubiculo').val(recipient)
-                                            });
-
-                                            Date.prototype.addHours = function (h) {
-                                                this.setTime(this.getTime() + (h * 60 * 60 * 1000));
-                                                return this;
-                                            }
-
-//                                            function AlarmaMedicamentoContestada(boton) {
-//                                               var bot = $(boton);
-//                                                var id = bot.data("tratamiento_id");
-//                                                $.ajax({
-//                                                    url: '{{url("simulador/tratamiento/")}}/' + id,
-//                                                   success: function (response) {
-//                                                        var botone = $("#tratamiento_boton_" + id);
-//                                                        botone.addClass("hidden");
-//                                                        var medicamento = $("#medicamento_id_" + id);
-//                                                        medicamento.removeClass("alerta");
-//                                                    }
-//                                                });
-//                                            }
-
-                                            function medicamentos(cubiculo) {
-                                                $.ajax({
-                                                    url: '{{url("simulador/medicamento/")}}/' + cubiculo,
-                                                    type: 'get',
-                                                    success: function (response) {
-                                                        console.warn(response);
-                                                        response.forEach(function (value) {
-                                                            //validamos lo del medicamento
-                                                            var ultimaFecha = value.updated_at;
-                                                            var fechaDeMedicamento = new Date(ultimaFecha);
-                                                            //le restamos las 5 horas que hay de diferencia
-                                                            fechaDeMedicamento.addHours(-5);
-                                                            //hay que restarle 5 horas, por la hora local
-                                                            var ahora = new Date();
-                                                            //se le suman las horas
-                                                            fechaDeMedicamento.addHours(value.periocidad);
-                                                            if (fechaDeMedicamento < ahora) {
-
-                                                                var medicamento = $("#medicamento_id_" + value.id);
-                                                                medicamento.addClass("alerta");
-                                                                var boton = $("#tratamiento_boton_" + value.id);
-                                                                boton.removeClass("hidden");
-                                                            }
-                                                        });
-                                                    },
-                                                    
-                                                });
-                                            }
-
-                                            function ajax() {
-                                                $.ajax({
-                                                    url: '{{url("simulador/leer")}}',
-                                                    type: 'get',
-                                                    success: function (response) {
-                                                        //console.log(response);
-                                                        response.forEach(function (value) {
-                                                            //console.log(value);
-                                                            var cubiculo = $("#cubiculo-" + value.cubiculo);
-                                                            if (value.pulso > 100 || value.pulso < 50) {
-                                                                //console.warn("alerta de pulso");
-                                                                cubiculo.addClass("alerta");
-                                                                $("#mensaje_pulso_cubiculo-" + value.cubiculo).html("Alerta de Pulso fuera de parametros normales!");
-                                                            } else {
-                                                                $("#mensaje_pulso_cubiculo-" + value.cubiculo).html("");
-                                                            }
-                                                            if (value.so < 95) {
-                                                                //console.warn("alerta de SO");
-                                                                cubiculo.addClass("alerta");
-                                                                $("#mensaje_so_cubiculo-" + value.cubiculo).html("Alerta de Saturacion de Oxigeno fuera de parametros normales!");
-                                                            } else {
-                                                                $("#mensaje_so_cubiculo-" + value.cubiculo).html("");
-                                                            }
-                                                            if (value.pulso < 100 && value.pulso > 50 && value.so > 95) {
-                                                                cubiculo.removeClass("alerta");
-                                                            }
-                                                            //console.log(value.cubiculo + " "+value.so);
-                                                            $("#so-" + value.cubiculo).html(value.so + "%");
-                                                            $("#ppm-" + value.cubiculo).html(value.pulso + " ppm");
-                                                            //consulto los medicamentos por cubiculos
-                                                            medicamentos(value.cubiculo);
-                                                        });
-                                                    }
-                                                });
-                                            }
+                                            var url = "{{url("")}}";
                                             $(document).ready(function () {
+
                                                 setInterval(function () {
-                                                    ajax();
-                                                    
+                                                    ajax('{{url("")}}');
                                                 }, 500);
                                             });
-                                            function crearAlarma(fechaAnterior) {
-                                                swal(fechaAnterior);
-                                            }
-        </script>
 
+        </script>
+        <script src="{{asset('js/FuncionesExternas.js')}}"></script>
     </body>
 </html>
