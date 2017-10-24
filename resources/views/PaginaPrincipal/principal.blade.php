@@ -144,42 +144,49 @@ swal("No hay datos que mostrar")
                                     <li class="list-group-item " id="medicamento_id_{{$tratamiento->id}}">
                                         {{$tratamiento->dosis}} de {{$tratamiento->medicamento}} cada {{$tratamiento->periocidad}} horas
                                         <script>
-                                            //fecha inical del medicamento
-                                            var fechaHoraInicial = moment("{{$tratamiento->updated_at}}");
+                                            //fecha inical del medicamento{{$cubiculo->cubiculo_numero}}
+                                            var fechaHoraInicial{{$cubiculo->cubiculo_numero}} = moment("{{$tratamiento->updated_at}}");
                                             //mientras se soluciona el problema con la fecha en el servidor
-                                            fechaHoraInicial.add(-5, "h");
+                                            fechaHoraInicial{{$cubiculo->cubiculo_numero}}.add(-5, "h");
                                             //periocidad del medicamento
-                                            var periocidad = "{{$tratamiento->periocidad}}";
-                                            periocidad = periocidad.split(" ")[0];
+                                            var periocidad{{$cubiculo->cubiculo_numero}} = "{{$tratamiento->periocidad}}";
+                                            periocidad{{$cubiculo->cubiculo_numero}} = periocidad{{$cubiculo->cubiculo_numero}}.split(" ")[0];
                                             //fecha hora actual
-                                            var fechaActual = moment();
+                                            var fechaActual{{$cubiculo->cubiculo_numero}} = moment();
                                             //minutos restantes
-                                            console.log(periocidad, "periocidad");
-                                            periocidad *= 60;//cambiando a minutos la periocidad
-                                            var minutosRestantes = Math.abs(fechaActual.diff(fechaHoraInicial, "minutes"));
+                                            console.log(periocidad{{$cubiculo->cubiculo_numero}}, "periocidad");
+                                            periocidad{{$cubiculo->cubiculo_numero}} *= 60;//cambiando a minutos la periocidad
+                                            var minutosRestantes{{$cubiculo->cubiculo_numero}} = Math.abs(fechaActual{{$cubiculo->cubiculo_numero}}.diff(fechaHoraInicial{{$cubiculo->cubiculo_numero}}, "minutes"));
 
 
                                             //Caso 1, Caso normal (esta dentro de primer rango de fecha)
                                             //Se cargan los tratamientos, y se calcula el restante para la proxima alerta
-                                            console.warn(fechaActual.format('YYYY-MM-DD HH:mm:ss') + " - " + fechaHoraInicial.format('YYYY-MM-DD HH:mm:ss') + " = " + minutosRestantes);
-                                            console.error(minutosRestantes, "Antes");//milisegundos
-                                            minutosRestantes %= periocidad;
-                                            minutosRestantes -= periocidad;
-                                            minutosRestantes = Math.abs(minutosRestantes);
-                                            console.error(minutosRestantes, "Despues");//milisegundos
-                                            minutosRestantes = minutosRestantes * 60 * 1000;//milisegundos
-
-                                            setInterval(function () {
+                                            console.warn(fechaActual{{$cubiculo->cubiculo_numero}}.format('YYYY-MM-DD HH:mm:ss') + " - " + fechaHoraInicial{{$cubiculo->cubiculo_numero}}.format('YYYY-MM-DD HH:mm:ss') + " = " + minutosRestantes{{$cubiculo->cubiculo_numero}});
+                                            console.error(minutosRestantes{{$cubiculo->cubiculo_numero}}, "Antes del mod");//milisegundos
+                                            //hacemos el mod para sacar cuantos minutos han pasado desde la ultima alarma
+                                            minutosRestantes{{$cubiculo->cubiculo_numero}} %= periocidad{{$cubiculo->cubiculo_numero}};
+                                            console.error(minutosRestantes{{$cubiculo->cubiculo_numero}}, "despues del mod");//milisegundos
+                                            //le restamos la periocidad para saber cuanto falta para la proxima alerta
+                                            minutosRestantes{{$cubiculo->cubiculo_numero}} -= periocidad{{$cubiculo->cubiculo_numero}};
+                                            minutosRestantes{{$cubiculo->cubiculo_numero}} = Math.abs(minutosRestantes{{$cubiculo->cubiculo_numero}});
+                                            console.error(minutosRestantes{{$cubiculo->cubiculo_numero}}, "Despues de restarle la periocidad");//milisegundos
+                                            minutosRestantes{{$cubiculo->cubiculo_numero}} = minutosRestantes{{$cubiculo->cubiculo_numero}} * 60 * 1000;//milisegundos
+                                            creacionDeAlarma("Esta es una alarma del |{{$cubiculo->cubiculo_numero}}| del tratamiento {{$tratamiento->medicamento}} cada {{$tratamiento->periocidad}} horas con una docis {{$tratamiento->dosis}}",minutosRestantes{{$cubiculo->cubiculo_numero}},periocidad{{$cubiculo->cubiculo_numero}});
+                                            function creacionDeAlarma(titulo, minutosRestantes, periocidad){
+                                            setTimeout(function () {
                                                 console.error("se activo la alarma");
                                                 //swal("Esta es una alarma del |{{$cubiculo->numero}}| del tratamiento {{$tratamiento->medicamento}} cada {{$tratamiento->periocidad}} horas con una docis {{$tratamiento->dosis}}");
-                                                alerta("{{$cubiculo->numero}}", "Esta es una alarma del |{{$cubiculo->numero}}| del tratamiento {{$tratamiento->medicamento}} cada {{$tratamiento->periocidad}} horas con una docis {{$tratamiento->dosis}}");
+                                                alerta(titulo);
                                                 //creamos un temporalizador para marcrla como no atendida
                                                 //setTimeout(function(){
 
                                                 //}, timeout);
                                                 minutosRestantes = periocidad * 60 * 1000;
+                                                console.error(minutosRestantes, "Despues de la alerta");//despues de la alerta
+                                                creacionDeAlarma(titulo,minutosRestantes,periocidad);
                                             }
                                             , minutosRestantes);
+                                            }
                                             //console.log(fechaHoraInicial.format('HH:mm:ss'));
                                             //console.log(fechaActual.format('HH:mm:ss'));
                                             //Creamos un setInterval() para ejecutar la cunfion con la periocidad
@@ -256,7 +263,7 @@ swal("No hay datos que mostrar")
                                 <input type="password" id="alerta-pass" class="form-control"  placeholder="Contraseña">
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                <input type="" id="alerta-cubiculo" name="cubiculo">
+                                <input type="hidden" id="alerta-cubiculo" name="cubiculo">
                             </div>
                         </div>
                     </div>
@@ -285,7 +292,7 @@ swal("No hay datos que mostrar")
                                 <input type="password" id="alerta-critica-pass" class="form-control"  placeholder="Contraseña">
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                <input type="" id="alerta-critica-cubiculo" name="cubiculo">
+                                <input type="hidden" id="alerta-critica-cubiculo" name="cubiculo">
                             </div>
                         </div>
                     </div>

@@ -1,3 +1,4 @@
+var alertaCriticas;
 function alerta(cubiculo, alerta) {
     //hay un bug no controlado, que cuando hay otra alerta con el modal abierto se modifica el dato :S
     $("#alerta-titulo").text("Cubiculo " + cubiculo);
@@ -11,7 +12,7 @@ function alerta(cubiculo, alerta) {
     alertaCritica(cubiculo, alerta);
 }
 function alertaCritica(cubiculo, alerta) {
-    setTimeout(function () {
+    alertaCriticas = setTimeout(function () {
         $("#atenderAlrta").modal('hide');
         $("#alerta-critica-titulo").text("Alerta critica! " + "Cubiculo " + cubiculo);
         $("#alerta-critica-contenido").text(alerta);
@@ -35,6 +36,8 @@ function validarUsurio(url, cubiculo, user, pass) {
                 swal("Correcto");
                 console.log(response);
                 $("#atenderAlrta").modal('hide');
+                clearTimeout(alertaCriticas);
+                console.info("se limpio");
             } else {
                 //No son validos
                 swal("Usted no es una enfermera");
