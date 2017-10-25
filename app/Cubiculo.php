@@ -57,6 +57,11 @@ class Cubiculo extends Model {
             }
             //dd($asignacion_cubiculo->paciente->antecedentes);
 
+			foreach ($asignacion_cubiculo->paciente->acompaniantes as $acompaniantes) {
+                $acompaniantes->delete();
+            }
+            //dd($asignacion_cubiculo->paciente->antecedentes);
+
             foreach ($asignacion_cubiculo->paciente->signosVitales as $signosVitales) {
                 $signosVitales->delete();
             }
