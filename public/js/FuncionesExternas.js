@@ -21,7 +21,7 @@ function alertaCritica(cubiculo, alerta) {
             backdrop: 'static',
             keyboard: false
         });
-    }, 30000);
+    }, 30000); // aqui se cambia el tiempo de alertas criticas
 }
 function validarUsurio(url, cubiculo, user, pass) {
     //hacemos un ajax verificar estos datos
