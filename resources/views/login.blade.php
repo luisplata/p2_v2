@@ -70,6 +70,14 @@ if (cubiculo != null) {
     div.innerHTML += '<input name="cubiculo" type="hidden" value="' + cubiculo + '">';
     console.log(div);
 }
+var url_string = window.location;
+var url = new URL(url_string);
+var mensaje = url.searchParams.get("mensaje");
+var tipo = url.searchParams.get("tipo");
+var titulo = url.searchParams.get("titulo");
+if (mensaje != null) {
+    swal(titulo == null ? "" : titulo, mensaje, tipo == null ? "info" : tipo);
+}
         </script>
     </body>
 </html>
